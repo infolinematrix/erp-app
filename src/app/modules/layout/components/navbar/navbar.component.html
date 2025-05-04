@@ -1,0 +1,85 @@
+<div class="relative bg-background">
+  <div class="mx-auto px-5">
+    <div class="flex items-center justify-between py-2.5 md:justify-start">
+      <!-- Mobile Navigation Menu Button-->
+      <div class="sm:order-1 md:hidden">
+        <button
+          (click)="toggleMobileMenu()"
+          type="button"
+          class="inline-flex items-center justify-center rounded-md bg-muted p-2 text-muted-foreground focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary hover:bg-muted-foreground hover:text-muted"
+          aria-expanded="false">
+          <span class="sr-only">Open menu</span>
+          <!-- Heroicon name: outline/menu -->
+          <svg-icon src="assets/icons/heroicons/outline/menu.svg" [svgClass]="'h-6 w-6'"> </svg-icon>
+        </button>
+      </div>
+
+      <!-- Logo -->
+      <div class="flex items-center justify-start sm:order-2 md:mr-10 lg:hidden">
+        <a class="flex items-center justify-center rounded bg-primary p-2 focus:outline-none focus:ring-1">
+          <svg-icon src="assets/icons/logo.svg"></svg-icon>
+        </a>
+        <b class="hidden pl-3 text-sm font-bold text-foreground sm:block"> Angular Tailwind </b>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden space-x-10 sm:order-3 md:flex">
+        
+        <app-navbar-menu></app-navbar-menu>
+        
+      </div>
+
+      <!-- Profile menu -->
+      <div class="items-center justify-end sm:order-4 md:flex md:flex-1 lg:w-0">
+        <p-menubar styleClass="border-0">
+          <ng-template #start>
+              <!-- <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="..." fill="var(--primary-color)" />
+              </svg> -->
+          </ng-template>
+          <ng-template #item let-item let-root="root">
+              <a pRipple class="flex items-center p-menubar-item-link">
+                  <span>{{ item.label }}</span>
+                  <!-- <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" /> -->
+                  <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                  <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
+              </a>
+          </ng-template>
+          <ng-template #end>
+              <div class="flex items-center gap-2 ">
+                
+                
+                <p-select [options]="centers"  optionLabel="name" placeholder="Select a Center"  class="w-full md:w-56 input">
+                  
+                  <ng-template let-center #item>
+                      <div class="flex items-center gap-2">
+                          <!-- <img
+                              src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                              [class]="'flag flag-' + country.code.toLowerCase()"
+                              style="width: 12px"
+                          /> -->
+                          <div class="text-sm">{{ center.name }}</div>
+                      </div>
+                  </ng-template>
+                  <ng-template #dropdownicon>
+                      <i class="pi pi-map" style="color: var(--primary-color)"></i>
+                  </ng-template>
+                  
+                  
+              </p-select>
+
+
+                  <input type="text" pInputText placeholder="Search" class="w-36 h-auto" />
+                  <!-- <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" /> -->
+                   
+              </div>
+          </ng-template>
+        </p-menubar>
+
+        <app-profile-menu></app-profile-menu>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile menu -->
+  <app-navbar-mobile></app-navbar-mobile>
+</div>

@@ -1,0 +1,105 @@
+<div class="grid grid-cols-1 text-sm text-foreground">
+  <div class="rounded bg-primary-foreground">
+    <p-toolbar styleClass="border-0">
+      <ng-template #start>
+        <div class="flex gap-4 items-center">
+          <div
+            class="flex items-center justify-center rounded bg-primary/50 p-2"
+          >
+            <svg-icon src="assets/icons/logo.svg"> </svg-icon>
+          </div>
+
+          <div class="grid grid-cols-1">
+            <div class="text-md font-bold uppercase text-foreground">
+              User List
+            </div>
+            <span class="text-muted-foreground text-xs"
+              >List of users already registered</span
+            >
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #center> </ng-template>
+
+      <ng-template #end>
+        <!-- <p-iconfield styleClass="mr-2">
+            <input type="text" pInputText placeholder="Search" />
+             <p-inputicon styleClass="pi pi-search" />
+        </p-iconfield> -->
+
+        <p-button
+          icon="pi pi-plus"
+          styleClass="mr-2 text-xs font-semibold text-primary-foreground bg-primary"
+          text
+          label="Back"
+          severity="secondary"
+        />
+        <p-button
+          icon="pi pi-print"
+          styleClass="mr-2 text-xs font-semibold text-primary-foreground bg-primary"
+          text
+          label="Refresh"
+          severity="secondary"
+        />
+        <p-button
+          icon="pi pi-upload"
+          styleClass="text-xs font-semibold text-primary-foreground bg-primary"
+          text
+          label="Menu"
+          severity="secondary"
+        />
+      </ng-template>
+    </p-toolbar>
+
+    <div class="p-4">
+      <p-table
+        [value]="users"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [paginator]="true"
+        [rows]="5"
+        [rowsPerPageOptions]="[5, 10, 20]"
+      >
+        <ng-template #caption styleClass="">
+          <div class="flex items-center justify-between">
+            <span class="text-md text-foreground font-bold"
+              >List of Products</span
+            >
+            <div class="flex justify-end">
+              <p-iconfield styleClass="mr-2">
+                <input type="text" pInputText placeholder="Search" />
+                <p-inputicon styleClass="pi pi-search" />
+              </p-iconfield>
+              <p-button
+                icon="pi pi-plus"
+                styleClass="text-xs font-semibold bg-primary text-primary-foreground"
+                text
+                label="Create"
+                severity="secondary"
+              />
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #header>
+          <tr>
+            <th class="font-semibold w-2/24">Id</th>
+            <th class="font-semibold w-0/24" pSortableColumn="name">
+              Name <p-sortIcon field="name" />
+            </th>
+            <th class="font-semibold w-10/24" pSortableColumn="email">
+              Email <p-sortIcon field="email" />
+            </th>
+            <th class="font-semibold w-2/24">Status</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-user>
+          <tr>
+            <td class="py-2">{{ user.id }}</td>
+            <td class="py-2">{{ user.name }}</td>
+            <td class="py-2">{{ user.email }}</td>
+            <td class="py-2">{{ user.email ? "Has email" : "No Email" }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

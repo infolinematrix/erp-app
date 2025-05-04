@@ -1,0 +1,219 @@
+<div class="page-container">
+  <div class="rounded bg-primary-foreground">
+    <p-toolbar styleClass="border-0">
+      <ng-template #start>
+        <div class="flex gap-4 items-center">
+          <div
+            class="flex items-center justify-center rounded bg-primary/50 p-2"
+          >
+            <svg-icon src="assets/icons/logo.svg"> </svg-icon>
+          </div>
+
+          <div class="grid grid-cols-1">
+            <div class="text-md font-bold uppercase text-foreground">Statement of Account</div>
+            <span class="text-muted-foreground text-xs"
+              >Account ledger statement with data range</span
+            >
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #center> </ng-template>
+
+      <ng-template #end>
+        <p-iconfield styleClass="mr-2">
+          <input type="text" pInputText placeholder="Search" id="searchStr" />
+          <p-inputicon styleClass="pi pi-search" />
+        </p-iconfield>
+
+        <a routerLink="/accounts" class="no-underline">
+          <p-button
+            icon="pi pi-plus"
+            styleClass="mr-2 text-xs font-semibold text-primary-foreground bg-primary"
+            text
+            label="Dashboard"
+            severity="secondary"
+            (click)="$event.preventDefault()"
+          />
+        </a>
+        <a routerLink="/accounts/general-ledgers" class="no-underline">
+          <p-button
+            icon="pi pi-print"
+            styleClass="mr-2 text-xs font-semibold text-primary-foreground bg-primary"
+            text
+            label="Ledger"
+            severity="secondary"
+            (click)="$event.preventDefault()"
+          />
+        </a>
+
+        <!-- <p-button
+          icon="pi pi-plus"
+          styleClass="mr-2 text-xs font-semibold text-primary-foreground bg-primary"
+          text
+          label="Create Role"
+          severity="secondary"
+          (click)="showModal = true"
+        /> -->
+      </ng-template>
+    </p-toolbar>
+
+    <!-- Page content -->
+    <ng-container>
+      <div class="bg-background p-4">
+          <div class="grid grid-cols-24 gap-4">
+            <div class="col-span-6">
+              <div class="flex flex-col gap-1">
+                <label for="name">Subsystem</label>
+                <p-select [options]="ledgers" optionLabel="name" [filter]="true" filterBy="name"  placeholder="Select" class="input">
+                  <ng-template #selectedItem let-selectedOption>
+                      <div class="flex items-center gap-2">
+                          <div>{{ selectedOption.name }}</div>
+                      </div>
+                  </ng-template>
+                  <ng-template let-country #item>
+                      <div class="flex items-center gap-2">
+                          <div>{{ country.name }}</div>
+                      </div>
+                  </ng-template>
+              </p-select>
+              </div>
+            </div>
+            <div class="col-span-6">
+              <div class="flex flex-col gap-1">
+                <label for="name">Account</label>
+                <p-select [options]="ledgers" optionLabel="name" [filter]="true" filterBy="name"  placeholder="Select" class="input">
+                  <ng-template #selectedItem let-selectedOption>
+                      <div class="flex items-center gap-2">
+                          <div>{{ selectedOption.name }}</div>
+                      </div>
+                  </ng-template>
+                  <ng-template let-country #item>
+                      <div class="flex items-center gap-2">
+                          <div>{{ country.name }}</div>
+                      </div>
+                  </ng-template>
+              </p-select>
+              </div>
+            </div>
+            <div class="col-span-4">
+              <div class="flex flex-col gap-1">
+                <label for="name">Clear Balance</label>
+                <input type="text" pInputText class="input"/>
+              </div>
+            </div>
+            <div class="col-span-3">
+              <div class="flex flex-col gap-1">
+                <label for="name">From</label>
+                <p-datepicker  dateFormat="dd-mm-yy" class="input"/>
+              </div>
+            </div>
+            <div class="col-span-3">
+              <div class="flex flex-col gap-1">
+                <label for="name">To</label>
+                <p-datepicker  dateFormat="dd-mm-yy" />
+              </div>
+            </div>
+            <div class="col-span-2">
+              <div class="flex flex-col gap-1 items-end justify-end h-full">
+               
+                <p-button
+                label="Submit"
+                styleClass="btn-secondary" 
+              />
+              
+              </div>
+            </div>
+          </div>
+      </div>
+    </ng-container>
+
+    <ng-container>
+      <p-table
+          [value]="[]"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          [paginator]="true"
+          [rows]="25"
+          [rowsPerPageOptions]="[25, 50, 100]"
+        >
+          <!-- <ng-template #caption styleClass="">
+          <div class="flex items-center justify-between">
+            <span class="text-md text-foreground font-bold"
+              >List of Roles</span
+            >
+          </div>
+        </ng-template> -->
+          <ng-template #header>
+            <tr>
+              <th class="font-semibold w-2/24" pSortableColumn="id">
+                Date <p-sortIcon field="id" />
+              </th>
+              <th class="font-semibold w-6/24" pSortableColumn="name">
+                Account <p-sortIcon field="name" />
+              </th>
+              <th class="font-semibold w-6/24" pSortableColumn="name">
+                Description <p-sortIcon field="name" />
+              </th>
+              <th class="font-semibold w-2/24">Debit</th>
+              <th class="font-semibold w-2/24">Credit</th>
+              <th class="font-semibold w-2/24">Closing Balance</th>
+            </tr>
+          </ng-template>
+          <ng-template #body let-role>
+           
+          </ng-template>
+        </p-table>
+    </ng-container>
+  </div>
+</div>
+
+<!-- Show modal window -->
+<!-- <p-dialog
+  [style]="{ width: '30rem' }"
+  [visible]="showModal"
+  [showHeader]="false"
+  styleClass="text-sm"
+>
+<form [formGroup]="form">
+  <div class="flex justify-between py-4">
+    <div class="text-lg font-semibold">Create</div>
+  </div>
+
+  <div class="grid grid-cols-12 gap-4">
+    <div class="col-span-12">
+      <div class="flex flex-col gap-1">
+        <label for="name">Title</label>
+        <input
+          pInputText
+          id="name"
+          aria-describedby="name-help"
+          type="text"
+          class="input"
+          formControlName="name"
+        />
+      </div>
+     
+    </div>
+    <div class="col-span-12">
+      <div class="flex flex-col gap-1">
+        <label for="name">Description</label>
+        <textarea rows="3" cols="30" pTextarea formControlName="description"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-2 mt-4">
+    <p-button
+      label="Cancel"
+      styleClass="btn-secondary"
+      (click)="showModal = false"
+    />
+    <p-button
+      label="Save"
+      styleClass="btn-primary"
+      (click)="save()"
+    />
+  </div>
+</form>
+</p-dialog> -->
+
+<!-- Show edit modal window -->

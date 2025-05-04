@@ -1,0 +1,100 @@
+
+$input-height: 30px;
+
+// input select ng-select{
+//     height: $input-height !important;
+//     padding: 6px;
+//     overflow: hidden;
+// }
+table{
+    .no-cell-padding td {
+        padding-left: 0;
+        padding-right: 0;
+      }
+}
+tbody tr:hover {
+    background-color: rgb(225, 247, 255);
+    /* Or any light blue color you prefer */
+}
+
+/* Optional: Add transition for a smoother effect */
+tbody tr {
+    transition: background-color 0.3s ease;
+    /* Adjust duration as needed */
+    
+}
+
+label {
+    font-size: 0.80rem;
+    font-weight: 500;
+}
+button{
+    cursor: pointer;
+}
+
+
+.input-btn {
+    font-size: 12px !important;
+    font-weight: 600;
+    height: $input-height !important;
+}
+
+.disabled-div {
+    pointer-events: none; /* Prevents clicking */
+    opacity: 0.5; /* Grayed-out effect */
+  }
+// ng select
+.ng-dropdown-panel .ng-option {
+    
+    padding: 5px 10px;
+    /* Slightly increased padding */
+    font-size: 13px;
+    font-weight: 600;
+    /* Adjust font size as needed */
+    color: #333;
+    /* Darker text for better contrast */
+    cursor: pointer;
+    /* Indicate it's clickable */
+}
+
+.ng-dropdown-panel {
+    /* Style the panel itself */
+    margin-top: 7px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    /* Subtle shadow */
+    border-radius: 4px;
+    background-color: #fff;
+    /* White background */
+}
+.ng-select .ng-clear-wrapper {
+    cursor: pointer;
+    position: relative;
+    width: 12px !important; height: 12px !important;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.ng-dropdown-panel .ng-option-group {
+    /* Style for option groups (if used) */
+    padding: 5px 10px;
+    font-weight: bold;
+    color: #666;
+}
+
+.ng-dropdown-panel .ng-option:hover {
+    /* Replace .ng-option with the correct class */
+    background-color: #f0f0f0;
+    /* Light gray on hover */
+    color: #000;
+    /* Darker text on hover (optional) */
+    cursor: pointer;
+    /* Indicate it's clickable */
+}
+
+.disabled-div {
+    transition: opacity 0.3s ease, color 0.3s ease;
+    opacity: 0.6; 
+    pointer-events: none;
+    cursor: default; 
+  }
