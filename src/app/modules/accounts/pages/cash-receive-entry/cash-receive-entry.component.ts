@@ -24,7 +24,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { remult } from 'remult';
-import { GenralLedger } from 'src/shared/GeneralLedger.entity';
+import { GeneralLedger } from 'src/shared/GeneralLedger.entity';
 import { SelectModule } from 'primeng/select';
 
 @Component({
@@ -65,7 +65,7 @@ export class CashReceiveEntryComponent implements OnInit {
   ) { }
 
   form!:FormGroup
-  ledgers:GenralLedger[]=[];
+  ledgers:GeneralLedger[]=[];
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -88,12 +88,12 @@ export class CashReceiveEntryComponent implements OnInit {
   }
 
   async loadLedger(){
-    const dada = await remult.repo(GenralLedger).find({
+    const dada = await remult.repo(GeneralLedger).find({
       where:{
-        is_active:'Yes',
-        subsystem:{
-          $ne:['CASH','BANK']
-        }
+        // is_active:'Yes',
+        // subsystem:{
+        //   $ne:['CASH','BANK']
+        // }
       }
     });
     console.log(dada);

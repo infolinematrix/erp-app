@@ -8,15 +8,17 @@ dotenv.config();
 
 import { Task } from "../shared/Task.entity.js";
 import { Permission, Roles, User } from "../shared/User.entity.js";
-import { GenralLedger } from "../shared/GeneralLedger.entity.js";
-import { GeneralAccount } from "../shared/GeneralAccount.entity.js";
+import { BalancesheetGroup,GeneralLedger,GeneralAccount } from "../shared/index.js";
+import { AuthController } from "../shared/controllers/AuthController.js";
+import { getUserFromRequest } from "./auth.js";
 
 
 
   
 export const api = remultExpress({
   // getUser: getUserFromRequest,
-  // getUser: getUserFromToken,
+  
+
   
   initApi: async () => {
     // await User.createDemoUsers();
@@ -37,8 +39,9 @@ export const api = remultExpress({
   admin: true,
   entities: [
     Task, User, Roles, Permission,
-    GenralLedger, GeneralAccount
+    GeneralLedger, GeneralAccount, BalancesheetGroup
 
   ],
+  controllers:[AuthController]
   
 });

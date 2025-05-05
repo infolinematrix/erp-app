@@ -17,7 +17,7 @@ const authConfig: ExpressAuthConfig = {
   providers: [
     Credentials({
       credentials: {
-        username: {
+        email: {
           type: 'text', // The input field for username
           placeholder: 'Try Jane or Steve', // Instructional placeholder for demo purposes
         },
@@ -34,7 +34,7 @@ const authConfig: ExpressAuthConfig = {
           // repository queries or checking user permissions can be executed correctly within the request's context.
           const user = await repo(User).findFirst({
             // Find a user by their name and provider type (credentials-based auth)
-            email: credentials.username as string,
+            email: credentials.email as string,
             providerType: 'credentials',
           });
 

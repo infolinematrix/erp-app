@@ -28,7 +28,7 @@ console.log("DATABASE", process.env["MYSQL_HOST"]);
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { api } from './api.js';
-
+// import session from 'express-session';
 import { Logger } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module.js';
@@ -37,8 +37,16 @@ import { GlobalResponseInterceptor } from './utils/global-response.interceptor.j
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  
+  // app.use(
+  //   session({
+  //     secret: process.env['SESSION_SECRET'] || 'my secret',
+  //     resave: false,
+  //     saveUninitialized: false,
+  //   })
+  // );
+
   app.use(api); // Init remult
+  
 
   app.enableCors({
     origin: '*',
