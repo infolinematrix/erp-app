@@ -14,8 +14,8 @@ declare module 'remult' {
 export class AuthController {
   //
   @BackendMethod({ allowed: true })
-  static async signIn(email: string, password: string) {
-    const user = await remult.repo(User).findFirst({ email });
+  static async signIn(username: string, password: string) {
+    const user = await remult.repo(User).findFirst({ username });
 
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');

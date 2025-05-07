@@ -20,21 +20,21 @@ export class User {
   @Fields.autoIncrement()
   id = 0;
 
-  @Fields.string({ required: true, validate: Validators.unique() }) // User's name, required field and must be unique
+  @Fields.string({ required: true }) // User's name, required field and must be unique
   name = "";
 
-  @Fields.string({ required: true, validate: [Validators.unique, Validators.email] }) // User's name, required field and must be unique
-  email = "";
+  @Fields.string({ required: true, validate: [Validators.unique] }) // User's name, required field and must be unique
+  username = "";
 
 
   @Fields.string({ includeInApi: false }) // Password field is not exposed in API responses
   password = "";
 
-  @Fields.string()
-  refresh_token = "";
+  // @Fields.string({ includeInApi: false })
+  // refresh_token = "";
 
-  @Fields.string()
-  center_code = "";
+  // @Fields.string()
+  // center_code = "";
 
   // @Relations.toMany(() => UserRole, "user")
   // userRoles?: UserRole[];
@@ -56,8 +56,8 @@ export class User {
   // })
   // admin = false;
 
-  @Fields.createdAt() // Automatically tracks when the user was created
-  createdAt = new Date();
+  // @Fields.createdAt() // Automatically tracks when the user was created
+  // created_at = new Date();
 
   // @Fields.string({ includeInApi: Roles.admin }) // Only admins can see this
   // providerType: ProviderType = "credentials";
@@ -95,26 +95,26 @@ export class User {
   // allowApiInsert: Roles.admin, 
 })
 export class Roles {
-  @Fields.autoIncrement()
-  id = 0;
+  // @Fields.autoIncrement()
+  // id = 0;
 
-  @Fields.string()
-  name = "";
+  // @Fields.string()
+  // name = "";
  
-  @Fields.string()
-  slug = "";
+  // @Fields.string()
+  // slug = "";
 
-  @Fields.boolean()
-  is_active = true;
+  // @Fields.boolean()
+  // is_active = true;
 
-  @Fields.boolean()
-  is_system = false;
+  // @Fields.boolean()
+  // is_system = false;
 
-  @Fields.boolean()
-  is_superadmin = false;
+  // @Fields.boolean()
+  // is_superadmin = false;
 
-  @Fields.string()
-  created_at = new Date();
+  // @Fields.string()
+  // created_at = new Date();
 }
 
 // //-- Permissions
@@ -122,11 +122,11 @@ export class Roles {
   // allowApiCrud: true,
 })
 export class Permission {
-  @Fields.autoIncrement()
-  id = 0;
+  // @Fields.autoIncrement()
+  // id = 0;
 
-  @Fields.string()
-  name = "";
+  // @Fields.string()
+  // name = "";
 }
 
 //--user-roles
@@ -135,11 +135,11 @@ export class Permission {
 })
 export class UserRole {
   
-  @Relations.toOne(() => User)
-  user!: User;
+  // @Relations.toOne(() => User)
+  // user!: User;
 
-  @Relations.toOne(() => Roles)
-  roles!: Roles;
+  // @Relations.toOne(() => Roles)
+  // roles!: Roles;
 }
 
 

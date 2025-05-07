@@ -11,6 +11,7 @@ import { Permission, Roles, User } from "../shared/User.entity.js";
 import { BalancesheetGroup,GeneralLedger,GeneralAccount } from "../shared/index.js";
 import { AuthController } from "../shared/controllers/AuthController.js";
 import { getUserFromRequest } from "./auth.js";
+import { TransactionMaster } from "../shared/TransactionMaster.entity.js";
 
 
 
@@ -39,7 +40,7 @@ export const api = remultExpress({
   admin: true,
   entities: [
     Task, User, Roles, Permission,
-    GeneralLedger, GeneralAccount, BalancesheetGroup
+    GeneralLedger, GeneralAccount, BalancesheetGroup, TransactionMaster
 
   ],
   controllers:[AuthController]

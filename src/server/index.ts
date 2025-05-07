@@ -70,8 +70,8 @@ async function bootstrap() {
   /**
    * Global
    */
-  app.useGlobalFilters(new GlobalExceptionHandler());
-  app.useGlobalInterceptors(new GlobalResponseInterceptor());
+  // app.useGlobalFilters(new GlobalExceptionHandler());
+  // app.useGlobalInterceptors(new GlobalResponseInterceptor());
 
   const port = process.env['PORT'] || 3002;
   await app.listen(port);

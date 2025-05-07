@@ -13,6 +13,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
+import { TabsModule } from 'primeng/tabs';
 import { PanelModule } from 'primeng/panel';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { TableModule } from 'primeng/table';
@@ -28,7 +29,7 @@ import { SidebarComponent } from '../../sidebar/sidebar.component';
   imports: [
     SidebarComponent,
     RouterLink,
-    DatePipe,
+    DatePipe, TabsModule,
     InputGroupModule,
     PanelModule,
     TreeModule,

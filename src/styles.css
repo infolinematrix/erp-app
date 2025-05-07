@@ -341,6 +341,11 @@ html, body {
 
 
 
-/* ngPrime */
-
+/*  */
+.disabled-div {
+  cursor: not-allowed;
+  pointer-events: none; 
+  opacity: 0.7;
+  
+}
 

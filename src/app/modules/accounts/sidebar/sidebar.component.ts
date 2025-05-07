@@ -84,32 +84,27 @@ export class SidebarComponent implements OnInit {
         },
         {
           key: '1',
-          label: 'Components In-Depth',
+          label: 'Voucher Management',
           children: [
             {
               key: '1-0',
-              label: 'Component Registration',
-              data: 'https://angular.io/guide/component-interaction',
+              label: 'Voucher View',
+              data: '/accounts/voucher-view',
               type: 'url',
             },
-            {
-              key: '1-1',
-              label: 'User Input',
-              data: 'https://angular.io/guide/user-input',
-              type: 'url',
-            },
-            {
-              key: '1-2',
-              label: 'Hooks',
-              data: 'https://angular.io/guide/lifecycle-hooks',
-              type: 'url',
-            },
-            {
-              key: '1-3',
-              label: 'Attribute Directives',
-              data: 'https://angular.io/guide/attribute-directives',
-              type: 'url',
-            },
+            // {
+            //   key: '1-1',
+            //   label: 'Voucher Authorisation',
+            //   data: '/accounts/transfer-entry',
+            //   type: 'url',
+            // },
+            // {
+            //   key: '1-2',
+            //   label: 'Vaoucher Cancellation',
+            //   data: '/accounts/transfer-entry',
+            //   type: 'url',
+            // },
+            
           ],
         },
       ];
