@@ -32,112 +32,79 @@ Before getting started, ensure the following are installed:
 
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/infolinematrix/erp-app.git
+   git clone https://github.com/YOUR_USERNAME/erp-app.git
    cd erp-app
-   ```
 
-2. **Install dependencies**  
+
+### 🛠 Prerequisites
+
+Before diving in, make sure you have the following tools installed:
+
+- **Node.js (v20+ 🚨)**
+- **npm (bundled with Node.js)**
+
+### 🎯 Installation
+
+Clone the repo:
+
+```bash
+git clone [YOUR REPO URL ONCE PUSHED]
+```
+
+and install dependencies:
+
+```bash
+npm install
+```
+
+### 🛠 Configuration & Environment Variables
+
+You'll need to set up some **environment variables** in your `.env` file. 
+You can use [.env.example](./.env.example) as an example.
+
+
+### 🧑‍💻 Running the Dev Environment
+
+To develop locally, you'll need to run both the frontend and backend environments. This requires **two terminal windows**.
+
+1. In **Terminal 1**, run the frontend development server:
+
    ```bash
-   npm install
+   npm run dev
    ```
 
----
+   This will start the frontend development environment and automatically open your app in the browser.
 
-## ⚙️ Configuration
+2. In **Terminal 2**, run the backend development server:
 
-Create a `.env` file in the root directory. Use the provided `.env.example` as a template:
+   ```bash
+   npm run dev-node
+   ```
 
-```bash
-cp .env.example .env
-```
+   This will start the backend in watch mode, automatically restarting on code changes.
 
-Then update it with your database credentials and other environment variables.
 
----
+### 🚢 Production-Ready
 
-## 🧑‍💻 Local Development
+When you're ready to go live, here's how to prepare:
 
-This app uses both a frontend and a backend server. Open **two terminals**:
-
-### Terminal 1 – Frontend (Angular + Remult)
-
-```bash
-npm run dev
-```
-
-This will launch the development server and open the app in your browser.
-
-### Terminal 2 – Backend (NestJS + Remult)
-
-```bash
-npm run dev-node
-```
-
-Runs the backend in watch mode for live reload on code changes.
-
----
-
-## 🚀 Building for Production
-
-To build the app and prepare it for deployment:
+#### Build for production:
 
 ```bash
 npm run build
 ```
 
-Then, start the production server:
+#### Run the production server:
 
 ```bash
 npm run start
 ```
 
----
-
-## 🧰 Useful Angular CLI Commands
-
-Generate a new module with routing:
-
-```bash
+# Ng Module
 ng g m <module-name> --routing
-```
-
-Clean up unused Angular imports:
-
-```bash
+# Remove unwanted imports
 ng generate @angular/core:cleanup-unused-imports
-```
 
----
-
-## 🧯 Dev Tips
-
-### Unblocking a port (e.g., 4200)
-
-If the Angular dev server port is blocked:
-
-```bash
+# Port unblock
 lsof -i :4200
 kill -9 <PID>
-```
-
----
-
-## 🌍 Contributing
-
-We welcome contributions! If you'd like to help:
-
-1. Fork the repo
-2. Create a new branch
-3. Submit a pull request with a clear description
-
----
-
-## 🛡 License
-
-This project is open-source under the [MIT License](LICENSE).
-
----
-
-## 💬 Questions?
-
-Open an [issue](https://github.com/infolinematrix/erp-app/issues) or start a discussion — we're happy to help!
