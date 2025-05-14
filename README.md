@@ -1,82 +1,143 @@
-# ⚡️ erp-app ⚡️
+# ⚡️ erp-app ⚡️  
+Everything you need to build a modern, full-stack **ERP** system.
 
-Everything you need to build a great `remult` project, powered by [`create-remult`](https://github.com/remult/remult/tree/main/projects/create-remult).
+---
 
-### What's Included?
+## 🚀 Tech Stack
 
-- 🚀 [Remult](https://remult.dev/): Fullstack Type-safe CRUD & Realtime 
-- 🌟 [Angular](https://angular.dev/): Your favorite framework/library 
-- 🛤️ [Express](https://expressjs.com/): Fast, unopinionated, minimalist web framework for Node.js 
-- 💾 [MySQL](https://www.mysql.com/): Powerful, database system 
-- 🔒 [auth.js](https://authjs.dev): Authentication made easy and secure 
+This project combines powerful, modern tools to deliver a robust ERP foundation:
 
-### 🛠 Prerequisites
+- 🔄 **[Remult](https://remult.dev/)** – Full-stack, type-safe CRUD & real-time capabilities  
+- 🧩 **[Angular](https://angular.dev/)** – Reactive, component-based frontend framework  
+- ⚙️ **[NestJS](https://nestjs.com/)** – Scalable and maintainable backend framework  
+- 💽 **[MySQL](https://www.mysql.com/)** – Reliable relational database  
+- 🎨 **[Tailwind CSS](https://tailwindcss.com/)** – Utility-first styling framework  
+- 🧱 **[PrimeNG](https://primeng.org/)** – Rich UI component library for Angular  
 
-Before diving in, make sure you have the following tools installed:
+> 💡 This project is modular and built for extensibility — ideal for open-source collaboration or private customization.
 
-- **Node.js (v20+ 🚨)**
-- **npm (bundled with Node.js)**
+---
 
-### 🎯 Installation
+## 📦 Prerequisites
 
-Clone the repo:
+Before getting started, ensure the following are installed:
 
-```bash
-git clone [YOUR REPO URL ONCE PUSHED]
-```
+- **Node.js v20+**
+- **npm** (comes with Node.js)
+- **MySQL Server**
 
-and install dependencies:
+---
 
-```bash
-npm install
-```
+## 📥 Installation
 
-### 🛠 Configuration & Environment Variables
-
-You'll need to set up some **environment variables** in your `.env` file. 
-You can use [.env.example](./.env.example) as an example.
-
-
-### 🧑‍💻 Running the Dev Environment
-
-To develop locally, you'll need to run both the frontend and backend environments. This requires **two terminal windows**.
-
-1. In **Terminal 1**, run the frontend development server:
-
+1. **Clone the repository**  
    ```bash
-   npm run dev
+   git clone https://github.com/infolinematrix/erp-app.git
+   cd erp-app
    ```
 
-   This will start the frontend development environment and automatically open your app in the browser.
-
-2. In **Terminal 2**, run the backend development server:
-
+2. **Install dependencies**  
    ```bash
-   npm run dev-node
+   npm install
    ```
 
-   This will start the backend in watch mode, automatically restarting on code changes.
+---
 
+## ⚙️ Configuration
 
-### 🚢 Production-Ready
+Create a `.env` file in the root directory. Use the provided `.env.example` as a template:
 
-When you're ready to go live, here's how to prepare:
+```bash
+cp .env.example .env
+```
 
-#### Build for production:
+Then update it with your database credentials and other environment variables.
+
+---
+
+## 🧑‍💻 Local Development
+
+This app uses both a frontend and a backend server. Open **two terminals**:
+
+### Terminal 1 – Frontend (Angular + Remult)
+
+```bash
+npm run dev
+```
+
+This will launch the development server and open the app in your browser.
+
+### Terminal 2 – Backend (NestJS + Remult)
+
+```bash
+npm run dev-node
+```
+
+Runs the backend in watch mode for live reload on code changes.
+
+---
+
+## 🚀 Building for Production
+
+To build the app and prepare it for deployment:
 
 ```bash
 npm run build
 ```
 
-#### Run the production server:
+Then, start the production server:
 
 ```bash
 npm run start
 ```
 
-# Ng Module
-ng g m <module-name> --routing
+---
 
-# Port unblock
+## 🧰 Useful Angular CLI Commands
+
+Generate a new module with routing:
+
+```bash
+ng g m <module-name> --routing
+```
+
+Clean up unused Angular imports:
+
+```bash
+ng generate @angular/core:cleanup-unused-imports
+```
+
+---
+
+## 🧯 Dev Tips
+
+### Unblocking a port (e.g., 4200)
+
+If the Angular dev server port is blocked:
+
+```bash
 lsof -i :4200
 kill -9 <PID>
+```
+
+---
+
+## 🌍 Contributing
+
+We welcome contributions! If you'd like to help:
+
+1. Fork the repo
+2. Create a new branch
+3. Submit a pull request with a clear description
+
+---
+
+## 🛡 License
+
+This project is open-source under the [MIT License](LICENSE).
+
+---
+
+## 💬 Questions?
+
+Open an [issue](https://github.com/infolinematrix/erp-app/issues) or start a discussion — we're happy to help!
