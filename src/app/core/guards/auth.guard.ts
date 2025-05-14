@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
       return true;
     } else {
       console.log('Access denied. Redirecting to login...');
-      return this.router.createUrlTree(['/auth']);
+      return this.router.createUrlTree(['/auth/sign-in']);
     }
   }
 

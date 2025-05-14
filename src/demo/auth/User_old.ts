@@ -1,7 +1,7 @@
 import { Entity, Fields, remult, repo, Validators } from "remult";
 
-import type { ProviderType } from "../../server/auth.js";
-import { Roles } from "./Roles.js";
+import type { ProviderType } from "../../server/auth_old.js";
+import { Roles } from "./Roles_old.js";
 import bcrypt from "bcryptjs";
 
 @Entity("users", {

@@ -91,7 +91,7 @@ export class CashReceiveEntryComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      subsystem: ['', [Validators.required]],
+      ledger: ['', [Validators.required]],
       account: [0, [Validators.required]],
       clear_balance: [0],
       mode: [''],
@@ -116,7 +116,7 @@ export class CashReceiveEntryComponent implements OnInit {
 
     // Subscribe to valueChanges to emit on every change
     this.form.valueChanges.subscribe((value) => {
-      console.log('Patient Info :', this.form.value);
+      console.log('Data Info :', this.form.value);
     });
   }
 
@@ -139,8 +139,7 @@ export class CashReceiveEntryComponent implements OnInit {
   }
 
   async onChange_Subsytem() {
-    const subsystem = this.form.get('subsystem')?.value;
-    this.selectedLedger = await this.accountService.findBySubsystem(subsystem);
+    this.selectedLedger = this.form.get('ledger')?.value;
 
     if (this.selectedLedger!.allow_account == isActive.No) {
       this.form.controls['account'].disable();
@@ -151,6 +150,17 @@ export class CashReceiveEntryComponent implements OnInit {
 
       this.form.controls['account'].enable();
     }
+  }
+
+  async onChange_Account() {
+    
+    this.selectedAccount = this.form.get('account')?.value;
+    const clear_balance = await this.accountService.getClearBalance({
+      date: new Date(),
+      subsystem: this.selectedLedger!.subsystem.toString(),
+      accountId: Number(this.selectedAccount!.id),
+    });
+    this.form.controls['clear_balance'].patchValue(clear_balance);
   }
 
   async onChange_Mode() {
@@ -193,7 +203,7 @@ export class CashReceiveEntryComponent implements OnInit {
       }
 
       if(
-        this.form.controls['subsystem'].value == '' ||
+        this.form.controls['ledger'].value == '' ||
         this.form.controls['account'].value == 0 ||
         this.form.controls['mode'].value == ''
         

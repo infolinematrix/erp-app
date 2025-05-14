@@ -1,8 +1,11 @@
-import { Entity, Fields } from 'remult';
+import { Entity, Fields, Relations } from 'remult';
 import { scrollType, txnMode } from 'src/app/core/constants/enums';
+import { GeneralAccount } from './GeneralAccount.entity';
 
 @Entity('acct_transactions', {
   allowApiCrud: true,
+  allowApiInsert:true,
+  allowApiUpdate:true,
 })
 export class TransactionMaster {
     @Fields.autoIncrement()
@@ -43,6 +46,9 @@ export class TransactionMaster {
 
     @Fields.number()
     account = 0;
+
+    @Relations.toOne(() => GeneralAccount, { field: 'account' })
+    accountDetails?: GeneralAccount;
 
     @Fields.string()
     mode = '';

@@ -1,7 +1,4 @@
 import { Entity, Fields, Relations, remult, repo, Validators } from "remult";
-// import { Roles } from "../demo/auth/Roles.js";
-
-
 
 
 @Entity("users", {
@@ -26,18 +23,24 @@ export class User {
   @Fields.string({ required: true, validate: [Validators.unique] }) // User's name, required field and must be unique
   username = "";
 
-
   @Fields.string({ includeInApi: false }) // Password field is not exposed in API responses
   password = "";
 
-  // @Fields.string({ includeInApi: false })
-  // refresh_token = "";
+  @Fields.string({ required: true })
+  user_type= ''
 
-  // @Fields.string()
-  // center_code = "";
+  @Fields.string({ includeInApi: false })
+  refresh_token = "";
 
-  // @Relations.toMany(() => UserRole, "user")
-  // userRoles?: UserRole[];
+  @Fields.string()
+  center_code = "";
+
+  @Relations.toMany(()=> UserRole, 'user_id')
+  userRoles?: UserRole[];
+
+
+
+
 
   // @Fields.string<User>({
   //   // This field is used for updating the password without exposing the actual password column
@@ -45,7 +48,7 @@ export class User {
   //   saving: async (user, fieldRef, e) => {
   //     if (e.isNew || fieldRef.valueChanged()) {
   //       // If the user is new or the password has changed
-  //       user.password = bcrypt.hashSync(user.updatePassword); // Hash the new password using the injected hashing function
+  //       // user.password = bcrypt.hashSync(user.updatePassword); // Hash the new password using the injected hashing function
   //     }
   //   },
   // })
@@ -56,8 +59,8 @@ export class User {
   // })
   // admin = false;
 
-  // @Fields.createdAt() // Automatically tracks when the user was created
-  // created_at = new Date();
+  @Fields.createdAt() // Automatically tracks when the user was created
+  created_at = new Date();
 
   // @Fields.string({ includeInApi: Roles.admin }) // Only admins can see this
   // providerType: ProviderType = "credentials";
@@ -90,56 +93,96 @@ export class User {
 
 //-- Roles
 @Entity("roles", {
-  // allowApiCrud: true,
+  allowApiCrud: true,
   // allowApiDelete: Roles.admin, 
   // allowApiInsert: Roles.admin, 
 })
 export class Roles {
-  // @Fields.autoIncrement()
-  // id = 0;
+  @Fields.autoIncrement()
+  id = 0;
 
-  // @Fields.string()
-  // name = "";
+  @Fields.string()
+  name = "";
+
+  @Fields.string()
+  description = "";
  
-  // @Fields.string()
-  // slug = "";
+ 
+  @Fields.string()
+  slug = "";
 
-  // @Fields.boolean()
-  // is_active = true;
+  @Fields.boolean()
+  is_active = true;
 
-  // @Fields.boolean()
-  // is_system = false;
+  @Fields.boolean()
+  is_system = false;
 
-  // @Fields.boolean()
-  // is_superadmin = false;
+  @Fields.boolean()
+  is_superadmin = false;
 
-  // @Fields.string()
-  // created_at = new Date();
+  @Relations.toMany(()=> RolePermission, 'role_id')
+  permissions!: RolePermission[];
+
+  @Fields.string()
+  created_at = new Date();
 }
 
 // //-- Permissions
 @Entity("permissions", {
-  // allowApiCrud: true,
+  allowApiCrud: true,
 })
 export class Permission {
-  // @Fields.autoIncrement()
-  // id = 0;
+  @Fields.autoIncrement()
+  id = 0;
 
-  // @Fields.string()
-  // name = "";
+  @Fields.string()
+  name = "";
+
+  @Fields.string()
+  description = "";
+}
+
+//--role_permission
+@Entity("role_permissions", {
+  allowApiCrud: true,
+})
+export class RolePermission {
+  
+  @Fields.number()
+  role_id!: number
+  
+  @Fields.number()
+  permission_id!:number
+
+  // @Relations.toOne(() => Roles)
+  // role!: Roles;
+
+  // @Relations.toOne(() => Permission)
+  // permission!: Permission;
 }
 
 //--user-roles
 @Entity("user_roles", {
-  // allowApiCrud: true,
+  allowApiCrud: true,
 })
+
 export class UserRole {
   
+  @Fields.number()
+  user_id!: number
+  
+  @Fields.number()
+  role_id!:number
+
+  @Relations.toOne(() => Roles)
+  role?: Roles
+
   // @Relations.toOne(() => User)
-  // user!: User;
+  // user!: User['id'];
 
   // @Relations.toOne(() => Roles)
-  // roles!: Roles;
+  // role!: Roles['id'];
+  
 }
 
 

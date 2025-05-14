@@ -27,7 +27,7 @@ import { TreeModule } from 'primeng/tree';
   styleUrls: ['./sidebar.component.css'],
   imports: [
     RouterLink,
-    DatePipe,
+    // DatePipe,
     InputGroupModule,
     PanelModule,
     TreeModule,
@@ -92,18 +92,18 @@ export class SidebarComponent implements OnInit {
               data: '/accounts/voucher-view',
               type: 'url',
             },
-            // {
-            //   key: '1-1',
-            //   label: 'Voucher Authorisation',
-            //   data: '/accounts/transfer-entry',
-            //   type: 'url',
-            // },
-            // {
-            //   key: '1-2',
-            //   label: 'Vaoucher Cancellation',
-            //   data: '/accounts/transfer-entry',
-            //   type: 'url',
-            // },
+            {
+              key: '1-1',
+              label: 'Voucher Authorisation',
+              data: '/accounts/transfer-entry',
+              type: 'url',
+            },
+            {
+              key: '1-2',
+              label: 'Vaoucher Cancellation',
+              data: '/accounts/transfer-entry',
+              type: 'url',
+            },
             
           ],
         },

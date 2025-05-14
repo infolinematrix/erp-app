@@ -92,7 +92,7 @@ export class CashPaymentEntryComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      subsystem: ['', [Validators.required]],
+      ledger: ['', [Validators.required]],
       account: [0, [Validators.required]],
       clear_balance: [0],
       mode: [''],
@@ -117,7 +117,7 @@ export class CashPaymentEntryComponent implements OnInit {
 
     // Subscribe to valueChanges to emit on every change
     this.form.valueChanges.subscribe((value) => {
-      console.log('Patient Info :', this.form.value);
+      console.log('Voucher Info :', this.form.value);
     });
   }
 
@@ -140,9 +140,8 @@ export class CashPaymentEntryComponent implements OnInit {
   }
 
   async onChange_Subsytem() {
-    const subsystem = this.form.get('subsystem')?.value;
-    this.selectedLedger = await this.accountService.findBySubsystem(subsystem);
-
+    this.selectedLedger = this.form.get('ledger')?.value;
+    
     if (this.selectedLedger!.allow_account == isActive.No) {
       this.form.controls['account'].disable();
     } else {
@@ -152,6 +151,25 @@ export class CashPaymentEntryComponent implements OnInit {
 
       this.form.controls['account'].enable();
     }
+  }
+
+  async onChange_Account() {
+    
+    this.selectedAccount = this.form.get('account')?.value;
+
+    if(this.selectedAccount!.allow_payment ===  'No'){
+      toast.error("Payment not allowed!");
+      this.form.reset();
+      return;
+    }
+
+    const clear_balance = await this.accountService.getClearBalance({
+      date: new Date(),
+      subsystem: this.selectedLedger!.subsystem.toString(),
+      accountId: Number(this.selectedAccount!.id),
+    });
+
+    this.form.controls['clear_balance'].patchValue(clear_balance);
   }
 
   async onChange_Mode() {
@@ -194,21 +212,19 @@ export class CashPaymentEntryComponent implements OnInit {
       }
 
       if(
-        this.form.controls['subsystem'].value == '' ||
+        this.form.controls['ledger'].value == '' ||
         this.form.controls['account'].value == 0 ||
         this.form.controls['mode'].value == ''
-        
       ){
         toast.error('Invalid');
-        return false}
+        return false
+      }
 
       return true;
     };
 
     if (isValid()) {
       try {
-        console.log(this.form.value);
-        
         const scroll = await this.accountService.createTransactionPayment(this.form.value);
         const scrl = scroll.scroll_type +'/'+ scroll.scroll_no +'/'+   scroll.scroll_slno;
         this.form.reset();

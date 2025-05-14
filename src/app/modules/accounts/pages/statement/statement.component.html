@@ -1,4 +1,4 @@
-<div class="page-container">
+<div class="page-container p-0">
   <div class="rounded bg-primary-foreground">
     <p-toolbar styleClass="border-0">
       <ng-template #start>
@@ -10,7 +10,9 @@
           </div>
 
           <div class="grid grid-cols-1">
-            <div class="text-md font-bold uppercase text-foreground">Statement of Account</div>
+            <div class="text-md font-bold uppercase text-foreground">
+              Statement of Account
+            </div>
             <span class="text-muted-foreground text-xs"
               >Account ledger statement with data range</span
             >
@@ -59,81 +61,144 @@
 
     <!-- Page content -->
     <ng-container>
-      <div class="bg-background p-4">
-          <div class="grid grid-cols-24 gap-4">
-            <div class="col-span-6">
-              <div class="flex flex-col gap-1">
-                <label for="name">Subsystem</label>
-                <p-select [options]="ledgers" optionLabel="name" [filter]="true" filterBy="name"  placeholder="Select" class="input">
-                  <ng-template #selectedItem let-selectedOption>
+      <form [formGroup]="form">
+        <div class="bg-background p-4">
+          <p-fieldset legend="Filter">
+            <div class="grid grid-cols-24 gap-4">
+              <div class="col-span-5">
+                <div class="flex flex-col gap-1">
+                  <label for="name">Subsystem</label>
+                  <p-select
+                    [options]="ledgers"
+                    formControlName="subsystem"
+                    optionLabel="name"
+                    [filter]="true"
+                    filterBy="name"
+                    placeholder="Select"
+                    class="input"
+                    (onChange)="onChange_Subsytem()"
+                  >
+                    <ng-template #selectedItem let-ledger>
                       <div class="flex items-center gap-2">
-                          <div>{{ selectedOption.name }}</div>
+                        <div>{{ ledger.name }}</div>
                       </div>
-                  </ng-template>
-                  <ng-template let-country #item>
+                    </ng-template>
+                    <ng-template let-ledger #item>
                       <div class="flex items-center gap-2">
-                          <div>{{ country.name }}</div>
+                        <div>{{ ledger.name }}</div>
                       </div>
-                  </ng-template>
-              </p-select>
+                    </ng-template>
+                  </p-select>
+                </div>
               </div>
-            </div>
-            <div class="col-span-6">
-              <div class="flex flex-col gap-1">
-                <label for="name">Account</label>
-                <p-select [options]="ledgers" optionLabel="name" [filter]="true" filterBy="name"  placeholder="Select" class="input">
-                  <ng-template #selectedItem let-selectedOption>
+              <div class="col-span-5">
+                <div class="flex flex-col gap-1">
+                  <label for="name">Account</label>
+                  <p-select
+                    [options]="accounts"
+                    formControlName="account"
+                    optionLabel="name"
+                    [filter]="true"
+                    filterBy="name"
+                    (onChange)="onChange_Account()"
+                    placeholder="Select"
+                    class="input"
+                  >
+                    <ng-template #selectedItem let-account>
                       <div class="flex items-center gap-2">
-                          <div>{{ selectedOption.name }}</div>
+                        <div>{{ account.name }}</div>
                       </div>
-                  </ng-template>
-                  <ng-template let-country #item>
+                    </ng-template>
+                    <ng-template let-account #item>
                       <div class="flex items-center gap-2">
-                          <div>{{ country.name }}</div>
+                        <div>{{ account.name }}</div>
                       </div>
-                  </ng-template>
-              </p-select>
+                    </ng-template>
+                  </p-select>
+                </div>
+              </div>
+
+              <div class="col-span-3">
+                <div class="flex flex-col gap-1">
+                  <label for="name">From Date</label>
+                  <p-datepicker
+                    id="from_date"
+                    formControlName="from_date"
+                    dateFormat="dd-mm-yy"
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="fromDate"
+                    styleClass="w-full input"
+                   
+                  />
+                </div>
+              </div>
+
+              <div class="col-span-3">
+                <div class="flex flex-col gap-1">
+                  <label for="name">To Date</label>
+                  <p-datepicker
+                    id="to_date"
+                    formControlName="to_date"
+                    dateFormat="dd-mm-yy"
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="toDate"
+                    styleClass="w-full input"
+                  />
+                </div>
+              </div>
+              <div class="col-span-3">
+                <div class="flex flex-col gap-1 w-full">
+                  <label for="opening_balance">Opening Balance</label>
+                  <input
+                    id="opening_balance"
+                    type="text"
+                    pInputText
+                    class="input"
+                    formControlName="opening_balance"
+                    
+                  />
+                </div>
+              </div>
+              <div class="col-span-3">
+                <div class="flex flex-col gap-1 w-full">
+                  <label for="clear_balance">Clear Balance</label>
+                  <input
+                    id="clear_balance"
+                    type="text"
+                    pInputText
+                    class="input"
+                    formControlName="clear_balance"
+                  />
+                </div>
+              </div>
+              <div class="col-span-2">
+                <div class="flex flex-col gap-1 items-end justify-end h-full">
+                  <p-button
+                    label="Submit"
+                    styleClass="btn-secondary"
+                    (onClick)="onClick_Submit()"
+                  />
+                </div>
               </div>
             </div>
-            <div class="col-span-4">
-              <div class="flex flex-col gap-1">
-                <label for="name">Clear Balance</label>
-                <input type="text" pInputText class="input"/>
-              </div>
-            </div>
-            <div class="col-span-3">
-              <div class="flex flex-col gap-1">
-                <label for="name">From</label>
-                <p-datepicker  dateFormat="dd-mm-yy" class="input"/>
-              </div>
-            </div>
-            <div class="col-span-3">
-              <div class="flex flex-col gap-1">
-                <label for="name">To</label>
-                <p-datepicker  dateFormat="dd-mm-yy" class="input"/>
-              </div>
-            </div>
-            <div class="col-span-2">
-              <div class="flex flex-col gap-1 items-end justify-end h-full">
-               
-                <p-button
-                label="Submit"
-                styleClass="btn-secondary" 
-              />
-              
-              </div>
-            </div>
-          </div>
-      </div>
+          </p-fieldset>
+        </div>
+      </form>
     </ng-container>
 
     <ng-container>
-      <p-table
-          [value]="[]"
+      <div class="bg-background px-4">
+        <p-table
+          [value]="transactions"
           [tableStyle]="{ 'min-width': '50rem' }"
           [paginator]="true"
+          [lazy]="true"
           [rows]="25"
           [rowsPerPageOptions]="[25, 50, 100]"
+          (onPage)="onPageChange($event)"
+          [totalRecords]="totalRecords"
         >
           <!-- <ng-template #caption styleClass="">
           <div class="flex items-center justify-between">
@@ -147,73 +212,52 @@
               <th class="font-semibold w-2/24" pSortableColumn="id">
                 Date <p-sortIcon field="id" />
               </th>
-              <th class="font-semibold w-6/24" pSortableColumn="name">
+              <th class="font-semibold w-2/24" pSortableColumn="name">
+                Scroll No <p-sortIcon field="name" />
+              </th>
+              <th class="font-semibold w-4/24" pSortableColumn="name">
                 Account <p-sortIcon field="name" />
               </th>
-              <th class="font-semibold w-6/24" pSortableColumn="name">
+              <th class="font-semibold w-2/24" pSortableColumn="id">
+                Mode <p-sortIcon field="id" />
+              </th>
+              <th class="font-semibold w-4/24" pSortableColumn="name">
                 Description <p-sortIcon field="name" />
               </th>
-              <th class="font-semibold w-2/24">Debit</th>
-              <th class="font-semibold w-2/24">Credit</th>
-              <th class="font-semibold w-2/24">Closing Balance</th>
+              
+              
+              <th class="font-semibold w-2/24 text-right">Debit</th>
+              <th class="font-semibold w-2/24 text-right">Credit</th>
+              <th class="font-semibold w-2/24 text-right">Balance</th>
+              <th class="font-semibold w-1/24 text-right">#</th>
             </tr>
           </ng-template>
-          <ng-template #body let-role>
-           
+          <ng-template #body let-txn>
+            <tr>
+              <td class="py-2">{{txn.created_at | date: 'dd-MM-yyyy'}}</td>
+              <td class="py-2 font-semibold">{{txn.scroll_type + '-' + txn.scroll_no + '-' + txn.scroll_slno}}</td>
+              <td class="py-2">{{txn.displayAccountName}}</td>
+              <td class="py-2">{{txn.mode}}</td>
+              <td class="py-2">{{txn.description}}</td>
+              <td class="py-2 text-right">{{ ['HD', 'TD', 'KD'].includes(txn.scroll_type) ? (txn.amount |  number: '1.2-2'): ''  }}</td>
+              <td class="py-2 text-right">{{ ['HC', 'TC', 'KC'].includes(txn.scroll_type) ? (txn.amount |  number: '1.2-2'): ''}}</td>
+              <td class="py-2 text-right font-semibold">
+                <span [style.color]="txn.closing_balance < 0 ? 'red' : 'inherit'">
+                  {{ txn.closing_balance |  number: '1.2-2'}}
+                </span>
+               </td>
+              <td class="py-2 text-right">
+                <p-button
+                  size="small"
+                  styleClass="btn-secondary"
+                  icon="pi pi-cog"
+                 
+                ></p-button>
+              </td>
+            </tr>
           </ng-template>
         </p-table>
+      </div>
     </ng-container>
   </div>
 </div>
-
-<!-- Show modal window -->
-<!-- <p-dialog
-  [style]="{ width: '30rem' }"
-  [visible]="showModal"
-  [showHeader]="false"
-  styleClass="text-sm"
->
-<form [formGroup]="form">
-  <div class="flex justify-between py-4">
-    <div class="text-lg font-semibold">Create</div>
-  </div>
-
-  <div class="grid grid-cols-12 gap-4">
-    <div class="col-span-12">
-      <div class="flex flex-col gap-1">
-        <label for="name">Title</label>
-        <input
-          pInputText
-          id="name"
-          aria-describedby="name-help"
-          type="text"
-          class="input"
-          formControlName="name"
-        />
-      </div>
-     
-    </div>
-    <div class="col-span-12">
-      <div class="flex flex-col gap-1">
-        <label for="name">Description</label>
-        <textarea rows="3" cols="30" pTextarea formControlName="description"></textarea>
-      </div>
-    </div>
-  </div>
-
-  <div class="flex justify-end gap-2 mt-4">
-    <p-button
-      label="Cancel"
-      styleClass="btn-secondary"
-      (click)="showModal = false"
-    />
-    <p-button
-      label="Save"
-      styleClass="btn-primary"
-      (click)="save()"
-    />
-  </div>
-</form>
-</p-dialog> -->
-
-<!-- Show edit modal window -->

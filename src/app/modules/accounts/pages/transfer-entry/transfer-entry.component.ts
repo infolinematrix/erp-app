@@ -29,7 +29,8 @@ import { SidebarComponent } from '../../sidebar/sidebar.component';
   imports: [
     SidebarComponent,
     RouterLink,
-    DatePipe, TabsModule,
+    // DatePipe, 
+    TabsModule,
     InputGroupModule,
     PanelModule,
     TreeModule,
@@ -37,7 +38,7 @@ import { SidebarComponent } from '../../sidebar/sidebar.component';
     DatePickerModule,
     CheckboxModule,
     CardModule,
-    Dialog,
+    // Dialog,
     ToolbarModule,
     ButtonModule,
     InputTextModule,

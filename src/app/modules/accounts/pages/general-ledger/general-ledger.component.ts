@@ -169,7 +169,7 @@ export class GeneralLedgerComponent implements OnInit {
     if (this.formUpdate.valid && this.selectedLedger !== null) {
       const updatedLedgerData = this.formUpdate.value;
       try {
-        const updatedLedger = await this.accountsService.updateLedger(
+        await this.accountsService.updateLedger(
           this.selectedLedger!.id,
           updatedLedgerData
         );

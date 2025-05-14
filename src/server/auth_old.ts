@@ -6,7 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { repo, withRemult, type UserInfo } from 'remult';
 import bcrypt from 'bcryptjs';
-import { User } from '../demo/auth/User.js';
+import { User } from '../demo/auth/User_old.js';
 // import { Roles } from '../demo/auth/Roles.js';
 // import { UserRole } from 'src/shared/User.entity.js';
 // import { UnauthorizedException } from '@nestjs/common';

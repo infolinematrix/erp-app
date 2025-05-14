@@ -1,3 +1,8 @@
+export enum UserTypes {
+    User = 'USER',
+    Employee = 'EMPLOYEE',
+    Admin= 'ADMIN'
+}
 
 export enum isActive {
     Yes = 'Yes',
@@ -23,5 +28,4 @@ export enum scrollType {
     KC = 'KC',
     TD = 'TD',
     TC = 'TC',
-    
 }

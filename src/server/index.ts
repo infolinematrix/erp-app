@@ -22,8 +22,7 @@
 import 'reflect-metadata'; // Important for NestJS
 import * as dotenv from 'dotenv';
 dotenv.config();
-console.log("DATABASE", process.env["MYSQL_HOST"]);
-
+console.log('DATABASE', process.env['MYSQL_HOST']);
 
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
@@ -36,7 +35,8 @@ import { GlobalExceptionHandler } from './utils/exception-handler.js';
 import { GlobalResponseInterceptor } from './utils/global-response.interceptor.js';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  // const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create(AppModule);
   // app.use(
   //   session({
   //     secret: process.env['SESSION_SECRET'] || 'my secret',
@@ -52,7 +52,7 @@ async function bootstrap() {
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Authorization, x-api-key, x-center, x-user',
-  }); // if your Angular app is separate
+  });
 
   const config = new DocumentBuilder()
     .setTitle('BACKEND API')

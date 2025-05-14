@@ -1,0 +1,276 @@
+<div class="page-container p-0">
+  <div class="gap-4">
+    <div class="card">
+      <form [formGroup]="form">
+        <p-panel styleClass="">
+          <ng-template #header>
+            <div class="flex items-center gap-2">
+              <div class="flex flex-col">
+                <div class="font-bold text-sm uppercase">Employee</div>
+                <div class="text-xs text-muted-foreground">
+                  Update employees information.
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template #icons>
+            <p-menubar styleClass="h-10">
+              <ng-template #end>
+                <div class="flex items-center gap-2">
+                  <a pRipple class="flex items-center p-menubar-item-link ml-1">
+                    <span>Button</span>
+                  </a>
+                  <a pRipple class="flex items-center p-menubar-item-link">
+                    <span>Button</span>
+                  </a>
+                </div>
+              </ng-template>
+            </p-menubar>
+          </ng-template>
+
+          <ng-container>
+            <p-fieldset legend="Basic Information">
+              <div class="grid grid-cols-24 gap-4">
+                <div class="col-span-2">
+                  <div class="flex flex-col gap-1">
+                    <label for="title">Title </label>
+                    <app-pickup-select [pickupCode]="8" formControlName="title" id="title"></app-pickup-select>
+                  </div>
+                </div>
+                <div class="col-span-5">
+                  <div class="flex flex-col gap-1">
+                    <label for="name">Name </label>
+                    <input
+                      pInputText
+                      id="name"
+                      class="input"
+                      formControlName="name"
+                      aria-describedby="name-help"
+                    />
+                  </div>
+                </div>
+                <div class="col-span-3">
+                  <div class="flex flex-col gap-1">
+                    <label for="gender">Gender </label>
+                    <app-pickup-select
+                      [pickupCode]="13"
+                      formControlName="gender"
+                      id="gender" />
+                  </div>
+                </div>
+                <div class="col-span-2">
+                  <div class="flex flex-col gap-1">
+                    <label for="name">Nationality </label>
+                    <input
+                      pInputText
+                      id="name"
+                      class="input"
+                      aria-describedby="name-help"
+                    />
+                  </div>
+                </div>
+                <div class="col-span-3">
+                  <div class="flex flex-col gap-1">
+                    <label for="name">Date of Birth </label>
+                    <p-datepicker formControlName="dob" dateFormat="dd-mm-yy" id="dob"/>
+                  </div>
+                </div>
+                <div class="col-span-3">
+                  <div class="flex flex-col gap-1">
+                    <label for="name">Marital Status </label>
+                    <app-pickup-select [pickupCode]="17" formControlName="marital_status" id="maritalStatus" />
+                  </div>
+                </div>
+
+                <div class="col-span-3">
+                  <div class="flex flex-col gap-1">
+                    <label for="name">Religion </label>
+                    <app-pickup-select [pickupCode]="20" formControlName="religion" id="religion" />
+                  </div>
+                </div>
+
+                <div class="col-span-3">
+                  <div class="flex flex-col gap-1">
+                    <label for="name">Employemt Type </label>
+                    <app-pickup-select [pickupCode]="24" formControlName="employee_type" id="employmentType" />
+                  </div>
+                </div>
+              </div>
+            </p-fieldset>
+
+            <p-fieldset legend="Communication Information">
+              <div class="grid grid-cols-24 gap-4">
+                <div class="col-span-3">
+                  <div class="flex flex-col gap-1">
+                    <label for="phone">Phone Number </label>
+                    <input
+                      pInputText
+                      formControlName="phone" id="phone"
+                      class="input"
+                      aria-describedby="name-help"
+                    />
+                  </div>
+                </div>
+                <div class="col-span-5">
+                  <div class="flex flex-col gap-1">
+                    <label for="emmergency">Emmergency Contact </label>
+                    <input
+                      pInputText
+                      formControlName="emmergency" id="emmergency"
+                      class="input"
+                      aria-describedby="name-help"
+                    />
+                  </div>
+                </div>
+                <div class="col-span-4">
+                  <div class="flex flex-col gap-1">
+                    <label for="city">City </label>
+                    <input
+                      pInputText
+                      formControlName="city" id="city"
+                      class="input"
+                      aria-describedby="name-help"
+                    />
+                  </div>
+                </div>
+                <div class="col-span-7">
+                  <div class="flex flex-col gap-1">
+                    <label for="address">Residential Address </label>
+                    <input
+                      pInputText
+                      formControlName="address" id="address"
+                      class="input"
+                      aria-describedby="name-help"
+                    />
+                  </div>
+                </div>
+                <div class="col-span-5">
+                  <div class="flex flex-col gap-1">
+                    <label for="email">Email </label>
+                    <input
+                      pInputText
+                      formControlName="email" id="email"
+                      class="input"
+                      aria-describedby="name-help"
+                    />
+                  </div>
+                </div>
+              </div>
+            </p-fieldset>
+          </ng-container>
+
+          <ng-template #footer>
+            <div class="flex justify-between items-center gap-2 ">
+              <div class="flex items-center">
+                <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
+                <label for="ingredient1" class="ml-2">
+                  I confirm all the informations are correct.
+                </label>
+              </div>
+              <p-button label="Save" icon="pi pi-save" size="small" (onClick)="save()"/>
+            </div>
+          </ng-template>
+        </p-panel>
+      </form>
+    </div>
+  </div>
+
+  <div class="card mt-2 ">
+    <p-panel styleClass="" [toggleable]="true" collapsed="true">
+      <ng-template #header>
+        <div class="flex items-center gap-2">
+          <div class="flex flex-col">
+            <div class="font-bold text-sm uppercase">Qualification</div>
+            <div class="text-xs text-muted-foreground">
+              Update employees information.
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-container> <app-employee-qualification /> </ng-container>
+    </p-panel>
+  </div>
+
+  <div class="card mt-2">
+    <p-panel styleClass="" [toggleable]="true" collapsed="true">
+      <ng-template #header>
+        <div class="flex items-center gap-2">
+          <div class="flex flex-col">
+            <div class="font-bold text-sm uppercase">Insurance</div>
+            <div class="text-xs text-muted-foreground">
+              Update employees information.
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-container> asdas </ng-container>
+    </p-panel>
+  </div>
+
+  <div class="card mt-2">
+    <p-panel styleClass="" [toggleable]="true" collapsed="true">
+      <ng-template #header>
+        <div class="flex items-center gap-2">
+          <div class="flex flex-col">
+            <div class="font-bold text-sm uppercase">Salary Information</div>
+            <div class="text-xs text-muted-foreground">
+              Update employees information.
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-container> asdas </ng-container>
+    </p-panel>
+  </div>
+  <div class="card mt-2">
+    <p-panel styleClass="" [toggleable]="true" collapsed="true">
+      <ng-template #header>
+        <div class="flex items-center gap-2">
+          <div class="flex flex-col">
+            <div class="font-bold text-sm uppercase">Leave Management</div>
+            <div class="text-xs text-muted-foreground">
+              Update employees information.
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-container>
+        asdsa
+      </ng-container>
+    </p-panel>
+  </div>
+  <div class="card mt-2">
+    <p-panel styleClass="" [toggleable]="true" collapsed="true">
+      <ng-template #header>
+        <div class="flex items-center gap-2">
+          <div class="flex flex-col">
+            <div class="font-bold text-sm uppercase">Bank Account</div>
+            <div class="text-xs text-muted-foreground">
+              Update employees information.
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-container> asdsad </ng-container>
+    </p-panel>
+  </div>
+  <div class="card mt-2">
+    <p-panel styleClass="" [toggleable]="true" collapsed="true">
+      <ng-template #header>
+        <div class="flex items-center gap-2">
+          <div class="flex flex-col">
+            <div class="font-bold text-sm uppercase">
+              Loan & Advance Management
+            </div>
+            <div class="text-xs text-muted-foreground">
+              Update employees information.
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-container>
+       asdas
+      </ng-container>
+    </p-panel>
+  </div>
+</div>

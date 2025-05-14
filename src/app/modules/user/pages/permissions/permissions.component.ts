@@ -8,6 +8,7 @@ import { Dialog } from 'primeng/dialog';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { CheckboxModule } from 'primeng/checkbox';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -26,7 +27,7 @@ import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@
   imports :[
     InputGroupModule,
         InputGroupAddonModule,
-        CardModule,
+        CardModule, CheckboxModule,
         Dialog,
         ToolbarModule,
         ButtonModule,
@@ -47,8 +48,10 @@ export class PermissionsComponent implements OnInit {
   permissions:Permission[]=[];
   permissionRepo = repo(Permission);
   showCreateModal: boolean = false;
-
+  showUpdateModal: boolean = false;
   form!: FormGroup;
+  formUpdate!: FormGroup;
+  selectedPermission: Permission = <Permission>{};
 
 
 
@@ -59,7 +62,38 @@ export class PermissionsComponent implements OnInit {
       name: ['', [Validators.required]],
       description: [''],
     });
+    this.formUpdate = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      description: [''],
+    });
   }
+
+  onClick_Edit(permission:Permission){
+    this.showUpdateModal = true;
+    this.selectedPermission = permission
+    console.log(this.selectedPermission);
+    
+    this.formUpdate.patchValue({
+      name: this.selectedPermission.name,
+      description: this.selectedPermission.description
+    });
+  }
+
+  async update(){
+    try {
+      await repo(Permission).update(this.selectedPermission.id, {
+        name: this.formUpdate.controls['name'].value,
+        description: this.formUpdate.controls['description'].value,
+      })
+      this.loadData();
+      toast.success("Successfully updated!");
+      this.formUpdate.reset();
+      this.showUpdateModal = false;
+    } catch (error:any) {
+      toast.error(error.message);
+    }
+  }
+
 
   async loadData(){
     try {

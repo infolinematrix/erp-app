@@ -24,4 +24,7 @@ export class GeneralLedger {
 
   @Fields.string()
   description = '';
+
+  @Fields.number()
+  opening_balance = 0;
 }

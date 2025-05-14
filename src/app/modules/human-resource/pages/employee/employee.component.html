@@ -1,0 +1,104 @@
+
+<div class="page-container p-0">
+  <div class="gap-4">
+   
+      <div class="card">
+        <p-panel styleClass="">
+            
+          <ng-template #header>
+            <div class="flex items-center gap-2">
+              <div class="flex flex-col">
+                <div class="font-bold text-sm uppercase">Employee</div>
+                <div class="text-xs text-muted-foreground">List of employees.</div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template #icons>
+            
+          </ng-template>
+
+          <ng-container>
+            <p-table
+              [value]="users"
+              [tableStyle]="{ 'min-width': '50rem' }"
+              [paginator]="true"
+              [lazy]="true"
+              [rows]="25"
+              [rowsPerPageOptions]="[25, 50, 100]"
+              (onPage)="onPageChange($event)"
+              [totalRecords]="totalRecords"
+            >
+              <ng-template #header>
+                <tr>
+                  <th class="font-semibold w-2/24">
+                    id
+                  </th>
+                  <th class="font-semibold w-2/24" pSortableColumn="scroll_type">
+                    Name <p-sortIcon field="name" />
+                  </th>
+                  <th class="font-semibold w-3/24" pSortableColumn="account">
+                    Department <p-sortIcon field="name" />
+                  </th>
+                  
+                  <th class="font-semibold w-2/24" pSortableColumn="mode">
+                    Mode <p-sortIcon field="name" />
+                  </th>
+
+                  <th class="font-semibold w-2/24" pSortableColumn="mode">
+                    Description <p-sortIcon field="name" />
+                  </th>
+
+                  <th class="font-semibold w-2/24">
+                    Debit/Credit
+                  </th>
+
+                  <th class="font-semibold w-2/24 text-right">
+                    Amount 
+                  </th>
+
+                  <th class="font-semibold w-1/24 text-right">Action</th>
+                </tr>
+              </ng-template>
+              <ng-template #body let-user>
+                <tr>
+                  <td class="py-2 font-semibold">{{user.id}}</td>
+                  <td class="py-2">tyrty</td>
+                  <td class="py-2">ss</td>
+                  <td class="py-2">ss</td>
+                  <td class="py-2">s</td>
+                  <td class="py-2">ff</td>
+
+                  <td class="py-2 text-right">
+                    <p-button
+                      id="dd"
+                      size="small"
+                      styleClass="btn-secondary"
+                      icon="pi pi-cog"
+                      (onClick)="viewEmployee(user)"
+                    ></p-button>
+                  </td>
+
+                </tr>
+              </ng-template>
+              </p-table>  
+          </ng-container>
+
+          <ng-template #footer>
+            <div class="flex justify-between items-center gap-2 mt-6">
+              <div class="flex items-center">
+                <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
+                <label for="ingredient1" class="ml-2">
+                  I checked all the informations are correct
+                </label>
+              </div>
+              
+            </div>
+          </ng-template>
+        </p-panel>
+      </div>
+    </div>
+    
+  
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,37 @@
+<div class="page-container p-0">
+    <div class="flex gap-4">
+      <div class="w-9/12">
+        <div class="card">
+          <p-panel styleClass="">
+              <ng-template #icons>
+                  <p-button label="Cancel" styleClass="btn-secondary mr-2" />
+                  <p-button label="Save" styleClass="btn-primary" />
+                </ng-template>
+            <ng-template #header>
+              <div class="flex items-center gap-2">
+                <div class="flex flex-col">
+                  <div class="font-bold text-sm">Pharmacy Settings</div>
+                  <div class="text-xs text-muted-foreground">Pharmacy configuration & settings.</div>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template #footer>
+              <div class="flex justify-between items-center gap-2 mt-6">
+                <div class="flex items-center">
+                  <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
+                  <label for="ingredient1" class="ml-2">
+                    I checked all the informations are correct
+                  </label>
+                </div>
+                
+              </div>
+            </ng-template>
+          </p-panel>
+        </div>
+      </div>
+      <div class="w-2/12">
+        <div class="card">Right</div>
+      </div>
+    </div>
+  </div>
+  

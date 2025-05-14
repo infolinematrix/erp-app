@@ -46,6 +46,9 @@
           <p-button icon="pi pi-cog" severity="secondary" rounded text />
         </ng-template>
         <ng-container>
+          <p-fieldset legend="Filter">
+            
+        
           <form [formGroup]="form">
             <div class="grid grid-cols-12 gap-4">
               <div class="col-span-2">
@@ -82,11 +85,11 @@
                 <div class="flex flex-col gap-1">
                   <label for="name">Transaction Mode</label>
                   <p-select
-                    id="type"
-                    formControlName="type"
+                    id="mode"
+                    formControlName="mode"
                     [showClear]="true"
                     [checkmark]="true"
-                    [options]="txnTypeOptions"
+                    [options]="txnModeOptions"
                     optionValue="value"
                     optionLabel="label"
                     placeholder="All"
@@ -124,15 +127,20 @@
               </div>
             </div>
           </form>
+        </p-fieldset>
         </ng-container>
-        <ng-container>
+        
+        <ng-container >
           <div class="bg-background mt-4">
             <p-table
               [value]="transactions"
               [tableStyle]="{ 'min-width': '50rem' }"
               [paginator]="true"
+              [lazy]="true"
               [rows]="25"
               [rowsPerPageOptions]="[25, 50, 100]"
+              (onPage)="onPageChange($event)"
+              [totalRecords]="totalRecords"
             >
               <ng-template #header>
                 <tr>
@@ -169,7 +177,7 @@
                 <tr>
                   <td class="py-2">{{txn.created_at | date: 'dd-MM-yyyy'}}</td>
                   <td class="py-2">{{txn.scroll_type + '-' + txn.scroll_no + '-' + txn.scroll_slno}}</td>
-                  <td class="py-2">{{txn.account}}</td>
+                  <td class="py-2">{{txn.displayAccountName}}</td>
                   <td class="py-2">{{txn.mode}}</td>
                   <td class="py-2">{{txn.description}}</td>
                   <td class="py-2">{{ ['HC', 'TC', 'KC'].includes(txn.scroll_type) ? 'Debit' : 'Credit' }}</td>
@@ -179,6 +187,7 @@
                       size="small"
                       styleClass="btn-secondary"
                       icon="pi pi-cog"
+                      (onClick)="showVoucheViewModal(txn.subsystem, txn.scroll_no, txn.scroll_slno)"
                     ></p-button>
                   </td>
                 </tr>
@@ -191,3 +200,41 @@
     <div class="w-2/12"><app-sidebar></app-sidebar></div>
   </div>
 </div>
+
+
+<!-- Show modal window -->
+<p-dialog
+  [style]="{ width: '50rem' }"
+  [visible]="showViewModal"
+  [showHeader]="false"
+  styleClass="text-sm"
+  [contentStyle]="{ overflow: 'visible' }" 
+  [baseZIndex]="10000"
+>
+  <form [formGroup]="form">
+    <div class="flex justify-between py-4">
+      <div class="text-md font-semibold">View Voucher</div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-4">
+     
+      
+      
+    </div>
+
+    <div class="flex justify-between items-center gap-2 mt-6">
+      <div class="flex items-center">
+        <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
+        <label for="ingredient1" class="ml-2"> I checked all the informations are correct </label>
+      </div>
+      <div class="flex items-center gap-2">
+        <p-button
+          label="Cancel"
+          styleClass="btn-secondary"
+          (onClick)="showViewModal = false"
+        />
+        <p-button label="Save" styleClass="btn-primary"  />
+      </div>
+    </div>
+  </form>
+</p-dialog>

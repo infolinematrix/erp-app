@@ -74,6 +74,8 @@ npm run build
 npm run start
 ```
 
+# Ng Module
+ng g m <module-name> --routing
 
 # Port unblock
 lsof -i :4200

@@ -44,10 +44,9 @@
                       >Subsystem <i class="pi pi-arrow-right"></i
                     ></label>
                     <p-select
-                      id="subsystem"
+                      id="ledger"
                       [options]="ledgers"
-                      formControlName="subsystem"
-                      optionValue="subsystem"
+                      formControlName="ledger"
                       optionLabel="name"
                       [filter]="true"
                       filterBy="name"
@@ -66,12 +65,13 @@
                       id="account"
                       [options]="accounts"
                       formControlName="account"
-                      optionValue="id"
+                      
                       optionLabel="name"
                       [filter]="true"
                       filterBy="name"
                       placeholder="Select"
                       class="input"
+                      (onChange)="onChange_Account()"
                     />
                   </div>
                 </div>
