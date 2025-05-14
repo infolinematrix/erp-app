@@ -22,3 +22,4 @@ export class AppComponent {
       zone.run(() => handler());
   }
 }
+

@@ -80,7 +80,7 @@
                 Subsystem <p-sortIcon field="id" />
               </th>
               <th class="font-semibold w-10/24" pSortableColumn="name">
-                Account Name <p-sortIcon field="name" />
+                Ledger Name <p-sortIcon field="name" />
               </th>
               <th class="font-semibold w-10/24" pSortableColumn="allow_account">
                 Allow Account? <p-sortIcon field="allow_account" />
@@ -101,7 +101,7 @@
                 {{ ledger.is_active === 'Yes' ? "Active" : "Inactive" }}
               </td>
               <td class="py-2">
-                  <p-button size="small" styleClass="btn-secondary" icon="pi pi-cog"></p-button>
+                  <p-button size="small" styleClass="btn-secondary" icon="pi pi-cog" (onClick)="showUpdate(ledger.id)"></p-button>
               </td>
             </tr>
           </ng-template>
@@ -111,12 +111,14 @@
   </div>
 </div>
 
-<!-- Show modal window -->
+<!-- Show modal Create window -->
 <p-dialog
-  [style]="{ width: '50rem' }"
+  [style]="{ width: '50rem'}"
   [visible]="showCreateModal"
   [showHeader]="false"
   styleClass="text-sm"
+  [contentStyle]="{ overflow: 'visible' }" 
+  [baseZIndex]="10000"
 >
   <form [formGroup]="form">
     <div class="flex justify-between py-4">
@@ -135,6 +137,7 @@
             aria-describedby="name-help"
             type="text"
             class="input"
+            formControlName="subsystem"
           />
         </div>
       </div>
@@ -147,6 +150,7 @@
             aria-describedby="name-help"
             type="text"
             class="input"
+            formControlName="name"
           />
         </div>
       </div>
@@ -154,58 +158,54 @@
       <div class="col-span-12">
         <div class="flex flex-col gap-1">
           <label for="name">Description</label>
-          <textarea rows="5" pTextarea></textarea>
+          <textarea rows="5" pTextarea formControlName="description"></textarea>
         </div>
       </div>
 
-      <div class="col-span-3">
-        <div class="flex items-center">
-          <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
-          <label for="ingredient1" class="ml-2"> Allow Create Account? </label>
-        </div>
-      </div>
-      <div class="col-span-3">
-        <div class="flex items-center">
-          <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
-          <label for="ingredient1" class="ml-2"> Allow all centeres? </label>
-        </div>
-      </div>
-      <div class="col-span-6">
-        <div class="flex flex-col gap-1">
-          <label for="name">Select Center</label>
-          <input
-            pInputText
-            id="name"
-            aria-describedby="name-help"
-            type="text"
-            class="input"
-          />
-        </div>
-      </div>
+      
 
       <div class="col-span-3">
         <div class="flex flex-col gap-1">
-          <label for="name">Status</label>
-          <input
-            pInputText
-            id="name"
-            aria-describedby="name-help"
-            type="text"
-            class="input"
-          />
+          <label for="name">Is Active?</label>
+          <p-select [options]="isActiveOptions" 
+          id="is_active" 
+          formControlName="is_active" 
+          label="name" 
+          value="value" 
+          placeholder="Select" class="input" />
+
+        </div>
+      </div>
+      <div class="col-span-3">
+        <div class="flex flex-col gap-1">
+          <label for="name">Allow Account?</label>
+          <p-select [options]="isActiveOptions" 
+          id="allow_account" 
+          formControlName="allow_account" 
+          label="name" 
+          value="value" 
+          placeholder="Select" class="input" />
+
         </div>
       </div>
       
-      <div class="col-span-9">
+      <div class="col-span-6">
         <div class="flex flex-col gap-1">
-          <label for="name">Balancesheet Head</label>
-          <input
-            pInputText
-            id="name"
-            aria-describedby="name-help"
-            type="text"
-            class="input"
-          />
+          <label for="name">Balancesheet Group</label>
+          <p-select [options]="bsGroups" formControlName="bs_group" optionValue="id" optionLabel="group_name" [filter]="true" filterBy="group_name" placeholder="Select" class="input" />
+
+          <!-- <p-select [options]="bsGroups" optionLabel="group_name" [filter]="true" filterBy="group_name"  placeholder="Select" formControlName="bs_group"  class="input">
+            <ng-template #selectedItem let-selectedOption>
+                <div class="flex items-center gap-2">
+                    <div>{{ selectedOption.group_name }}</div>
+                </div>
+            </ng-template>
+            <ng-template let-country #item>
+                <div class="flex items-center gap-2">
+                    <div>{{ country.group_name }}</div>
+                </div>
+            </ng-template>
+        </p-select> -->
         </div>
       </div>
     </div>
@@ -229,3 +229,117 @@
 
 
 <!-- Show edit modal window -->
+<p-dialog
+[style]="{ width: '50rem'}"
+[visible]="showUpdateModal"
+[showHeader]="false"
+styleClass="text-sm"
+[contentStyle]="{ overflow: 'visible' }" 
+[baseZIndex]="10000"
+>
+<form [formGroup]="formUpdate">
+  <div class="flex justify-between py-4">
+    <div class="text-lg font-semibold">Update Ledger
+      <div class="flex items-center font-normal text-xs text-muted-foreground gap-2">Update accounts ledger for groupping of accounts and map with balancesheet </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-12 gap-4">
+    <div class="col-span-3">
+      <div class="flex flex-col gap-1">
+        <label for="name">Subsystem Code</label>
+        <input
+          pInputText
+          id="name"
+          aria-describedby="name-help"
+          type="text"
+          class="input"
+          formControlName="subsystem"
+        />
+      </div>
+    </div>
+    <div class="col-span-9">
+      <div class="flex flex-col gap-1">
+        <label for="name">Ledger Name</label>
+        <input
+          pInputText
+          id="name"
+          aria-describedby="name-help"
+          type="text"
+          class="input"
+          formControlName="name"
+        />
+      </div>
+    </div>
+
+    <div class="col-span-12">
+      <div class="flex flex-col gap-1">
+        <label for="name">Description</label>
+        <textarea rows="5" pTextarea formControlName="description"></textarea>
+      </div>
+    </div>
+
+    
+
+    <div class="col-span-3">
+      <div class="flex flex-col gap-1">
+        <label for="name">Is Active?</label>
+        <p-select [options]="isActiveOptions" 
+        id="is_active" 
+        formControlName="is_active" 
+        label="name" 
+        value="value" 
+        placeholder="Select" class="input" />
+
+      </div>
+    </div>
+    <div class="col-span-3">
+      <div class="flex flex-col gap-1">
+        <label for="name">Allow Account?</label>
+        <p-select [options]="isActiveOptions" 
+        id="allow_account" 
+        formControlName="allow_account" 
+        label="name" 
+        value="value" 
+        placeholder="Select" class="input" />
+
+      </div>
+    </div>
+    
+    <div class="col-span-6">
+      <div class="flex flex-col gap-1">
+        <label for="name">Balancesheet Group</label>
+        <p-select [options]="bsGroups" formControlName="bs_group" optionValue="id" optionLabel="group_name" [filter]="true" filterBy="group_name" placeholder="Select" class="input" />
+
+        <!-- <p-select [options]="bsGroups" optionLabel="group_name" [filter]="true" filterBy="group_name"  placeholder="Select" formControlName="bs_group"  class="input">
+          <ng-template #selectedItem let-selectedOption>
+              <div class="flex items-center gap-2">
+                  <div>{{ selectedOption.group_name }}</div>
+              </div>
+          </ng-template>
+          <ng-template let-country #item>
+              <div class="flex items-center gap-2">
+                  <div>{{ country.group_name }}</div>
+              </div>
+          </ng-template>
+      </p-select> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-between items-center gap-2 mt-6">
+    <div class="flex items-center">
+      <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
+      <label for="ingredient1" class="ml-2"> I checked all the informations are correct </label>
+    </div>
+    <div class="flex items-center gap-2">
+      <p-button
+        label="Cancel"
+        styleClass="btn-secondary"
+        (click)="showUpdateModal = false"
+      />
+      <p-button label="Save" styleClass="btn-primary" (click)="updateLedger()" />
+    </div>
+  </div>
+</form>
+</p-dialog>

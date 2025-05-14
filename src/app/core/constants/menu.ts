@@ -3,7 +3,7 @@ import { MenuItem } from '../models/menu.model';
 export class Menu {
   public static pages: MenuItem[] = [
     {
-      group: 'Base',
+      group: 'Main Menu',
       separator: false,
       items: [
         {
@@ -15,6 +15,33 @@ export class Menu {
             // { label: 'Podcast', route: '/dashboard/podcast' },
           ],
         },
+
+        //--Pharmacy
+        {
+          icon: 'assets/icons/heroicons/outline/chart-pie.svg',
+          label: 'Pharmacy',
+          route: '/pharmacy',
+          children: [
+            { label: 'Dashboard', route: '/pharmacy/dashboard' },
+            { label: 'Inventory', route: '/pharmacy/inventory' },
+            { label: 'Billing', route: '/pharmacy/billing' },
+            { label: 'Settings', route: '/pharmacy/settings' },
+          ],
+        },
+
+         //--Human Resource
+         {
+          icon: 'assets/icons/heroicons/outline/chart-pie.svg',
+          label: 'Houman Resource',
+          route: '/human-resource',
+          children: [
+            { label: 'Dashboard', route: '/human-resource/dashboard' },
+            { label: 'Employee Master', route: '/human-resource/employee' },
+            // { label: 'Billing', route: '/employee/billing' },
+            // { label: 'Settings', route: '/employee/settings' },
+          ],
+        },
+
         //---Accounts
         {
           icon: 'assets/icons/heroicons/outline/lock-closed.svg',
@@ -50,6 +77,7 @@ export class Menu {
             { label: 'Two Steps', route: '/auth/two-steps' },
           ],
         },
+
         {
           icon: 'assets/icons/heroicons/outline/exclamation-triangle.svg',
           label: 'Errors',
@@ -59,6 +87,7 @@ export class Menu {
             { label: '500', route: '/errors/500' },
           ],
         },
+
         {
           icon: 'assets/icons/heroicons/outline/cube.svg',
           label: 'Components',

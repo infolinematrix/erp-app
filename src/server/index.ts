@@ -22,13 +22,12 @@
 import 'reflect-metadata'; // Important for NestJS
 import * as dotenv from 'dotenv';
 dotenv.config();
-console.log("DATABASE", process.env["MYSQL_HOST"]);
-
+console.log('DATABASE', process.env['MYSQL_HOST']);
 
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { api } from './api.js';
-
+// import session from 'express-session';
 import { Logger } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module.js';
@@ -36,15 +35,24 @@ import { GlobalExceptionHandler } from './utils/exception-handler.js';
 import { GlobalResponseInterceptor } from './utils/global-response.interceptor.js';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  
+  // const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create(AppModule);
+  // app.use(
+  //   session({
+  //     secret: process.env['SESSION_SECRET'] || 'my secret',
+  //     resave: false,
+  //     saveUninitialized: false,
+  //   })
+  // );
+
   app.use(api); // Init remult
+  
 
   app.enableCors({
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Authorization, x-api-key, x-center, x-user',
-  }); // if your Angular app is separate
+  });
 
   const config = new DocumentBuilder()
     .setTitle('BACKEND API')
@@ -62,8 +70,8 @@ async function bootstrap() {
   /**
    * Global
    */
-  app.useGlobalFilters(new GlobalExceptionHandler());
-  app.useGlobalInterceptors(new GlobalResponseInterceptor());
+  // app.useGlobalFilters(new GlobalExceptionHandler());
+  // app.useGlobalInterceptors(new GlobalResponseInterceptor());
 
   const port = process.env['PORT'] || 3002;
   await app.listen(port);

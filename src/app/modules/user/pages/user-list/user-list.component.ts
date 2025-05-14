@@ -41,6 +41,7 @@ export class UserListComponent implements OnInit {
    users:User[]=[];
    userRepo = repo(User);
    showModal: boolean = false;
+   showUpdateModal: boolean = false;
 
 
   ngOnInit() {
@@ -67,6 +68,10 @@ export class UserListComponent implements OnInit {
     this.showModal = true;
     console.log("sfsdfs");
     
+  }
+
+  onClick_Edit(){
+    this.showUpdateModal = true;
   }
 
 }

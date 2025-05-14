@@ -7,6 +7,7 @@ import { StatementComponent } from './pages/statement/statement.component';
 import { CashReceiveEntryComponent } from './pages/cash-receive-entry/cash-receive-entry.component';
 import { CashPaymentEntryComponent } from './pages/cash-payment-entry/cash-payment-entry.component';
 import { TransferEntryComponent } from './pages/transfer-entry/transfer-entry.component';
+import { VoucherViewComponent } from './pages/voucher-view/voucher-view.component';
 
 // const routes: Routes = [
 //     // canActivate: [AuthGuard],
@@ -51,6 +52,10 @@ const routes: Routes = [
       {
         path: 'statement-of-accounts',
         component: StatementComponent,
+      },
+      {
+        path: 'voucher-view',
+        component: VoucherViewComponent,
       },
 
       //---Transactions

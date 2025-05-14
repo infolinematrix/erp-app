@@ -1,4 +1,4 @@
-<div class="page-container">
+<div class="page-container p-0">
   <div class="rounded bg-primary-foreground">
     <p-toolbar styleClass="border-0">
       <ng-template #start>
@@ -79,11 +79,14 @@
               <th class="font-semibold w-2/24" pSortableColumn="id">
                 Id <p-sortIcon field="id" />
               </th>
-              <th class="font-semibold w-10/24" pSortableColumn="name">
+              <th class="font-semibold w-5/24" pSortableColumn="name">
                 Role Name <p-sortIcon field="name" />
               </th>
-              <th class="font-semibold w-10/24" pSortableColumn="name">
+              <th class="font-semibold w-5/24" pSortableColumn="name">
                 Slug <p-sortIcon field="name" />
+              </th>
+              <th class="font-semibold w-10/24">
+                Description
               </th>
               <th class="font-semibold w-2/24">Status</th>
               <th class="font-semibold w-2/24">Action</th>
@@ -94,11 +97,15 @@
               <td class="py-2">{{ role.id }}</td>
               <td class="py-2">{{ role.name }}</td>
               <td class="py-2">{{ role.slug }}</td>
+              <td class="py-2">{{ role.description }}</td>
               <td class="py-2">
                 {{ role.is_active === 1 ? "Active" : "Inactive" }}
               </td>
               <td class="py-2">
-                  <p-button size="small" styleClass="btn-secondary" icon="pi pi-cog"></p-button>
+                 <div class="flex gap-2">
+                  <p-button size="small" styleClass="btn-secondary" icon="pi pi-cog" (onClick)="onClick_Edit(role)"></p-button>
+                  <p-button size="small" styleClass="btn-secondary" icon="pi pi-lock" (onClick)="onClick_RolePermission(role.id)"></p-button>
+                 </div>
               </td>
             </tr>
           </ng-template>
@@ -159,3 +166,57 @@
 </p-dialog>
 
 <!-- Show edit modal window -->
+
+
+<!-- Show Edit modal window -->
+<p-dialog
+[style]="{ width: '30rem' }"
+  [visible]="showUpdateModal"
+  [showHeader]="false"
+  styleClass="text-sm"
+  [contentStyle]="{ overflow: 'visible' }" 
+  [baseZIndex]="10000"
+>
+  <div class="flex justify-between py-4">
+    <div class="text-lg font-semibold">Edit Role</div>
+  </div>
+
+  <form [formGroup]="formUpdate">
+    <div class="grid grid-cols-12 gap-4">
+      <div class="col-span-12">
+        <div class="flex flex-col gap-1">
+          <label for="name">Title</label>
+          <input
+            pInputText
+            id="name"
+            aria-describedby="name-help"
+            type="text"
+            class="input"
+            formControlName="name"
+          />
+        </div>
+       
+      </div>
+      <div class="col-span-12">
+        <div class="flex flex-col gap-1">
+          <label for="description">Description</label>
+          <textarea id="description" rows="3" cols="30" pTextarea formControlName="description"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-between items-center gap-2 mt-6">
+      <div class="flex items-center">
+        <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
+        <label for="ingredient1" class="ml-2"> I confirm </label>
+      </div>
+      <div class="flex items-center gap-2">
+        <p-button
+          label="Cancel"
+          styleClass="btn-secondary"
+          (click)="showUpdateModal = false"
+        />
+        <p-button label="Save" styleClass="btn-primary" (onClick)="update()"/>
+      </div>
+    </div>
+    </form>
+</p-dialog>

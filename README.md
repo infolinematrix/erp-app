@@ -1,14 +1,40 @@
-# ⚡️ erp-app ⚡️
+# ⚡️ erp-app ⚡️  
+Everything you need to build a modern, full-stack **ERP** system.
 
-Everything you need to build a great `remult` project, powered by [`create-remult`](https://github.com/remult/remult/tree/main/projects/create-remult).
+---
 
-### What's Included?
+## 🚀 Tech Stack
 
-- 🚀 [Remult](https://remult.dev/): Fullstack Type-safe CRUD & Realtime 
-- 🌟 [Angular](https://angular.dev/): Your favorite framework/library 
-- 🛤️ [Express](https://expressjs.com/): Fast, unopinionated, minimalist web framework for Node.js 
-- 💾 [MySQL](https://www.mysql.com/): Powerful, database system 
-- 🔒 [auth.js](https://authjs.dev): Authentication made easy and secure 
+This project combines powerful, modern tools to deliver a robust ERP foundation:
+
+- 🔄 **[Remult](https://remult.dev/)** – Full-stack, type-safe CRUD & real-time capabilities  
+- 🧩 **[Angular](https://angular.dev/)** – Reactive, component-based frontend framework  
+- ⚙️ **[NestJS](https://nestjs.com/)** – Scalable and maintainable backend framework  
+- 💽 **[MySQL](https://www.mysql.com/)** – Reliable relational database  
+- 🎨 **[Tailwind CSS](https://tailwindcss.com/)** – Utility-first styling framework  
+- 🧱 **[PrimeNG](https://primeng.org/)** – Rich UI component library for Angular  
+
+> 💡 This project is modular and built for extensibility — ideal for open-source collaboration or private customization.
+
+---
+
+## 📦 Prerequisites
+
+Before getting started, ensure the following are installed:
+
+- **Node.js v20+**
+- **npm** (comes with Node.js)
+- **MySQL Server**
+
+---
+
+## 📥 Installation
+
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/erp-app.git
+   cd erp-app
+
 
 ### 🛠 Prerequisites
 
@@ -74,6 +100,10 @@ npm run build
 npm run start
 ```
 
+# Ng Module
+ng g m <module-name> --routing
+# Remove unwanted imports
+ng generate @angular/core:cleanup-unused-imports
 
 # Port unblock
 lsof -i :4200

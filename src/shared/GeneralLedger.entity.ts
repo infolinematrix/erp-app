@@ -3,8 +3,8 @@ import { Entity, Fields } from 'remult';
 @Entity('acct_general_ledger', {
   allowApiCrud: true,
 })
-export class GenralLedger {
-  @Fields.uuid()
+export class GeneralLedger {
+  @Fields.autoIncrement()
   id!: string;
 
   @Fields.string()
@@ -24,4 +24,7 @@ export class GenralLedger {
 
   @Fields.string()
   description = '';
+
+  @Fields.number()
+  opening_balance = 0;
 }

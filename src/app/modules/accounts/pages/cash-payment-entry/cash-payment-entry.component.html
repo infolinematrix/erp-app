@@ -5,157 +5,171 @@
         <p-panel [toggleable]="true">
           <ng-template #header>
             <div class="flex items-center gap-2">
-              <div class="font-bold text-lg">Cash Payment</div>
-              </div>
+              <div class="font-bold text-lg">Payemnt Voucher</div>
+            </div>
           </ng-template>
-          <div class="pb-4 text-xs text-muted-foreground">All Cash payment entry goes form here, please check all information before post any voucher, once entered it can't be remove.</div>
+          <div class="pb-4 text-xs text-muted-foreground">
+            All Cash revive entry goes form here, please check all information
+            before post any voucher, once entered it can't be remove.
+          </div>
           <ng-template #footer>
             <div class="flex justify-between items-center gap-2 mt-6">
               <div class="flex items-center">
                 <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
-                <label for="ingredient1" class="ml-2"> I checked all the informations are correct </label>
+                <label for="ingredient1" class="ml-2">
+                  I checked all the informations are correct
+                </label>
               </div>
               <div class="flex items-center gap-2">
+                <p-button label="Cancel" styleClass="btn-secondary" />
                 <p-button
-                  label="Cancel"
-                  styleClass="btn-secondary"
-                  
+                  label="Save"
+                  styleClass="btn-primary"
+                  [disabled]="!form.valid"
+                  (onClick)="onSubmit()"
                 />
-                <p-button label="Save" styleClass="btn-primary" (click)="save()" />
               </div>
             </div>
           </ng-template>
           <ng-template #icons>
-            <p-button
-              icon="pi pi-cog"
-              severity="secondary"
-              rounded
-              text
-             
-            />
-            
+            <p-button icon="pi pi-cog" severity="secondary" rounded text />
           </ng-template>
-          
-         
 
-          
           <ng-container>
             <form [formGroup]="form">
               <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-5">
                   <div class="flex flex-col gap-1">
-                    <label for="name">Subsystem <i class="pi pi-arrow-right"></i></label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      type="text"
+                    <label for="name"
+                      >Subsystem <i class="pi pi-arrow-right"></i
+                    ></label>
+                    <p-select
+                      id="ledger"
+                      [options]="ledgers"
+                      formControlName="ledger"
+                      optionLabel="name"
+                      [filter]="true"
+                      filterBy="name"
+                      placeholder="Select"
                       class="input"
+                      (onChange)="onChange_Subsytem()"
                     />
                   </div>
                 </div>
                 <div class="col-span-5">
                   <div class="flex flex-col gap-1">
-                    <label for="name">Account <i class="pi pi-arrow-right"></i></label>
+                    <label for="name"
+                      >Account <i class="pi pi-arrow-right"></i
+                    ></label>
+                    <p-select
+                      id="account"
+                      [options]="accounts"
+                      formControlName="account"
+                      optionLabel="name"
+                      [filter]="true"
+                      filterBy="name"
+                      placeholder="Select"
+                      class="input"
+                      (onChange)="onChange_Account()"
+                    
+                    />
+                  </div>
+                </div>
+
+                <div class="col-span-2">
+                  <div class="col-span-2">
+                    <div class="flex flex-col gap-1">
+                      <label for="name">Clear Balance</label>
+                      <input
+                        pInputText
+                        id="clear_balance"
+                        formControlName="clear_balance"
+                        aria-describedby="name-help"
+                        type="text"
+                        class="input"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-span-2" >
+                  <div class="flex flex-col gap-1">
+                    <label for="name">Txn. Mode</label>
+                    <p-select
+                      id="mode"
+                      [options]="txnModeOptions"
+                      formControlName="mode"
+                      optionValue="value"
+                      optionLabel="label"
+                      placeholder="Select"
+                      class="input"
+                      (onChange)="onChange_Mode()"
+                    />
+                  </div>
+                </div>
+                
+                   
+                <div class="col-span-3">
+                  <div class="flex flex-col gap-1" [ngClass]="{'disabled-div': !form.get('bank')?.enabled}">
+                    <label for="name">Select Bank </label>
+                    <p-select
+                    id="bank"
+                    [options]="banks"
+                    formControlName="bank"
+                    optionValue="id"
+                    optionLabel="name"
+                    placeholder="Select"
+                    class="input"
+                  />
+                    
+                  </div>
+                </div>
+                
+                <div class="col-span-5"  >
+                  <div class="flex flex-col gap-1" [ngClass]="{'disabled-div': !form.get('description')?.enabled}">
+                    <label for="name">Other information </label>
                     <input
                       pInputText
-                      id="name"
+                      id="description"
+                      formControlName="description"
                       aria-describedby="name-help"
                       type="text"
                       class="input"
                     />
                   </div>
                 </div>
-          
+
+
                 <div class="col-span-2">
                   <div class="flex flex-col gap-1">
                     <label for="name">Amount</label>
-                    <textarea rows="5" pTextarea></textarea>
-                  </div>
-                </div>
-
-                <div class="col-span-2">
-                  <div class="flex flex-col gap-1">
-                    <label for="name">Inst.Type</label>
                     <input
                       pInputText
-                      id="name"
+                      id="amount"
+                      formControlName="amount"
                       aria-describedby="name-help"
                       type="text"
-                      class="input"
-                    />
-                  </div>
-                </div>
-                <div class="col-span-2">
-                  <div class="flex flex-col gap-1">
-                    <label for="name">Inst.No</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      type="text"
-                      class="input"
-                    />
-                  </div>
-                </div>
-                <div class="col-span-5">
-                  <div class="flex flex-col gap-1">
-                    <label for="name">Inst.Description</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      type="text"
+                      pKeyFilter="money"
                       class="input"
                     />
                   </div>
                 </div>
 
-                <div class="col-span-3">
-                  <div class="flex flex-col gap-1">
-                    <label for="name">Sent to Authorised</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      type="text"
-                      class="input"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-span-2">
-                  <div class="flex flex-col gap-1">
-                    <label for="name">Current Balance</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      type="text"
-                      class="input"
-                    />
-                  </div>
-                </div>
                 <div class="col-span-10">
                   <div class="flex flex-col gap-1">
                     <label for="name">Narration (if any)</label>
                     <input
                       pInputText
-                      id="name"
+                      id="narration"
+                      formControlName="narration"
                       aria-describedby="name-help"
+                      
                       type="text"
                       class="input"
                     />
                   </div>
                 </div>
-          
-                
-          
-               
               </div>
-          
-             
-
             </form>
           </ng-container>
         </p-panel>
@@ -165,25 +179,17 @@
         <p-panel [toggleable]="true">
           <ng-template #header>
             <div class="flex items-center gap-2">
-              <div class="font-bold ">My Transactions</div>
-              <div class="text-xs text-muted-foreground">Last 10 transactions</div>
+              <div class="font-bold">My Transactions</div>
+              <div class="text-xs text-muted-foreground">
+                Last 10 transactions
               </div>
+            </div>
           </ng-template>
-          
-          
+
           <ng-template #icons>
-            <p-button
-              icon="pi pi-cog"
-              severity="secondary"
-              rounded
-              text
-             
-            />
-            
+            <p-button icon="pi pi-cog" severity="secondary" rounded text />
           </ng-template>
-          <ng-container>
-            asdas
-          </ng-container>
+          <ng-container> asdas </ng-container>
         </p-panel>
       </div>
     </div>

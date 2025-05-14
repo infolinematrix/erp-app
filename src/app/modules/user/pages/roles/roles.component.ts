@@ -18,6 +18,7 @@ import { repo, Validators } from 'remult';
 import { Roles } from 'src/shared/User.entity';
 import { UserService } from '../../user.service';
 import { Form, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-roles',
@@ -26,14 +27,15 @@ import { Form, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/form
   imports:[
     InputGroupModule,
         InputGroupAddonModule,
-        CardModule,
+        CardModule,CheckboxModule,
         Dialog,
         ToolbarModule,
         ButtonModule,
         InputTextModule,
         SplitButtonModule, IconFieldModule, InputIconModule,TableModule,
         TextareaModule,
-        AngularSvgIconModule, RouterLink,  ReactiveFormsModule
+        AngularSvgIconModule, RouterLink,  ReactiveFormsModule,
+        
   ]
 })
 export class RolesComponent implements OnInit {
@@ -42,38 +44,70 @@ export class RolesComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private userService:UserService,
     private router:Router,
-  ) { }
-
-  roles:Roles[]=[];
-  roleRepo = repo(Roles);
-  showModal: boolean = false;
-
-  form!: FormGroup;
-
-
-
-
-  ngOnInit() {
-    this.loadData();
+  ) { 
     this.form = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      description: ['', []],
+    });
+    this.formUpdate = this.formBuilder.group({
       name: ['', [Validators.required]],
       description: ['', []],
     });
   }
 
+  roles:Roles[]=[];
+  roleRepo = repo(Roles);
+  showModal: boolean = false;
+  showUpdateModal: boolean = false;
+  selectedRole: Roles = <Roles>{};
+
+  form!: FormGroup;
+  formUpdate!: FormGroup;
+
+
+
+
+  async ngOnInit() {
+    await this.loadData();
+   
+  }
+
+  onClick_Edit(role:Roles){
+    this.showUpdateModal = true;
+    this.selectedRole = role;
+    console.log(this.selectedRole);
+    
+    this.formUpdate.patchValue({
+      name: this.selectedRole.name,
+      description: this.selectedRole.description
+    });
+
+
+  }
+
+  onClick_RolePermission(roleId:number){
+    console.log(roleId);
+    this.router.navigate(['user/role-permissions', roleId])
+  }
+
+    async update(){
+      try {
+        await repo(Roles).update(this.selectedRole.id, {
+          name: this.formUpdate.controls['name'].value,
+          description: this.formUpdate.controls['description'].value,
+        })
+        this.loadData();
+        toast.success("Successfully updated!");
+        this.formUpdate.reset();
+        this.showUpdateModal = false;
+      } catch (error:any) {
+        toast.error(error.message);
+      }
+    }
+
   async loadData(){
     try {
-      
-      this.userService.getRoles().then(
-        (roles) => {
-          this.roles = roles!;
-          console.log('Fetched roles:', this.roles);
-        },
-        (error) => {
-          console.error('Error fetching roles in component:', error);
-        }
-      );
-
+      this.roles = await this.userService.getRoles();
     } catch (error: any) {
       console.log(error);
       toast.error(error.message)
@@ -86,7 +120,7 @@ export class RolesComponent implements OnInit {
       await this.userService.createRole(this.form.value.name, this.form.value.description).then(
         (resp) => {
           toast.success('Success');
-          console.log('Fetched roles:', resp);
+          // console.log('Fetched roles:', resp);
 
         },
         (error) => {
@@ -99,7 +133,7 @@ export class RolesComponent implements OnInit {
       // this.loadData();
       
     } catch (error: any) {
-      console.log(error);
+      // console.log(error);
       toast.error(error.message)
     }
 

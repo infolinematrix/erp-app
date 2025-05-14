@@ -67,15 +67,9 @@
           [tableStyle]="{ 'min-width': '50rem' }"
           [paginator]="true"
           [rows]="25"
-          [rowsPerPageOptions]="[25, 50, 100]"
-        >
-          <!-- <ng-template #caption styleClass="">
-          <div class="flex items-center justify-between">
-            <span class="text-md text-foreground font-bold"
-              >List of Roles</span
-            >
-          </div>
-        </ng-template> -->
+          [rowsPerPageOptions]="[25, 50, 100]">
+        
+          
           <ng-template #header>
             <tr>
               <th class="font-semibold w-2/24" pSortableColumn="id">
@@ -109,6 +103,7 @@
                   size="small"
                   styleClass="btn-secondary"
                   icon="pi pi-cog"
+                  (onClick)="showUpdate(account.id)"
                 ></p-button>
               </td>
             </tr>
@@ -125,6 +120,8 @@
   [visible]="showCreateModal"
   [showHeader]="false"
   styleClass="text-sm"
+  [contentStyle]="{ overflow: 'visible' }" 
+  [baseZIndex]="10000"
 >
   <form [formGroup]="form">
     <div class="flex justify-between py-4">
@@ -135,13 +132,16 @@
       <div class="col-span-6">
         <div class="flex flex-col gap-1">
           <label for="name">Subsystem</label>
-          <input
-            pInputText
-            id="name"
-            aria-describedby="name-help"
-            type="text"
-            class="input"
-          />
+          <p-select 
+          [options]="ledgers" 
+          formControlName="subsystem" 
+          optionValue="subsystem" 
+          optionLabel="name" 
+          [filter]="true" 
+          filterBy="name" 
+          placeholder="Select" 
+          class="input" 
+          (onChange)="onChange_Subsytem()"/>
         </div>
       </div>
       <div class="col-span-6">
@@ -150,9 +150,9 @@
           <input
             pInputText
             id="name"
-            aria-describedby="name-help"
             type="text"
             class="input"
+            formControlName="name"
           />
         </div>
       </div>
@@ -160,26 +160,26 @@
       <div class="col-span-12">
         <div class="flex flex-col gap-1">
           <label for="name">Description</label>
-          <textarea rows="5" pTextarea></textarea>
+            <textarea rows="5" pTextarea formControlName="description"></textarea>
         </div>
       </div>
 
       <div class="col-span-3">
         <div class="flex items-center">
-          <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
-          <label for="ingredient1" class="ml-2"> Allow Debit </label>
+          <p-checkbox name="allow" formControlName="allow_receive" value="true" [binary]="true" inputId="HC" />
+          <label for="HC" class="ml-2">Cash Receive</label>
         </div>
       </div>
       <div class="col-span-3">
         <div class="flex items-center">
-          <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
-          <label for="ingredient1" class="ml-2"> Allow Credit </label>
+          <p-checkbox name="allow" formControlName="allow_payment" value="true" [binary]="true" inputId="HD" />
+          <label for="HD" class="ml-2">Cash Receive</label>
         </div>
       </div>
       <div class="col-span-6">
         <div class="flex items-center">
-          <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
-          <label for="ingredient1" class="ml-2"> Allow Transfer </label>
+          <p-checkbox name="allow" formControlName="allow_transfer" value="true" [binary]="true" inputId="TR" />
+          <label for="TR" class="ml-2">Transfer Entry</label>
         </div>
       </div>
 
@@ -192,31 +192,28 @@
             aria-describedby="name-help"
             type="text"
             class="input"
+            pKeyFilter="money"
+            fomControlName="opening_balance"
           />
         </div>
       </div>
       <div class="col-span-3">
         <div class="flex flex-col gap-1">
-          <label for="name">Account Status</label>
-          <input
-            pInputText
-            id="name"
-            aria-describedby="name-help"
-            type="text"
-            class="input"
-          />
+          <label for="name">Is Active?</label>
+          <p-select [options]="isActiveOptions" 
+          id="is_active" 
+          formControlName="is_active" 
+          label="name" 
+          value="value" 
+          placeholder="Select" class="input" />
+
         </div>
       </div>
       <div class="col-span-6">
         <div class="flex flex-col gap-1">
           <label for="name">Balancesheet Head</label>
-          <input
-            pInputText
-            id="name"
-            aria-describedby="name-help"
-            type="text"
-            class="input"
-          />
+          <p-select [options]="bsGroups" formControlName="bs_group" optionValue="id" optionLabel="group_name" [filter]="true" filterBy="group_name" placeholder="Select" class="input" />
+
         </div>
       </div>
     </div>
@@ -239,3 +236,122 @@
 </p-dialog>
 
 <!-- Show edit modal window -->
+<p-dialog
+  [style]="{ width: '50rem' }"
+  [visible]="showUpdateModal"
+  [showHeader]="false"
+  styleClass="text-sm"
+  [contentStyle]="{ overflow: 'visible' }" 
+  [baseZIndex]="10000"
+>
+  <form [formGroup]="formUpdate">
+    <div class="flex justify-between py-4">
+      <div class="text-lg font-semibold">Update Account</div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-4">
+      <div class="col-span-6">
+        <div class="flex flex-col gap-1">
+          <label for="name">Subsystem</label>
+          <p-select 
+          [options]="ledgers" 
+          formControlName="subsystem" 
+          optionValue="subsystem" 
+          optionLabel="name" 
+          [filter]="true" 
+          filterBy="name" 
+          placeholder="Select" 
+          class="input" 
+          (onChange)="onChange_Subsytem()"/>
+        </div>
+      </div>
+      <div class="col-span-6">
+        <div class="flex flex-col gap-1">
+          <label for="name">Account Name</label>
+          <input
+            pInputText
+            id="name"
+            type="text"
+            class="input"
+            formControlName="name"
+          />
+        </div>
+      </div>
+
+      <div class="col-span-12">
+        <div class="flex flex-col gap-1">
+          <label for="name">Description</label>
+            <textarea rows="5" pTextarea formControlName="description"></textarea>
+        </div>
+      </div>
+
+      <div class="col-span-3">
+        <div class="flex items-center">
+          <p-checkbox name="allow" formControlName="allow_receive" value="true" [binary]="true" inputId="HC" />
+          <label for="HC" class="ml-2">Cash Receive</label>
+        </div>
+      </div>
+      <div class="col-span-3">
+        <div class="flex items-center">
+          <p-checkbox name="allow" formControlName="allow_payment" value="true" [binary]="true" inputId="HD" />
+          <label for="HD" class="ml-2">Cash Payment</label>
+        </div>
+      </div>
+      <div class="col-span-6">
+        <div class="flex items-center">
+          <p-checkbox name="allow" formControlName="allow_transfer" value="true" [binary]="true" inputId="TR" />
+          <label for="TR" class="ml-2">Transfer Entry</label>
+        </div>
+      </div>
+
+      <div class="col-span-3">
+        <div class="flex flex-col gap-1">
+          <label for="name">Opening Balance</label>
+          <input
+            pInputText
+            id="name"
+            aria-describedby="name-help"
+            type="text"
+            class="input"
+            pKeyFilter="money"
+            fomControlName="opening_balance"
+          />
+        </div>
+      </div>
+      <div class="col-span-3">
+        <div class="flex flex-col gap-1">
+          <label for="name">Is Active?</label>
+          <p-select [options]="isActiveOptions" 
+          id="is_active" 
+          formControlName="is_active" 
+          label="name" 
+          value="value" 
+          placeholder="Select" class="input" />
+
+        </div>
+      </div>
+      <div class="col-span-6">
+        <div class="flex flex-col gap-1">
+          <label for="name">Balancesheet Head</label>
+          <p-select [options]="bsGroups" formControlName="bs_group" optionValue="id" optionLabel="group_name" [filter]="true" filterBy="group_name" placeholder="Select" class="input" />
+
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center gap-2 mt-6">
+      <div class="flex items-center">
+        <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
+        <label for="ingredient1" class="ml-2"> I checked all the informations are correct </label>
+      </div>
+      <div class="flex items-center gap-2">
+        <p-button
+          label="Cancel"
+          styleClass="btn-secondary"
+          (click)="showUpdateModal = false"
+        />
+        <p-button label="Save" styleClass="btn-primary" (onClick)="updateAcount()"/>
+      </div>
+    </div>
+  </form>
+</p-dialog>
