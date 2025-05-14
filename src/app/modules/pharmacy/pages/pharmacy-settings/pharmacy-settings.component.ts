@@ -1,4 +1,4 @@
-import { NgClass, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -28,12 +28,10 @@ import { SidebarComponent } from 'src/app/modules/accounts/sidebar/sidebar.compo
 @Component({
   selector: 'app-pharmacy-settings',
   imports: [
-    NgClass,
     // SidebarComponent,
     // RouterLink,
     // DatePipe,
     InputGroupModule,
-
     PanelModule,
     TreeModule,
     InputGroupAddonModule,
@@ -55,8 +53,8 @@ import { SidebarComponent } from 'src/app/modules/accounts/sidebar/sidebar.compo
     KeyFilterModule,
     MessageModule,
     ReactiveFormsModule,
-    ConfirmPopupModule,
-  ],
+    ConfirmPopupModule
+],
   templateUrl: './pharmacy-settings.component.html',
   styleUrl: './pharmacy-settings.component.css'
 })

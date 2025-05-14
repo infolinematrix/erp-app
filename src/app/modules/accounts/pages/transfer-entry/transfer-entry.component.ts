@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -28,7 +28,6 @@ import { SidebarComponent } from '../../sidebar/sidebar.component';
   styleUrls: ['./transfer-entry.component.css'],
   imports: [
     SidebarComponent,
-    RouterLink,
     // DatePipe, 
     TabsModule,
     InputGroupModule,
@@ -48,8 +47,8 @@ import { SidebarComponent } from '../../sidebar/sidebar.component';
     TableModule,
     TextareaModule,
     AngularSvgIconModule,
-    ReactiveFormsModule,
-  ],
+    ReactiveFormsModule
+],
 })
 export class TransferEntryComponent implements OnInit {
 

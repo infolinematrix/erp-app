@@ -33,7 +33,8 @@
                   <th class="font-semibold w-2/24">
                     id
                   </th>
-                  <th class="font-semibold w-2/24" pSortableColumn="scroll_type">
+                  
+                  <th class="font-semibold w-4/24" pSortableColumn="scroll_type">
                     Name <p-sortIcon field="name" />
                   </th>
                   <th class="font-semibold w-3/24" pSortableColumn="account">
@@ -41,59 +42,49 @@
                   </th>
                   
                   <th class="font-semibold w-2/24" pSortableColumn="mode">
-                    Mode <p-sortIcon field="name" />
+                    Designation <p-sortIcon field="name" />
                   </th>
 
                   <th class="font-semibold w-2/24" pSortableColumn="mode">
-                    Description <p-sortIcon field="name" />
+                    Joining Date <p-sortIcon field="name" />
                   </th>
 
                   <th class="font-semibold w-2/24">
-                    Debit/Credit
+                    Contact Number
+                  </th>
+                   <th class="font-semibold w-2/24">
+                    Status
                   </th>
 
-                  <th class="font-semibold w-2/24 text-right">
-                    Amount 
-                  </th>
+                  
 
                   <th class="font-semibold w-1/24 text-right">Action</th>
                 </tr>
               </ng-template>
-              <ng-template #body let-user>
+              <ng-template #body let-employee let-rowIndex="rowIndex">
                 <tr>
-                  <td class="py-2 font-semibold">{{user.id}}</td>
-                  <td class="py-2">tyrty</td>
-                  <td class="py-2">ss</td>
-                  <td class="py-2">ss</td>
-                  <td class="py-2">s</td>
-                  <td class="py-2">ff</td>
-
+                  <td class="py-2 font-semibold">{{employee.id}}</td>
+                  <td class="py-2">{{employee.name}}</td>
+                  <td class="py-2">{{employee.department}}</td>
+                  <td class="py-2">{{employee.designation}}</td>
+                  <td class="py-2">{{employee.joining_date | date:'dd-MM-yyyy'}}</td>
+                  <td class="py-2">{{employee.contact_no}}</td>
+                  <td class="py-2">{{employee.isActive}}</td>
                   <td class="py-2 text-right">
                     <p-button
                       id="dd"
                       size="small"
                       styleClass="btn-secondary"
                       icon="pi pi-cog"
-                      (onClick)="viewEmployee(user)"
+                      (onClick)="viewEmployee(employee)"
                     ></p-button>
                   </td>
-
                 </tr>
               </ng-template>
               </p-table>  
           </ng-container>
 
-          <ng-template #footer>
-            <div class="flex justify-between items-center gap-2 mt-6">
-              <div class="flex items-center">
-                <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
-                <label for="ingredient1" class="ml-2">
-                  I checked all the informations are correct
-                </label>
-              </div>
-              
-            </div>
-          </ng-template>
+          
         </p-panel>
       </div>
     </div>

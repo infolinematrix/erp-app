@@ -98,14 +98,14 @@
               </div>
             </p-fieldset>
 
-            <p-fieldset legend="Communication Information">
+            <p-fieldset legend="Other Information">
               <div class="grid grid-cols-24 gap-4">
                 <div class="col-span-3">
                   <div class="flex flex-col gap-1">
-                    <label for="phone">Phone Number </label>
+                    <label for="contact_no">Contact Number </label>
                     <input
                       pInputText
-                      formControlName="phone" id="phone"
+                      formControlName="contact_no" id="contact_no"
                       class="input"
                       aria-describedby="name-help"
                     />
@@ -122,12 +122,34 @@
                     />
                   </div>
                 </div>
-                <div class="col-span-4">
+                <div class="col-span-3">
                   <div class="flex flex-col gap-1">
                     <label for="city">City </label>
                     <input
                       pInputText
                       formControlName="city" id="city"
+                      class="input"
+                      aria-describedby="name-help"
+                    />
+                  </div>
+                </div>
+                <div class="col-span-3">
+                  <div class="flex flex-col gap-1">
+                    <label for="state">State </label>
+                    <input
+                      pInputText
+                      formControlName="state" id="state"
+                      class="input"
+                      aria-describedby="name-help"
+                    />
+                  </div>
+                </div>
+                <div class="col-span-3">
+                  <div class="flex flex-col gap-1">
+                    <label for="country">Country </label>
+                    <input
+                      pInputText
+                      formControlName="country" id="country"
                       class="input"
                       aria-describedby="name-help"
                     />
@@ -155,6 +177,33 @@
                     />
                   </div>
                 </div>
+                <div class="col-span-3">
+                  <div class="flex flex-col gap-1">
+                    <label for="joining_date">Joining Date </label>
+                    <p-datepicker formControlName="joining_date" dateFormat="dd-mm-yy" id="dob"/>
+                  </div>
+                </div>
+                <div class="col-span-3">
+                  <div class="flex flex-col gap-1">
+                    <label for="leaving_date">Leaving Date </label>
+                    <p-datepicker formControlName="leaving_date" dateFormat="dd-mm-yy" id="dob"/>
+                  </div>
+                </div>
+
+                <div class="col-span-4">
+                  <div class="flex flex-col gap-1">
+                    <label for="department">Department </label>
+                    <app-pickup-select [pickupCode]="17" formControlName="department" id="department" />
+                  </div>
+                </div>
+                <div class="col-span-4">
+                  <div class="flex flex-col gap-1">
+                    <label for="designation">Designation </label>
+                    <app-pickup-select [pickupCode]="17" formControlName="designation" id="designation" />
+                  </div>
+                </div>
+
+
               </div>
             </p-fieldset>
           </ng-container>

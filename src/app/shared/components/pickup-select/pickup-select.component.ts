@@ -1,6 +1,21 @@
 import { NgClass } from '@angular/common';
-import { Component, forwardRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ControlValueAccessor, Form, FormBuilder, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  Form,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { toast } from 'ngx-sonner';
 import { SelectModule } from 'primeng/select';
 import { PickupService } from 'src/app/core/services/pickup.service';
@@ -8,22 +23,20 @@ import { Pickups } from 'src/shared';
 
 @Component({
   selector: 'app-pickup-select',
-  imports:[
-    SelectModule,
-    ReactiveFormsModule,
-    FormsModule,
-  ],
+  imports: [SelectModule, ReactiveFormsModule, FormsModule],
   templateUrl: './pickup-select.component.html',
   styleUrls: ['./pickup-select.component.css'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => PickupSelectComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class PickupSelectComponent implements ControlValueAccessor, OnInit, OnChanges {
+export class PickupSelectComponent
+  implements ControlValueAccessor, OnInit, OnChanges
+{
   @Input() pickupCode = 0;
   items: any[] = [];
   selectedId: number | null = null;
@@ -51,7 +64,6 @@ export class PickupSelectComponent implements ControlValueAccessor, OnInit, OnCh
       this.selectedId = value;
     }
   }
-  
 
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -63,12 +75,14 @@ export class PickupSelectComponent implements ControlValueAccessor, OnInit, OnCh
 
   async loadItems() {
     try {
-      this.items = await this.pickupService.getItemsByPickupCode(this.pickupCode);
-  
+      this.items = await this.pickupService.getItemsByPickupCode(
+        this.pickupCode
+      );
+
       const idToSelect = this.pendingId ?? this.selectedId;
-      const match = this.items.find(i => i.id === idToSelect);
+      const match = this.items.find((i) => i.id === idToSelect);
       this.selectedId = match?.id ?? null;
-  
+
       this.pendingId = null;
     } catch (err) {
       this.items = [];
@@ -77,11 +91,6 @@ export class PickupSelectComponent implements ControlValueAccessor, OnInit, OnCh
   }
 
   onSelectChange(value: any) {
-    this.selectedId = value;
-    this.onChange(value.id); // emit only ID
+    this.onChange(value);
   }
-
-  
 }
-
-

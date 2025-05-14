@@ -23,7 +23,7 @@ import { TableModule } from 'primeng/table';
 import { TextareaModule } from 'primeng/textarea';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DatePickerModule } from 'primeng/datepicker';
-import { DatePipe } from '@angular/common';
+
 import { CheckboxModule } from 'primeng/checkbox';
 import { SelectItem } from 'primeng/api';
 import { isActive } from 'src/app/core/constants/enums';
@@ -37,7 +37,6 @@ import { BalancesheetGroup, GeneralLedger } from 'src/shared';
   styleUrls: ['./general-ledger.component.css'],
   imports: [
     RouterLink,
-    DatePipe,
     InputGroupModule,
     InputGroupAddonModule,
     DatePickerModule,
@@ -55,8 +54,8 @@ import { BalancesheetGroup, GeneralLedger } from 'src/shared';
     TextareaModule,
     AngularSvgIconModule,
     RouterLink,
-    ReactiveFormsModule,
-  ],
+    ReactiveFormsModule
+],
 })
 export class GeneralLedgerComponent implements OnInit {
   constructor(

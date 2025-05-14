@@ -1,4 +1,5 @@
 import { Entity, Fields, Relations, remult, repo, Validators } from "remult";
+import { Employee } from "./Employee.entity";
 
 
 @Entity("users", {
@@ -37,6 +38,9 @@ export class User {
 
   @Relations.toMany(()=> UserRole, 'user_id')
   userRoles?: UserRole[];
+
+   @Relations.toOne(()=> Employee, { field: 'id', allowNull: false })
+  employee?: Employee[];
 
 
 
@@ -98,6 +102,7 @@ export class User {
   // allowApiInsert: Roles.admin, 
 })
 export class Roles {
+ 
   @Fields.autoIncrement()
   id = 0;
 
@@ -122,6 +127,10 @@ export class Roles {
 
   @Relations.toMany(()=> RolePermission, 'role_id')
   permissions!: RolePermission[];
+
+  
+  @Relations.toOne(() => Employee, { field: 'user_id' }) // Assuming user_id is FK in User
+  employee?: Employee;
 
   @Fields.string()
   created_at = new Date();
@@ -176,15 +185,7 @@ export class UserRole {
 
   @Relations.toOne(() => Roles)
   role?: Roles
-
-  // @Relations.toOne(() => User)
-  // user!: User['id'];
-
-  // @Relations.toOne(() => Roles)
-  // role!: Roles['id'];
   
 }
-
-
 
 

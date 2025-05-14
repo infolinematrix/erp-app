@@ -1,4 +1,4 @@
-import { CommonModule, DatePipe, NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -6,13 +6,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DatePickerModule } from 'primeng/datepicker';
-import { Dialog } from 'primeng/dialog';
+
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -44,17 +44,13 @@ import { toast } from 'ngx-sonner';
   imports: [
     NgClass,
     SidebarComponent,
-    RouterLink,
-    DatePipe,
     InputGroupModule,
-
     PanelModule,
     TreeModule,
     InputGroupAddonModule,
     DatePickerModule,
     CheckboxModule,
     CardModule,
-    Dialog,
     ToolbarModule,
     ButtonModule,
     InputTextModule,
@@ -69,8 +65,8 @@ import { toast } from 'ngx-sonner';
     KeyFilterModule,
     MessageModule,
     ReactiveFormsModule,
-    ConfirmPopupModule,
-  ],
+    ConfirmPopupModule
+],
 })
 export class CashPaymentEntryComponent implements OnInit {
 

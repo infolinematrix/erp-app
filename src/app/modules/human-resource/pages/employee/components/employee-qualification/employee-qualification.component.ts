@@ -1,7 +1,7 @@
-import { DatePipe, NgClass } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink, RouterOutlet } from '@angular/router';
+
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -25,7 +25,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TreeModule } from 'primeng/tree';
 import { PickupService } from 'src/app/core/services/pickup.service';
-import { SidebarComponent } from 'src/app/modules/accounts/sidebar/sidebar.component';
+
 import { PickupSelectComponent } from 'src/app/shared/components/pickup-select/pickup-select.component';
 import { EmployeeAdvanceComponent } from '../employee-advance/employee-advance.component';
 import { EmployeeBankComponent } from '../employee-bank/employee-bank.component';
@@ -36,10 +36,6 @@ import { EmployeeSalaryComponent } from '../employee-salary/employee-salary.comp
 @Component({
   selector: 'app-employee-qualification',
   imports: [
-    NgClass,
-    SidebarComponent,
-    RouterLink,
-    DatePipe,
     DatePickerModule,
     InputGroupModule,
     MenubarModule,
@@ -51,7 +47,6 @@ import { EmployeeSalaryComponent } from '../employee-salary/employee-salary.comp
     CardModule,
     // Dialog,
     FieldsetModule,
-    RouterOutlet,
     ToolbarModule,
     ButtonModule,
     InputTextModule,
@@ -68,9 +63,8 @@ import { EmployeeSalaryComponent } from '../employee-salary/employee-salary.comp
     ReactiveFormsModule,
     ConfirmPopupModule,
     //--
-    PickupSelectComponent,
-    
-  ],
+    PickupSelectComponent
+],
   templateUrl: './employee-qualification.component.html',
   styleUrls: ['./employee-qualification.component.css']
 })

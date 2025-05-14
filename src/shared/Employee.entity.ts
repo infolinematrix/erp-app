@@ -1,6 +1,9 @@
 import { Entity, Fields, Relations, remult, repo, Validators } from 'remult';
+import { User } from './User.entity';
 
 @Entity('employee', {
+  allowApiCrud: true,
+
   // allowApiCrud: remult.authenticated, // Only authenticated users can perform CRUD operations
   // allowApiDelete: Roles.admin, // Only admin users can delete
   // allowApiInsert: Roles.admin, // Only admin users can create new entries
@@ -12,14 +15,12 @@ import { Entity, Fields, Relations, remult, repo, Validators } from 'remult';
     // };
   },
 })
-
 export class Employee {
   @Fields.autoIncrement()
   id = 0;
 
-  @Fields.integer()
-    user_id=0;
-  
+  @Fields.integer({ required: true })
+  title = 0;
 
   @Fields.string({ required: true })
   name = '';
@@ -27,14 +28,41 @@ export class Employee {
   @Fields.integer({ required: true })
   gender = 0;
 
-  @Fields.dateOnly({ required: true })
-  dob = null;
+  @Fields.string()
+  nationality = '';
+
+  @Fields.string()
+  religion = '';
+
+  @Fields.string()
+  employee_type = '';
+
+  @Fields.string()
+  department = '';
+
+  @Fields.string()
+  designation = '';
 
   @Fields.dateOnly()
   joining_date = null;
 
   @Fields.dateOnly()
   leaving_date = null;
+
+  @Fields.dateOnly({ required: true })
+  dob = null;
+
+  @Fields.integer()
+  marital_status = 0;
+
+  @Fields.string()
+  city = '';
+
+  @Fields.string()
+  state = '';
+
+  @Fields.string()
+  country = '';
 
   @Fields.string()
   contact_no = '';
@@ -45,19 +73,22 @@ export class Employee {
   @Fields.string()
   address = '';
 
-  @Fields.integer()
-  marital_status = 0;
-
   @Fields.string()
-  highest_qualification = '';
+  emmergency = '';
+
+  @Fields.integer()
+  user_id = 0;
+
+  @Relations.toOne(() => User, { field: 'user_id' })
+  user!: User;
+
+  @Fields.createdAt()
+  created_at = new Date();
+
+  @Fields.boolean()
+  isActive: boolean = true;
+
+
+  @Fields.updatedAt()
+  updated_at = null;
 }
-
-export class EmployeeDesignation {
-  @Fields.autoIncrement()
-  id = 0;
-
-  @Fields.string({ required: true })
-  name = '';
-}
-
-

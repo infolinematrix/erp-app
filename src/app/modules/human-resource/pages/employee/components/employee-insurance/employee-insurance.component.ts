@@ -1,7 +1,7 @@
-import { NgClass, DatePipe } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink, RouterOutlet } from '@angular/router';
+
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -24,7 +24,7 @@ import { TableModule } from 'primeng/table';
 import { TextareaModule } from 'primeng/textarea';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TreeModule } from 'primeng/tree';
-import { SidebarComponent } from 'src/app/modules/accounts/sidebar/sidebar.component';
+
 import { PickupSelectComponent } from 'src/app/shared/components/pickup-select/pickup-select.component';
 import { EmployeeAdvanceComponent } from '../employee-advance/employee-advance.component';
 import { EmployeeBankComponent } from '../employee-bank/employee-bank.component';
@@ -36,10 +36,6 @@ import { PickupService } from 'src/app/core/services/pickup.service';
 @Component({
   selector: 'app-employee-insurance',
   imports: [
-    NgClass,
-    SidebarComponent,
-    RouterLink,
-    DatePipe,
     DatePickerModule,
     InputGroupModule,
     MenubarModule,
@@ -51,7 +47,6 @@ import { PickupService } from 'src/app/core/services/pickup.service';
     CardModule,
     // Dialog,
     FieldsetModule,
-    RouterOutlet,
     ToolbarModule,
     ButtonModule,
     InputTextModule,
@@ -66,10 +61,8 @@ import { PickupService } from 'src/app/core/services/pickup.service';
     KeyFilterModule,
     MessageModule,
     ReactiveFormsModule,
-    ConfirmPopupModule,
-    //--
-    
-  ],
+    ConfirmPopupModule
+],
   templateUrl: './employee-insurance.component.html',
   styleUrls: ['./employee-insurance.component.css']
 })

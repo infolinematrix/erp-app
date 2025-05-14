@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "dev": "ng serve --proxy-config proxy.conf.json --open",
+    "cleanup-imports": "ng generate @angular/core:cleanup-unused-imports",
+    "lint": "ng lint",
     "dev-node": "tsx watch --env-file=.env --tsconfig tsconfig.server.json src/server",
     "build": "ng build && tsc -p tsconfig.server.json",
     "copy-env": "cp .env dist/server/.env",

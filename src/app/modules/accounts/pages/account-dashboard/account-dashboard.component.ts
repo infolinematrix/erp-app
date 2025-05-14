@@ -1,14 +1,14 @@
-import { DatePipe } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { RouterLink } from '@angular/router';
+
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DatePickerModule } from 'primeng/datepicker';
-import { Dialog } from 'primeng/dialog';
+
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -29,8 +29,6 @@ import { SidebarComponent } from '../../sidebar/sidebar.component';
   styleUrls: ['./account-dashboard.component.css'],
   imports: [
     SidebarComponent,
-    RouterLink,
-    DatePipe,
     InputGroupModule,
     PanelModule,
     TreeModule,
@@ -38,7 +36,6 @@ import { SidebarComponent } from '../../sidebar/sidebar.component';
     DatePickerModule,
     CheckboxModule,
     CardModule,
-    Dialog,
     ToolbarModule,
     ButtonModule,
     InputTextModule,
@@ -48,8 +45,8 @@ import { SidebarComponent } from '../../sidebar/sidebar.component';
     TableModule,
     TextareaModule,
     AngularSvgIconModule,
-    ReactiveFormsModule,
-  ],
+    ReactiveFormsModule
+],
 })
 export class AccountDashboardComponent implements OnInit {
   constructor() {}
