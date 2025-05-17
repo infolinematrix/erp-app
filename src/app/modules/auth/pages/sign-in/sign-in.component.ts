@@ -12,7 +12,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { toast } from 'ngx-sonner';
 import { remult } from 'remult';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../../../core/services/auth.service';
+import { SessionService } from '../../../../core/services/session.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -36,9 +37,9 @@ export class SignInComponent implements OnInit {
   constructor(
     private readonly _formBuilder: FormBuilder,
     private readonly _router: Router,
-    // private readonly _sessionService: SessionService,
-    // private readonly authService: AuthService,
-    // private readonly router: Router,
+    private readonly _sessionService: SessionService,
+    private readonly authService: AuthService,
+    private readonly router: Router,
   ) {}
 
   onClick() {
@@ -60,46 +61,29 @@ export class SignInComponent implements OnInit {
     this.passwordTextType = !this.passwordTextType;
   }
 
-  // onSubmit(): void {
-  //     if (this.loginForm.valid) {
-  //       this.authService.login(this.loginForm.value).subscribe({
-  //         next: (response) => {
-  //           this.authService.setToken(response.access_token);
-  //           this.authService.setCurrentUser({
-  //             username: this.loginForm.value.username
-  //           });
-  //           this.router.navigate(['/']);
-  //         },
-  //         error: (error) => {
-  //           this.errorMessage = 'Invalid credentials';
-  //           console.error('Login error:', error);
-  //         }
-  //       });
-  //     }
-  //   }
   async onSubmit() {
     this.submitted = true;
     const { email, password } = this.form.value;
-
-    console.log('--------------', email, password);
 
     if (this.form.invalid) {
       return;
     }
     try {
-      // this.authService.login({ username: email, password:password } ).subscribe({
-      //   next: (response) => {
-      //     this.authService.setToken(response.access_token);
-      //     this.authService.setCurrentUser({
-      //       username: email,
-      //     });
-      //     this.router.navigate(['/']);
-      //   },
-      //   error: (error:any) => {
-      //     // this.errorMessage = 'Invalid credentials';
-      //     toast.error('Login error:', error.message);
-      //   },
-      // });
+      debugger;
+      this.authService.login({ username: email, password:password } ).subscribe({
+        next: (response) => {
+          this.authService.setToken(response.access_token);
+          this.authService.setCurrentUser({
+            username: email,
+          });
+          
+          this.router.navigate(['/']);
+        },
+        error: (error:any) => {
+          // this.errorMessage = 'Invalid credentials';
+          toast.error('Login error:', error.message);
+        },
+      });
     } catch (error: any) {
       toast.error(error.message);
     }

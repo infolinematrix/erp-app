@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthInterceptor } from './auth.interceptor';
-import { HttpClient, HttpClientModule } from '@angular/common/http'; 
 
 import {
     HTTP_INTERCEPTORS,
@@ -15,16 +14,10 @@ import { AuthRoutingModule } from './auth-routing.module';
   imports: [
     AuthRoutingModule, AngularSvgIconModule.forRoot(),
     
-    
 ],
   providers: [
     
-    provideHttpClient(withInterceptorsFromDi()),
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: AuthInterceptor,
-    //   multi: true
-    // }
+    
   ],
 })
 export class AuthModule {}

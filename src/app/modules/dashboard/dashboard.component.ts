@@ -21,11 +21,11 @@ export class DashboardComponent implements OnInit {
     console.log(remult);
     
     withRemult (async ()=>{
-      console.log('-----Dash', remult);
-      // const sess = await this._sessionService.getSession();
+      console.log('-----USER REMULT', remult.user);
       const sess = await this._sessionService.getSession();
+      // const sess = await this._sessionService.getSession();
 
-        console.log('Dashboard User', sess!);
+        // console.log('Dashboard User', sess!);
     })
 
     // const u = AuthController.getCurrentUser();

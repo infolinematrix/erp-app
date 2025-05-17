@@ -7,6 +7,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MenubarModule } from 'primeng/menubar';
 import { CommonModule } from '@angular/common';
 import { SelectModule } from 'primeng/select';
+import { AuthService } from '../../../../core/services/auth.service';
+
 
 @Component({
     selector: 'app-navbar',
@@ -22,6 +24,7 @@ import { SelectModule } from 'primeng/select';
         CommonModule,
         SelectModule
     ],
+    providers:[AuthService]
 })
 export class NavbarComponent implements OnInit {
   constructor(private menuService: MenuService) {}

@@ -24,6 +24,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import { join } from 'path';
+import { existsSync } from 'fs';
 import { Request, Response } from 'express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
@@ -36,7 +37,6 @@ import { GlobalExceptionHandler } from './utils/exception-handler.js';
 import { GlobalResponseInterceptor } from './utils/global-response.interceptor.js';
 
 async function bootstrap() {
-  
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors({
@@ -57,6 +57,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
+  
 
   app.use(api); // Init remult
 

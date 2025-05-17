@@ -10,12 +10,20 @@ import Nora from "@primeng/themes/nora";
 import { SessionService } from './core/services/session.service';
 import { SettingsService } from './core/services/settings.service';
 import { JwtModule } from '@nestjs/jwt';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { AuthInterceptor } from './modules/auth/auth.interceptor';
+import { PickupService } from './core/services/pickup.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideAnimationsAsync(),
-    
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
     providePrimeNG({
       theme: {
         preset: Aura,
