@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { remult } from 'remult';
-import { Pickups } from 'src/shared/Pickup.entity';
+import { Pickups } from '../../../shared/Pickup.entity';
 
 @Injectable({
   providedIn: 'root'

@@ -24,14 +24,17 @@ import { TableModule } from 'primeng/table';
 import { TextareaModule } from 'primeng/textarea';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TreeModule } from 'primeng/tree';
-
-import { PageEvent } from 'src/app/core/types/PageEvent';
-import { remult } from 'remult';
-import { User } from 'src/shared';
-import { UserTypes } from 'src/app/core/constants/enums';
-import { Employee } from 'src/shared/Employee.entity';
-import { toast } from 'ngx-sonner';
 import { DatePipe } from '@angular/common';
+import { toast } from 'ngx-sonner';
+import { remult } from 'remult';
+
+import { UserTypes } from '../../../../core/constants/enums';
+import { PageEvent } from '../../../../core/types/PageEvent';
+import { PickupTitleComponent } from '../../../../shared/components/pickup-title/pickup-title.component';
+import { Employee } from '../../../../../shared/Employee.entity';
+import { User } from '../../../../../shared/User.entity';
+
+
 
 @Component({
   selector: 'app-employee',
@@ -61,6 +64,7 @@ import { DatePipe } from '@angular/common';
     MessageModule,
     ReactiveFormsModule,
     ConfirmPopupModule,
+    PickupTitleComponent
   ],
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css'],
@@ -84,23 +88,39 @@ export class EmployeeComponent implements OnInit {
   async loadData() {
     const data = await remult.repo(User).find({
       where: { user_type: UserTypes.Employee },
-      include: {
-        employee: true,
-        userRoles: true
-      },
       // take: this.currentRows,
       // skip: this.currentFirst
     });
 
-    const employees = await remult.repo(Employee).find({
-      include: {
-        user: true,
-      },
+    data!.forEach(async (user) => {
+      const employee = await remult.repo(Employee).findFirst(
+        { user_id: user.id },
+        {
+          include: {
+            user: true,
+          },
+        }
+      );
+
+      if (employee) {
+        this.employees.push(employee!);
+      } else {
+        this.employees.push(
+          employee ?? {
+            ...new Employee(),
+            name: user.name,
+            user_id: user.id,
+            user,
+            isActive: false,
+          }
+        );
+        
+      }
     });
 
-    this.users = data!;
-    this.employees = employees!;
-    console.log(data);
+    // this.users = data!;
+    // this.employees = employees!;
+    // console.log('-------------------',data);
   }
 
   onPageChange(event: PageEvent): void {
@@ -127,5 +147,15 @@ export class EmployeeComponent implements OnInit {
     }
   }
 
+  viewPayroll(user: User) {
+    if (user.user_type === UserTypes.Employee) {
+      this._router
+        .navigate(['/human-resource/employee/payroll/update', user.id])
+
+    } else {
+      toast.error('User is not an Employee!');
+      return;
+    }
+  }
 
 }

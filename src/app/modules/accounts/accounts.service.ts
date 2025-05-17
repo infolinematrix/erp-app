@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { remult, repo } from 'remult';
-import { GeneralAccount } from 'src/shared/GeneralAccount.entity';
-import { GeneralLedger } from 'src/shared/GeneralLedger.entity';
-import { TransactionMaster } from 'src/shared/TransactionMaster.entity';
-import { BalancesheetGroup } from 'src/shared/BalanceseetCode.entity';
-import { scrollType, txnMode } from 'src/app/core/constants/enums';
-import { ClosingBalance } from 'src/shared/index';
-import { ClearBalanceDto, UpdateClosingBalanceDto } from './constants';
+import { ClearBalanceDto, scrollType, txnMode, UpdateClosingBalanceDto } from './constants';
+
+import { TransactionMaster } from '../../../shared/TransactionMaster.entity';
+import { BalancesheetGroup } from '../../../shared/BalanceseetCode.entity';
+import { ClosingBalance } from '../../../shared/ClosingBalance.entity';
+import { GeneralAccount } from '../../../shared/GeneralAccount.entity';
+import { GeneralLedger } from '../../../shared/GeneralLedger.entity';
 
 @Injectable({
   providedIn: 'root',

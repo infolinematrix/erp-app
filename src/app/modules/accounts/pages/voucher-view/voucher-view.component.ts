@@ -26,10 +26,10 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TreeModule } from 'primeng/tree';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { AccountsService } from '../../accounts.service';
-import { scrollType, txnMode, voucherStatus } from 'src/app/core/constants/enums';
 import { SelectItem } from 'primeng/api';
 import { toast } from 'ngx-sonner';
-import { TransactionMaster } from 'src/shared/TransactionMaster.entity';
+import { TransactionMaster } from '../../../../../shared/TransactionMaster.entity';
+import { scrollType, txnMode, voucherStatus } from '../../constants';
 
 // Interface for the PrimeNG PageEvent
 interface PageEvent {

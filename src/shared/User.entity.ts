@@ -1,8 +1,9 @@
 import { Entity, Fields, Relations, remult, repo, Validators } from "remult";
+
 import { Employee } from "./Employee.entity";
 
-
 @Entity("users", {
+  allowApiCrud: true,
   // allowApiCrud: remult.authenticated, // Only authenticated users can perform CRUD operations
   // allowApiDelete: Roles.admin, // Only admin users can delete
   // allowApiInsert: Roles.admin, // Only admin users can create new entries
@@ -18,14 +19,25 @@ export class User {
   @Fields.autoIncrement()
   id = 0;
 
-  @Fields.string({ required: true }) // User's name, required field and must be unique
+  @Fields.string({ required: true }) 
   name = "";
 
-  @Fields.string({ required: true, validate: [Validators.unique] }) // User's name, required field and must be unique
+  @Fields.string({ required: true, validate: [Validators.unique] })
   username = "";
 
   @Fields.string({ includeInApi: false }) // Password field is not exposed in API responses
   password = "";
+
+  // Automatically hash password before insert
+  // async $beforeInsert() {
+  //   this.password = await bcrypt.hash(this.password, 10);
+  // }
+
+  // async $beforeUpdate() {
+  //   if (this.$isFieldChanged("password")) {
+  //     this.password = await bcrypt.hash(this.password, 10);
+  //   }
+  // }
 
   @Fields.string({ required: true })
   user_type= ''
@@ -40,7 +52,7 @@ export class User {
   userRoles?: UserRole[];
 
    @Relations.toOne(()=> Employee, { field: 'id', allowNull: false })
-  employee?: Employee[];
+    employee?: Employee[];
 
 
 
@@ -52,7 +64,7 @@ export class User {
   //   saving: async (user, fieldRef, e) => {
   //     if (e.isNew || fieldRef.valueChanged()) {
   //       // If the user is new or the password has changed
-  //       // user.password = bcrypt.hashSync(user.updatePassword); // Hash the new password using the injected hashing function
+  //       user.password = bcrypt.hashSync(user.password, 10); 
   //     }
   //   },
   // })

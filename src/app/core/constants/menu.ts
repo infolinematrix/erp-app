@@ -37,8 +37,11 @@ export class Menu {
           children: [
             { label: 'Dashboard', route: '/human-resource/dashboard' },
             { label: 'Employee Master', route: '/human-resource/employee' },
-            // { label: 'Billing', route: '/employee/billing' },
-            // { label: 'Settings', route: '/employee/settings' },
+            { label: 'Salaries', route: '/human-resource/employee/salary' },
+
+            //--last
+            { label: 'Settings', route: '/human-resource//settings' },
+            
           ],
         },
 

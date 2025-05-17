@@ -15,10 +15,11 @@ import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TextareaModule } from 'primeng/textarea';
 import { repo, Validators } from 'remult';
-import { Roles } from 'src/shared/User.entity';
+
 import { UserService } from '../../user.service';
 import { Form, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
+import { Roles } from '../../../../../shared/User.entity';
 
 @Component({
   selector: 'app-roles',

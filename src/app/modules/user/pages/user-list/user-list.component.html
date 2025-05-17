@@ -126,85 +126,95 @@
   [showHeader]="false"
   styleClass="text-sm"
 >
-  <div class="flex justify-between py-4">
-    <div class="text-lg font-semibold">Create User</div>
-  </div>
+  <!-- <ng-container>
+    <form [formGroup]="form">
+      <div class="flex justify-between py-4">
+        <div class="text-lg font-semibold">Create User</div>
+      </div>
 
-  <div class="grid grid-cols-12 gap-4">
-    <div class="col-span-6">
-      <div class="flex flex-col gap-1">
-        <label for="name">Name</label>
-        <input
-          pInputText
-          id="name"
-          aria-describedby="name-help"
-          type="text"
-          class="input"
-        />
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-6">
+          <div class="flex flex-col gap-1">
+            <label for="name">Name</label>
+            <input
+              pInputText
+              id="name"
+              aria-describedby="name-help"
+              type="text"
+              class="input"
+              formControlName="name"
+            />
+          </div>
+        </div>
+        <div class="col-span-6">
+          <div class="flex flex-col gap-1">
+            <label for="email">Email</label>
+            <input
+              pInputText
+              id="email"
+              aria-describedby="name-help"
+              type="email"
+              class="input"
+              formControlName="email"
+            />
+          </div>
+        </div>
+        <div class="col-span-6">
+          <div class="flex flex-col gap-1">
+            <label for="email">Password</label>
+            <input
+              pInputText
+              id="email"
+              aria-describedby="name-help"
+              type="password"
+              class="input"
+              formControlName="password"
+            />
+          </div>
+        </div>
+        <div class="col-span-6">
+          <div class="flex flex-col gap-1">
+            <label for="email">Confirm Password</label>
+            <input
+              pInputText
+              id="email"
+              aria-describedby="name-help"
+              type="password"
+              class="input"
+              formControlName="confirm_password"
+            />
+          </div>
+        </div>
+        <div class="col-span-6">
+          <div class="flex flex-col gap-1">
+            <label for="email">Type</label>
+            <input
+              pInputText
+              id="email"
+              aria-describedby="name-help"
+              type="password"
+              class="input"
+              formControlName="user_type"
+            />
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col-span-6">
-      <div class="flex flex-col gap-1">
-        <label for="email">Email</label>
-        <input
-          pInputText
-          id="email"
-          aria-describedby="name-help"
-          type="email"
-          class="input"
-        />
-      </div>
-    </div>
-    <div class="col-span-6">
-      <div class="flex flex-col gap-1">
-        <label for="email">Password</label>
-        <input
-          pInputText
-          id="email"
-          aria-describedby="name-help"
-          type="password"
-          class="input"
-        />
-      </div>
-    </div>
-    <div class="col-span-6">
-      <div class="flex flex-col gap-1">
-        <label for="email">Confirm Password</label>
-        <input
-          pInputText
-          id="email"
-          aria-describedby="name-help"
-          type="password"
-          class="input"
-        />
-      </div>
-    </div>
-    <div class="col-span-6">
-      <div class="flex flex-col gap-1">
-        <label for="email">Type</label>
-        <input
-          pInputText
-          id="email"
-          aria-describedby="name-help"
-          type="password"
-          class="input"
-        />
-      </div>
-    </div>
-  </div>
 
-  <div class="flex justify-end gap-2 mt-4">
-    <p-button
-      label="Cancel"
-      styleClass="btn-primary"
-      (click)="showModal = false"
-    />
-    <p-button
-      label="Save"
-      styleClass="btn-primary"
-      (click)="showModal = false"
-    />
-  </div>
+      <div class="flex justify-end gap-2 mt-4">
+        <p-button
+          label="Cancel"
+          styleClass="btn-secondary"
+          (click)="showModal = false"
+        />
+        <p-button
+          label="Save"
+          styleClass="btn-primary"
+          (click)="showModal = false"
+        />
+      </div>
+    </form>
+  </ng-container> -->
+
 </p-dialog>
 
 <!-- Show Edit modal window -->
@@ -213,7 +223,7 @@
   [visible]="showUpdateModal"
   [showHeader]="false"
   styleClass="text-sm"
-  [contentStyle]="{ overflow: 'visible' }" 
+  [contentStyle]="{ overflow: 'visible' }"
   [baseZIndex]="10000"
 >
   <div class="flex justify-between py-4">
@@ -222,9 +232,7 @@
 
   <div class="grid grid-cols-12 gap-4"></div>
   <div class="flex justify-between items-center gap-2 mt-6">
-    <div class="flex items-center">
-      Confirm Check Box
-    </div>
+    <div class="flex items-center">Confirm Check Box</div>
     <div class="flex items-center gap-2">
       <p-button
         label="Cancel"

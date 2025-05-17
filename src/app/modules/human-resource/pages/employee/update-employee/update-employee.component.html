@@ -6,7 +6,7 @@
           <ng-template #header>
             <div class="flex items-center gap-2">
               <div class="flex flex-col">
-                <div class="font-bold text-sm uppercase">Employee</div>
+                <div class="font-bold text-sm uppercase">Employee : {{form.value.name}}</div>
                 <div class="text-xs text-muted-foreground">
                   Update employees information.
                 </div>
@@ -65,6 +65,7 @@
                       pInputText
                       id="name"
                       class="input"
+                      formControlName="nationality"
                       aria-describedby="name-help"
                     />
                   </div>
@@ -72,7 +73,7 @@
                 <div class="col-span-3">
                   <div class="flex flex-col gap-1">
                     <label for="name">Date of Birth </label>
-                    <p-datepicker formControlName="dob" dateFormat="dd-mm-yy" id="dob"/>
+                    <p-datepicker formControlName="dob" dateFormat="dd-mm-yy" id="dob" formControlName="dob"/>
                   </div>
                 </div>
                 <div class="col-span-3">
@@ -193,13 +194,13 @@
                 <div class="col-span-4">
                   <div class="flex flex-col gap-1">
                     <label for="department">Department </label>
-                    <app-pickup-select [pickupCode]="17" formControlName="department" id="department" />
+                    <app-pickup-select [pickupCode]="43" formControlName="department" id="department" />
                   </div>
                 </div>
                 <div class="col-span-4">
                   <div class="flex flex-col gap-1">
                     <label for="designation">Designation </label>
-                    <app-pickup-select [pickupCode]="17" formControlName="designation" id="designation" />
+                    <app-pickup-select [pickupCode]="38" formControlName="designation" id="designation" />
                   </div>
                 </div>
 
@@ -222,6 +223,23 @@
         </p-panel>
       </form>
     </div>
+  </div>
+
+ 
+  <div class="card mt-2 ">
+    <p-panel styleClass="" [toggleable]="true" collapsed="true">
+      <ng-template #header>
+        <div class="flex items-center gap-2">
+          <div class="flex flex-col">
+            <div class="font-bold text-sm uppercase">Settings & Configuration</div>
+            <div class="text-xs text-muted-foreground">
+              Update employees information.
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-container> <app-employee-settings /> </ng-container>
+    </p-panel>
   </div>
 
   <div class="card mt-2 ">

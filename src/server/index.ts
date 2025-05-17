@@ -22,8 +22,9 @@
 import 'reflect-metadata'; // Important for NestJS
 import * as dotenv from 'dotenv';
 dotenv.config();
-console.log('DATABASE', process.env['MYSQL_HOST']);
 
+import { join } from 'path';
+import { Request, Response } from 'express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { api } from './api.js';
@@ -35,18 +36,8 @@ import { GlobalExceptionHandler } from './utils/exception-handler.js';
 import { GlobalResponseInterceptor } from './utils/global-response.interceptor.js';
 
 async function bootstrap() {
-  // const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  const app = await NestFactory.create(AppModule);
-  // app.use(
-  //   session({
-  //     secret: process.env['SESSION_SECRET'] || 'my secret',
-  //     resave: false,
-  //     saveUninitialized: false,
-  //   })
-  // );
-
-  app.use(api); // Init remult
   
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors({
     origin: '*',
@@ -66,6 +57,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
+
+  app.use(api); // Init remult
 
   /**
    * Global

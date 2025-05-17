@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { remult, withRemult } from 'remult';
-import { SessionService } from 'src/app/core/services/session.service';
-import { AuthController } from 'src/shared/controllers/AuthController';
+import { SessionService } from '../../core/services/session.service';
+
 
 @Component({
     selector: 'app-dashboard',

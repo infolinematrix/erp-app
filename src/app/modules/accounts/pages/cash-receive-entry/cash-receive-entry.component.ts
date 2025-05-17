@@ -29,13 +29,14 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { remult } from 'remult';
-import { GeneralLedger } from 'src/shared/GeneralLedger.entity';
 import { SelectModule } from 'primeng/select';
 import { SelectItem } from 'primeng/api';
-import { GeneralAccount } from 'src/shared';
 import { AccountsService } from '../../accounts.service';
-import { isActive, txnMode } from 'src/app/core/constants/enums';
 import { toast } from 'ngx-sonner';
+import { isActive } from '../../../../core/constants/enums';
+import { txnMode } from '../../constants';
+import { GeneralAccount } from '../../../../../shared/GeneralAccount.entity';
+import { GeneralLedger } from '../../../../../shared/GeneralLedger.entity';
 
 @Component({
   selector: 'app-cash-receive-entry',

@@ -1,9 +1,15 @@
 import { Entity, Fields, Relations, remult, repo, Validators } from 'remult';
 import { User } from './User.entity';
 
+
+
+
+
+
+
 @Entity('employee', {
   allowApiCrud: true,
-
+  
   // allowApiCrud: remult.authenticated, // Only authenticated users can perform CRUD operations
   // allowApiDelete: Roles.admin, // Only admin users can delete
   // allowApiInsert: Roles.admin, // Only admin users can create new entries
@@ -22,6 +28,9 @@ export class Employee {
   @Fields.integer({ required: true })
   title = 0;
 
+  @Fields.integer()
+  user_id = 0;
+
   @Fields.string({ required: true })
   name = '';
 
@@ -31,17 +40,17 @@ export class Employee {
   @Fields.string()
   nationality = '';
 
-  @Fields.string()
-  religion = '';
+  @Fields.integer()
+  religion = 0;
 
-  @Fields.string()
-  employee_type = '';
+  @Fields.integer()
+  employee_type = 0;
 
-  @Fields.string()
-  department = '';
+  @Fields.integer()
+  department = 0;
 
-  @Fields.string()
-  designation = '';
+  @Fields.integer()
+  designation = 0;
 
   @Fields.dateOnly()
   joining_date = null;
@@ -76,8 +85,7 @@ export class Employee {
   @Fields.string()
   emmergency = '';
 
-  @Fields.integer()
-  user_id = 0;
+
 
   @Relations.toOne(() => User, { field: 'user_id' })
   user!: User;

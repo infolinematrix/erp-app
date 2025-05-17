@@ -1,0 +1,186 @@
+<div class="page-container p-0">
+  <div class="gap-4">
+    <div class="card">
+      <p-panel styleClass="">
+        <ng-template #header>
+          <div class="flex items-center gap-2">
+            <div class="flex flex-col">
+              <div class="font-bold text-sm uppercase">Salary</div>
+              <div class="text-xs text-muted-foreground">
+                Salary Addition and Deduction head manangement.
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #icons>
+          <p-button
+            label="Create Saray Head"
+            icon="pi pi-plus"
+            styleClass="btn-primary"
+            (click)="showHeadCreateDialog()"
+          />
+        </ng-template>
+
+        <ng-container>
+          <p-tabs value="0">
+            <p-tablist>
+              <p-tab value="0">Additions</p-tab>
+              <p-tab value="1">Deductions</p-tab>
+            </p-tablist>
+            <p-tabpanels>
+              <p-tabpanel value="0">
+                <p class="m-0">
+                  <p-table [value]="addtion_heads" [tableStyle]="{ 'min-width': '50rem' }" >
+                    <ng-template #header>
+                      <tr>
+                        <th>id</th>
+                        <th>Name</th>
+                        <th>Calculation Type</th>
+                        <th>Base head</th>
+                        <th>Value</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template #body let-addtion let-rowIndex="rowIndex"> 
+                      <tr>
+                        <td class="py-2 font-semibold">{{ addtion.id }}</td>
+                        <td class="py-2">{{ addtion.name }}</td>
+                        <td class="py-2">{{ addtion.calculation_type }}</td>
+                        <td class="py-2">{{ addtion.calculation_base_head }}</td>
+                        <td class="py-2">{{ addtion.value }}</td>
+                        </tr>
+                    </ng-template>
+                  </p-table>
+                </p>
+              </p-tabpanel>
+              <p-tabpanel value="1">
+                <p class="m-0">
+                  <p-table [value]="deduction_heads" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header>
+                      <tr>
+                        <th>id</th>
+                        <th>Name</th>
+                        <th>Calculation Type</th>
+                        <th>Base head</th>
+                        <th>Value</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template #body let-deduction let-rowIndex="rowIndex"> 
+                      <tr>
+                        <td class="py-2 font-semibold">{{ deduction.id }}</td>
+                        <td class="py-2">{{ deduction.name }}</td>
+                        <td class="py-2">{{ deduction.calculation_type }}</td>
+                        <td class="py-2">{{ deduction.calculation_base_head }}</td>
+                        <td class="py-2">{{ deduction.value }}</td>
+                        </tr>
+                    </ng-template>
+                  </p-table>
+                </p>
+              </p-tabpanel>
+            </p-tabpanels>
+          </p-tabs>
+        </ng-container>
+      </p-panel>
+    </div>
+  </div>
+</div>
+
+<!-- DIALOG -->
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '55rem' }"
+  styleClass="text-sm"
+  [baseZIndex]="10000"
+>
+  <ng-template #header>
+    <div class="inline-flex items-center justify-center gap-2">
+      <span class="font-semibold whitespace-nowrap text-lg">Salary Head</span>
+    </div>
+  </ng-template>
+
+  <ng-container>
+    <form [formGroup]="formHead">
+      <div class="grid grid-cols-12 gap-2">
+        <div class="col-span-12">
+          <p-selectbutton
+            [options]="stateOptions"
+            optionLabel="label"
+            optionValue="value"
+            formControlName="type"
+            aria-labelledby="basic"
+          />
+        </div>
+        <div class="col-span-4">
+          <div class="flex flex-col gap-1">
+            <label for="name" class="">Head title</label>
+            <input
+              pInputText
+              id="name"
+              class="flex-auto input"
+              autocomplete="off"
+              formControlName="name"
+            />
+          </div>
+        </div>
+        <div class="col-span-2">
+          <div class="flex flex-col gap-1">
+            <label for="username" class="">Calculation Type</label>
+            <p-select 
+            formControlName="calculation_type" 
+            [options]="calculation_types" 
+            optionLabel="label" 
+            optionValue="value"
+            placeholder="Select" 
+           appendTo="body"
+            class="w-full input" />
+            
+           
+          </div>
+        </div>
+        <div class="col-span-4">
+          <div class="flex flex-col gap-1">
+            <label for="username" class="">Base head</label>
+            <p-select 
+            formControlName="calculation_base_head" 
+            [options]="addtion_heads" 
+            optionLabel="name" 
+            optionValue="id"
+            placeholder="Select" 
+           appendTo="body"
+            class="w-full input" />
+            
+           
+          </div>
+        </div>
+        <div class="col-span-2">
+          <div class="flex flex-col gap-1">
+            <label for="username" class="">Value</label>
+            <input
+              pInputText
+              id="username"
+              class="flex-auto input"
+              autocomplete="off"
+              formControlName="value"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+
+  <ng-template #footer>
+    <p-button
+      label="Cancel"
+      [text]="true"
+      severity="secondary"
+      (click)="visible = false"
+    />
+    <p-button
+      label="Save"
+      [outlined]="true"
+      severity="secondary"
+      (click)="createHead()"
+      styleClass="btn-primary"
+    />
+  </ng-template>
+</p-dialog>

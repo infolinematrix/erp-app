@@ -23,14 +23,14 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { AccountsService } from '../../accounts.service';
 import { DatePipe } from '@angular/common';
 import { CheckboxModule } from 'primeng/checkbox';
-import { isActive } from 'src/app/core/constants/enums';
 import { SelectItem } from 'primeng/api';
 import { SelectModule } from 'primeng/select';
-import { GeneralLedger } from 'src/shared/GeneralLedger.entity';
 import { remult } from 'remult';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { toast } from 'ngx-sonner';
-import { GeneralAccount } from 'src/shared';
+import { isActive } from '../../../../core/constants/enums';
+import { GeneralLedger } from '../../../../../shared/GeneralLedger.entity';
+import { GeneralAccount } from '../../../../../shared/GeneralAccount.entity';
 
 @Component({
   selector: 'app-general-account',

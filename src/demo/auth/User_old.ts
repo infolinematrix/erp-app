@@ -1,6 +1,6 @@
 import { Entity, Fields, remult, repo, Validators } from "remult";
 
-import type { ProviderType } from "../../server/auth_old.js";
+// import type { ProviderType } from "../../server/auth.js";
 import { Roles } from "./Roles_old.js";
 import bcrypt from "bcryptjs";
 
@@ -51,8 +51,8 @@ export class User {
   @Fields.createdAt() // Automatically tracks when the user was created
   createdAt = new Date();
 
-  @Fields.string({ includeInApi: Roles.admin }) // Only admins can see this
-  providerType: ProviderType = "credentials";
+  // @Fields.string({ includeInApi: Roles.admin }) // Only admins can see this
+  // providerType: ProviderType = "credentials";
 
   @Fields.string({ includeInApi: Roles.admin }) // Admins can see the OAuth provider (e.g., GitHub)
   provider = "";

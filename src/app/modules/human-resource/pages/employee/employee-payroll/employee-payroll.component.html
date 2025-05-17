@@ -1,0 +1,160 @@
+<div class="page-container p-0">
+  <div class="gap-4">
+    <div class="grid grid-cols-24 gap-4">
+      <div class="col-span-18">
+        <p-panel styleClass="">
+          <ng-template #header>
+            <div class="flex items-center gap-2">
+              <div class="flex flex-col">
+                <div class="font-bold text-sm uppercase">Payroll : {{selectedEmployee?.name!}}</div>
+                <div class="text-xs text-muted-foreground">
+                  Salary Addition and Deduction head manangement.
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template #icons>
+            <p-button
+              label="Salary Head"
+              icon="pi pi-minus"
+              styleClass="btn-primary bg-card text-foreground mr-2"
+            />
+            <p-button
+              label="Save"
+              icon="pi pi-plus"
+              styleClass="btn-primary"
+              (onClick)="save()"
+            />
+          </ng-template>
+
+          <ng-container>
+            <form [formGroup]="form">
+
+              <input type="hidden" formControlName="employee_id" />
+
+
+              <p-fieldset legend="Manage">
+                <div class="grid grid-cols-24 gap-4">
+                  <div class="col-span-8">
+                    <div class="flex flex-col gap-1">
+                      <label for="head" class="">Select Head</label>
+                      <p-select
+                        #head
+                        [options]="addition_heads"
+                        formControlName="salary_head"
+                        optionLabel="name"
+                        optionValue="id"
+                        placeholder="Select"
+                        appendTo="body"
+                        class="w-full input"
+                        (onChange)="onChangeHead()"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-span-4">
+                    <div class="flex flex-col gap-1">
+                      <label for="type" class="">Type</label>
+                      <input
+                      #type  
+                      pInputText
+                        formControlName="type"
+                        class="flex-auto input"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div class="col-span-5">
+                    <div class="flex flex-col gap-1">
+                      <label for="calculation_type" class="">Calculation Type</label>
+                      <input
+                        pInputText
+                        #calculation_base_head
+                        class="flex-auto input"
+                        autocomplete="off"
+                        formControlName="calculation_type"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-span-4">
+                    <div class="flex flex-col gap-1">
+                      <label for="value" class="">Amount</label>
+                      <input
+                        pInputText
+                        id="value"
+                        class="flex-auto input"
+                        autocomplete="off"
+                        formControlName="value"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-span-3">
+                    <div class="flex flex-col items-end justify-end h-full">
+                      <p-button icon="pi pi-plus" aria-label="Save" (onClick)="onClickAdd()"/>
+                    </div>
+                  </div>
+                </div>
+              </p-fieldset>
+            </form>
+          </ng-container>
+
+          <ng-container>
+            <p-fieldset legend="Addition Heads">
+              <p-table
+                [value]="employee_addition_heads"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                
+              >
+                
+                <ng-template #body let-deduction let-rowIndex="rowIndex">
+                  <tr>
+                    <td class="py-2 w-14/24">{{ deduction.head_name }}</td>
+                    <td class="py-2 w-4/24">{{ deduction.calculation_type }}</td>
+                    <td class="py-2 w-4/24 text-right">{{ deduction.value  }}</td>
+                    <td class="py-2 w-2/24 text-right">
+                     
+                    <p-button 
+                    size="small"  
+                    styleClass="btn-secondary bg-card text-primary" 
+                    icon="pi pi-trash" 
+                    (onClick)="removeHead(rowIndex, 'A')"
+                    />
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </p-fieldset>
+          </ng-container>
+
+          <ng-container>
+            <p-fieldset legend="Deduction Heads">
+              <p-table
+                [value]="employee_deduction_heads"
+                [tableStyle]="{ 'min-width': '50rem' }"
+              >
+               
+                <ng-template #body let-deduction let-rowIndex="rowIndex">
+                  <tr>
+                    <td class="py-2 w-14/24">{{ deduction.head_name }}</td>
+                    <td class="py-2 w-4/24">{{ deduction.calculation_type }}</td>
+                    <td class="py-2 w-4/24 text-right">{{ deduction.value  }}</td>
+                    <td class="py-2 w-2/24 text-right">
+                     
+                    <p-button 
+                    size="small"  
+                    styleClass="btn-secondary bg-card text-primary" 
+                    icon="pi pi-trash" 
+                    (onClick)="removeHead(rowIndex, 'D')"
+                    />
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </p-fieldset>
+          </ng-container>
+        </p-panel>
+      </div>
+      <div class="col-span-6"></div>
+    </div>
+  </div>
+</div>

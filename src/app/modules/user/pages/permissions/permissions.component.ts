@@ -16,9 +16,9 @@ import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TextareaModule } from 'primeng/textarea';
 import { repo } from 'remult';
-import { Permission, Roles } from 'src/shared/User.entity';
 import { UserService } from '../../user.service';
 import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Permission } from '../../../../../shared/User.entity';
 
 @Component({
   selector: 'app-permissions',

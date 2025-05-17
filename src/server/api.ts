@@ -1,5 +1,5 @@
-import { remultExpress } from "remult/remult-express";
 import { createKnexDataProvider } from "remult/remult-knex";
+import { remultApi } from 'remult/remult-express'
 
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -7,29 +7,35 @@ dotenv.config();
 // import { getUserFromRequest } from "./auth.js";
 
 import { Task } from "../shared/Task.entity.js";
-import { Permission, RolePermission, Roles, User, UserRole } from "../shared/User.entity.js";
-import { BalancesheetGroup,GeneralLedger,GeneralAccount, ClosingBalance,Employee, Pickups } from "../shared/index.js";
 
 // import { getUserFromRequest } from "./auth_old.js";
 import { TransactionMaster } from "../shared/TransactionMaster.entity.js";
 import { AuthController } from "../shared/controllers/AuthController.js";
-import { getUserFromRequest } from "./auth_old.js";
+import { Permission, RolePermission, Roles, User, UserRole } from "../shared/User.entity.js";
+import { BalancesheetGroup } from "../shared/BalanceseetCode.entity.js";
+import { ClosingBalance } from "../shared/ClosingBalance.entity.js";
+import { Employee } from "../shared/Employee.entity.js";
+import { EmployeePayroll } from "../shared/EmployeePayroll.entity.js";
+import { EmployeeSalaryHead } from "../shared/EmployeeSalaryHead.entity.js";
+import { GeneralAccount } from "../shared/GeneralAccount.entity.js";
+import { GeneralLedger } from "../shared/GeneralLedger.entity.js";
+import { Pickups } from "../shared/Pickup.entity.js";
+// import { AuthController } from "../shared/controllers/AuthController.js";
+// import { getUserFromRequest } from "./auth.js";
 
-// import { AuthController } from "./auth/auth.controller.js";
+
 
 
 
   
-export const api = remultExpress({
+export const api = remultApi({
   // getUser: getUserFromRequest,
-// getUser(request) {
-  
-// },
+// getUser: (req) => req.session!['user'],
   
   
-  initApi: async () => {
-    // await User.createDemoUsers();
-  },
+  // initApi: async () => {
+  //   await User.createDemoUsers();
+  // },
 
   
 
@@ -41,15 +47,16 @@ export const api = remultExpress({
       user: process.env["MYSQL_USER"],
       password: process.env["MYSQL_PASSWORD"],
       port: process.env["MYSQL_PORT"] ? Number(process.env["MYSQL_PORT"]) : undefined,
-      // timezone: 'Asia/Kolkata' 
     },
+    
   }),
   admin: true,
   
   entities: [
-    Task, User, Roles, Permission, UserRole,RolePermission,
+    Task,  User, Roles, Permission, UserRole,RolePermission, Pickups, 
     GeneralLedger, GeneralAccount, BalancesheetGroup, TransactionMaster, ClosingBalance,
-    Employee, Pickups, 
+    Employee, EmployeeSalaryHead, EmployeePayroll,
+    
   ],
   controllers:[AuthController]
   

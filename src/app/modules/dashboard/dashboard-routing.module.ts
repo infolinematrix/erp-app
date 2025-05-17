@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
-    canActivate: [AuthGuard], // Protect the parent route
+    canActivate: [AuthGuard], 
     children: [
       { path: '', redirectTo: 'nfts', pathMatch: 'full' },
       { path: 'nfts', component: NftComponent },

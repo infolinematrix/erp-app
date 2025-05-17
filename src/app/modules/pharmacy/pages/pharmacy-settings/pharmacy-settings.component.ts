@@ -23,7 +23,7 @@ import { TableModule } from 'primeng/table';
 import { TextareaModule } from 'primeng/textarea';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TreeModule } from 'primeng/tree';
-import { SidebarComponent } from 'src/app/modules/accounts/sidebar/sidebar.component';
+
 
 @Component({
   selector: 'app-pharmacy-settings',

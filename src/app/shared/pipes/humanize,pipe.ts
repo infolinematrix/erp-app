@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { humanize } from 'src/app/core/utils/humanize-slug.utils';
+import { humanize } from '../../core/utils/humanize-slug.utils';
+
 
 
 @Pipe({

@@ -16,7 +16,8 @@ import { TableModule } from 'primeng/table';
 import { TextareaModule } from 'primeng/textarea';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TabsModule } from "primeng/tabs";
-import { Modules } from 'src/app/core/constants/modules';
+import { Modules } from '../../../../core/constants/modules';
+
 
 @Component({
   selector: 'app-role-permissions',

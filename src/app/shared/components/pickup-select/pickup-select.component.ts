@@ -18,8 +18,8 @@ import {
 } from '@angular/forms';
 import { toast } from 'ngx-sonner';
 import { SelectModule } from 'primeng/select';
-import { PickupService } from 'src/app/core/services/pickup.service';
-import { Pickups } from 'src/shared';
+import { PickupService } from '../../../core/services/pickup.service';
+
 
 @Component({
   selector: 'app-pickup-select',
@@ -78,7 +78,8 @@ export class PickupSelectComponent
       this.items = await this.pickupService.getItemsByPickupCode(
         this.pickupCode
       );
-
+      console.log(this.pickupCode);
+      
       const idToSelect = this.pendingId ?? this.selectedId;
       const match = this.items.find((i) => i.id === idToSelect);
       this.selectedId = match?.id ?? null;

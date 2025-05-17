@@ -1,5 +1,4 @@
 import { Entity, Fields, Relations } from 'remult';
-import { scrollType, txnMode } from 'src/app/core/constants/enums';
 import { GeneralAccount } from './GeneralAccount.entity';
 
 @Entity('acct_transactions', {

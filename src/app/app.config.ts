@@ -8,6 +8,8 @@ import Material from '@primeng/themes/material';
 import Lara from '@primeng/themes/lara';
 import Nora from "@primeng/themes/nora";
 import { SessionService } from './core/services/session.service';
+import { SettingsService } from './core/services/settings.service';
+import { JwtModule } from '@nestjs/jwt';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,6 +28,8 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
+
+    
 
     
   ],

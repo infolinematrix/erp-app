@@ -23,13 +23,13 @@ import { TextareaModule } from 'primeng/textarea';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AccountsService } from '../../accounts.service';
 import { DatePickerModule } from 'primeng/datepicker';
-import { isActive } from 'src/app/core/constants/enums';
 import { remult } from 'remult';
-import { GeneralLedger } from 'src/shared';
 import { FieldsetModule } from 'primeng/fieldset';
 import { toast } from 'ngx-sonner';
-import { TransactionMaster } from 'src/shared/TransactionMaster.entity';
-import { PageEvent } from 'src/app/core/types/PageEvent';
+import { TransactionMaster } from '../../../../../shared/TransactionMaster.entity';
+import { isActive } from '../../../../core/constants/enums';
+import { PageEvent } from '../../../../core/types/PageEvent';
+import { GeneralLedger } from '../../../../../shared/GeneralLedger.entity';
 
 @Component({
   selector: 'app-statement',

@@ -26,10 +26,10 @@ import { DatePickerModule } from 'primeng/datepicker';
 
 import { CheckboxModule } from 'primeng/checkbox';
 import { SelectItem } from 'primeng/api';
-import { isActive } from 'src/app/core/constants/enums';
 import { toast } from 'ngx-sonner';
 import { remult } from 'remult';
-import { BalancesheetGroup, GeneralLedger } from 'src/shared';
+import { isActive } from '../../../../core/constants/enums';
+import { GeneralLedger } from '../../../../../shared/GeneralLedger.entity';
 
 @Component({
   selector: 'app-general-ledger',

@@ -25,13 +25,12 @@ import { TextareaModule } from 'primeng/textarea';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TreeModule } from 'primeng/tree';
 
-import { PickupSelectComponent } from 'src/app/shared/components/pickup-select/pickup-select.component';
 import { EmployeeAdvanceComponent } from '../employee-advance/employee-advance.component';
 import { EmployeeBankComponent } from '../employee-bank/employee-bank.component';
 import { EmployeeLeaveComponent } from '../employee-leave/employee-leave.component';
 import { EmployeeQualificationComponent } from '../employee-qualification/employee-qualification.component';
 import { EmployeeSalaryComponent } from '../employee-salary/employee-salary.component';
-import { PickupService } from 'src/app/core/services/pickup.service';
+import { PickupService } from '../../../../../../core/services/pickup.service';
 
 @Component({
   selector: 'app-employee-insurance',

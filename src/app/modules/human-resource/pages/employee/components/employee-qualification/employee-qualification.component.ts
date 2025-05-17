@@ -24,14 +24,14 @@ import { TableModule } from 'primeng/table';
 import { TextareaModule } from 'primeng/textarea';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TreeModule } from 'primeng/tree';
-import { PickupService } from 'src/app/core/services/pickup.service';
 
-import { PickupSelectComponent } from 'src/app/shared/components/pickup-select/pickup-select.component';
 import { EmployeeAdvanceComponent } from '../employee-advance/employee-advance.component';
 import { EmployeeBankComponent } from '../employee-bank/employee-bank.component';
 import { EmployeeInsuranceComponent } from '../employee-insurance/employee-insurance.component';
 import { EmployeeLeaveComponent } from '../employee-leave/employee-leave.component';
 import { EmployeeSalaryComponent } from '../employee-salary/employee-salary.component';
+import { PickupService } from '../../../../../../core/services/pickup.service';
+import { PickupSelectComponent } from '../../../../../../shared/components/pickup-select/pickup-select.component';
 
 @Component({
   selector: 'app-employee-qualification',

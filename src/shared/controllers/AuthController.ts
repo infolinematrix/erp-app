@@ -3,9 +3,10 @@ import type express from 'express';
 import { JwtService } from '@nestjs/jwt';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // import type from 'cookie-session'; 
-import { User, UserRole, Roles, RolePermission } from '../User.entity';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import bcrypt from 'bcryptjs';
+import { User } from '../User.entity';
+
 
 
 
@@ -24,6 +25,7 @@ export class AuthController {
 
   @BackendMethod({ allowed: true })
   static async signIn(username: string, password: string) {
+    debugger
     const user = await remult.repo(User).findFirst(
       { 
         username: username
@@ -34,7 +36,7 @@ export class AuthController {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password!);
     if (isPasswordValid) {
       
       const uuser_with_roles = await repo(User).findId(user.id,{
@@ -67,14 +69,13 @@ export class AuthController {
       //   // console.log('-----------------------',role);
       // });
 
-      remult.user = <UserInfo | undefined>{
-        id: user.id.toString(),
-        name: user.name,
-        roles: [],
-        permissions: [],
-      };
+      // remult.user = <UserInfo | undefined>{
+      //   id: user.id.toString(),
+      //   name: user.name,
+      //   roles: [],
+      // };
 
-      return remult.user;
+      // return remult.user;
 
 
       // const payload = {

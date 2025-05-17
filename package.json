@@ -1,6 +1,7 @@
 {
   "name": "erp-app",
   "version": "1.0.0",
+  "displayName": "REACTOR-ERP",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve --proxy-config proxy.conf.json --open",
@@ -13,7 +14,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  "type": "module",
+
   "dependencies": {
     "@angular/animations": "^19.2.8",
     "@angular/cdk": "^19.2.11",
@@ -25,7 +26,7 @@
     "@angular/platform-browser-dynamic": "^19.2.8",
     "@angular/platform-server": "^19.2.8",
     "@angular/router": "^19.2.8",
-    "@auth/express": "^0.6.1",
+    "@auth/express": "^0.10.1",
     "@nestjs/common": "^11.1.0",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.1.0",
@@ -48,7 +49,7 @@
     "primeicons": "^7.0.0",
     "primeng": "^19.1.0",
     "reflect-metadata": "^0.2.2",
-    "remult": "^2.7.33",
+    "remult": "^3.0.2",
     "rxjs": "~7.8.0",
     "tailwindcss-primeui": "^0.6.1",
     "tslib": "^2.3.0",
