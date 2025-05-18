@@ -14,6 +14,7 @@ import { toast } from 'ngx-sonner';
 import { remult } from 'remult';
 import { AuthService } from '../../../../core/services/auth.service';
 import { SessionService } from '../../../../core/services/session.service';
+import { AuthController } from '../../../../../shared/controllers/AuthController';
 
 @Component({
   selector: 'app-sign-in',
@@ -42,10 +43,7 @@ export class SignInComponent implements OnInit {
     private readonly router: Router,
   ) {}
 
-  onClick() {
-    console.log('Button clicked');
-  }
-
+ 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
       email: ['admin@admin.com', [Validators.required, Validators.email]],
@@ -69,21 +67,47 @@ export class SignInComponent implements OnInit {
       return;
     }
     try {
-      debugger;
-      this.authService.login({ username: email, password:password } ).subscribe({
-        next: (response) => {
-          this.authService.setToken(response.access_token);
-          this.authService.setCurrentUser({
-            username: email,
-          });
+      // debugger;
+      // const loginResponse = await AuthController.signIn(email, password);
+      // console.log('----------------------', loginResponse);
+
+      // const uruser = remult.user;
+      // console.log('----------------------', uruser);
+      // if(loginResponse){
+
+      // }
+      //  this.router.navigate(['/dashboard']);
+
+      const user = await AuthController.signIn(email, password);
+      if(user){
+        const sessionData = {
+          loggedIn: true,
+          center_code: 'MAIN',
+          user: user,
+          permissions: user.permissions,
+          roles: user.roles
+        };
+        console.log('Final user session...', sessionData);
+        this.authService.setCurrentUser(user);
+        // this.authService.setToken(user.id);
+        
+        this.router.navigate(['/dashboard']);
+      }
+      
+      // this.authService.login({ username: email, password:password } ).subscribe({
+      //   next: (response) => {
+      //     this.authService.setToken(response.access_token);
+      //     this.authService.setCurrentUser({
+      //       username: email,
+      //     });
           
-          this.router.navigate(['/']);
-        },
-        error: (error:any) => {
-          // this.errorMessage = 'Invalid credentials';
-          toast.error('Login error:', error.message);
-        },
-      });
+      //     this.router.navigate(['/']);
+      //   },
+      //   error: (error:any) => {
+      //     // this.errorMessage = 'Invalid credentials';
+      //     toast.error('Login error:', error.message);
+      //   },
+      // });
     } catch (error: any) {
       toast.error(error.message);
     }

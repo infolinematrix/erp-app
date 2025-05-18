@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { remult, withRemult } from 'remult';
 import { SessionService } from '../../core/services/session.service';
+import knex from 'knex';
 
 
 @Component({
@@ -12,17 +13,15 @@ import { SessionService } from '../../core/services/session.service';
     providers:[]
 })
 export class DashboardComponent implements OnInit {
-  constructor(
-    private readonly _sessionService: SessionService
-  ) {}
+  
+  async ngOnInit(): Promise<void> {
+    // console.log(remult.user);
 
-  ngOnInit(): void {
 
-    console.log(remult);
-    
+
     withRemult (async ()=>{
-      console.log('-----USER REMULT', remult.user);
-      const sess = await this._sessionService.getSession();
+      // console.log('-----USER REMULT', remult.user);
+      // const sess = await this._sessionService.getSession();
       // const sess = await this._sessionService.getSession();
 
         // console.log('Dashboard User', sess!);

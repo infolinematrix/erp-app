@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { remult } from 'remult';
+import { remult, UserInfo } from 'remult';
 import { environment } from '../../../environments/environment';
 
 
@@ -20,10 +20,15 @@ export class AuthService {
   }
 
   private initializeAuthState() {
-    const token = this.getToken();
+    // const token = this.getToken();
     const user = localStorage.getItem('currentUser');
     
-    if (token && user) {
+    // if (token && user) {
+    //   const userObj = JSON.parse(user);
+    //   this.setRemultUser(userObj);
+    //   this.currentUserSubject.next(userObj);
+    // }
+    if (user) {
       const userObj = JSON.parse(user);
       this.setRemultUser(userObj);
       this.currentUserSubject.next(userObj);
@@ -34,30 +39,35 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/sign-in`, credentials);
   }
 
-  // setAuthData(response: { access_token: string }, username: string): void {
-  //   // Store token
-  //   this.setToken(response.access_token);
+  setAuthData(response: { access_token: string }, username: string): void {
+    // Store token
+    this.setToken(response.access_token);
 
-  //   // Create user object
-  //   const userObj = {
-  //     username,
-  //     // Add other user properties you might need
-  //     roles: ['user'], // Example roles
-  //   };
+    // Create user object
+    const userObj = {
+      username,
+      // Add other user properties you might need
+      roles: ['user'], // Example roles
+    };
 
-  //   // Store user
-  //   this.setCurrentUser(userObj);
+    // Store user
+    this.setCurrentUser(userObj);
 
-  //   // Set Remult user context
-  //   this.setRemultUser(userObj);
-  // }
+    // Set Remult user context
+    this.setRemultUser(userObj);
+  }
 
   private setRemultUser(user: any): void {
-    remult.user = {
-      id: user.username, 
-      name: user.username,
-      roles: user.roles || [],
-    };
+    remult.user = <UserInfo | undefined>{
+        id: user.id.toString(),
+        user_type: user.user_type,
+        user_center: user.center_code,
+        name: user.name,
+        email: user.username,
+        roles: user.roles || [],
+        permissions: user.permissions || [],
+      };
+    
   }
 
   setToken(token: string): void {
@@ -72,10 +82,14 @@ export class AuthService {
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
   }
+  
+  getCurrentUser(): string | null {
+    return localStorage.getItem('currentUser');
+  }
+
 
   logout(): void {
-    debugger;
-    localStorage.removeItem('accessToken');
+    // localStorage.removeItem('accessToken');
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     remult.user = undefined; // Clear Remult user context
@@ -83,6 +97,8 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken();
+    // debugger;
+    // return !!this.getToken();
+    return !!this.getCurrentUser();
   }
 }

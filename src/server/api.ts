@@ -6,7 +6,6 @@ dotenv.config();
 
 // import { getUserFromRequest } from "./auth.js";
 
-import { Task } from "../shared/Task.entity.js";
 
 // import { getUserFromRequest } from "./auth_old.js";
 import { TransactionMaster } from "../shared/TransactionMaster.entity.js";
@@ -53,7 +52,7 @@ export const api = remultApi({
   admin: true,
   
   entities: [
-    Task,  User, Roles, Permission, UserRole,RolePermission, Pickups, 
+    User, Roles, Permission, UserRole,RolePermission, Pickups, 
     GeneralLedger, GeneralAccount, BalancesheetGroup, TransactionMaster, ClosingBalance,
     Employee, EmployeeSalaryHead, EmployeePayroll,
     

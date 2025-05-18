@@ -1,10 +1,19 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Remult } from 'remult';
+import { BackendMethod, Remult } from 'remult';
+import { AuthService } from '../services/auth.service';
 
-@Controller('api/auth')
+@Controller('test')
 @ApiTags('Auth')
 export class AuthController {
+
+  constructor(private readonly authService: AuthService) {}
+
+
+
+
+
+
   @Post('sign-in')
   @ApiOperation({ summary: 'Login to get access and refresh tokens' })
   @ApiBody({
@@ -17,20 +26,17 @@ export class AuthController {
       },
     },
   })
+
+  @BackendMethod({ allowed: true })
   async signIn(
-    @Body() body: { username: string; password: string },
-    remult: Remult
-  ) {
-    if (body.username === 'admin@admin.com' && body.password === 'admin@123') {
-    //   remult.authToken = 'your-jwt-token';
-      return {
-        access_token: 'your-jwt-token', // Usually generated via JWT service
-        user: {
-          username: body.username,
-        },
-      };
+    @Body() body: { username: string; password: string }) {
+    try {
+      console.log("body", body.username, body.password)
+      return await this.authService.login(body);
+      
+    } catch (error) {
+      throw error;
     }
-    throw new Error('Invalid credentials');
   }
 
   @Post('sign-out')

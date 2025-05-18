@@ -6,6 +6,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ThemeService } from '../../../../../core/services/theme.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { AuthService } from '../../../../../core/services/auth.service';
+import { remult } from 'remult';
 
 
 @Component({
@@ -93,7 +94,11 @@ export class ProfileMenuComponent implements OnInit {
 
   constructor(public themeService: ThemeService, private authService:AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+ 
+    console.log('---from--Profile menu----------remult', remult.user);
+    
+  }
 
   public toggleMenu(): void {
     this.isOpen = !this.isOpen;
@@ -113,8 +118,6 @@ export class ProfileMenuComponent implements OnInit {
   }
 
   logout() {
-
-    debugger;
     this.isOpen = false;
     this.authService.logout();
   }
