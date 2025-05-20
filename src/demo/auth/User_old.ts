@@ -2,7 +2,7 @@ import { Entity, Fields, remult, repo, Validators } from "remult";
 
 // import type { ProviderType } from "../../server/auth.js";
 import { Roles } from "./Roles_old.js";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
 
 @Entity("users", {
   allowApiCrud: remult.authenticated, // Only authenticated users can perform CRUD operations

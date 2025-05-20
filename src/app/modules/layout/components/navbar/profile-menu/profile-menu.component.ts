@@ -5,6 +5,8 @@ import { ClickOutsideDirective } from '../../../../../shared/directives/click-ou
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ThemeService } from '../../../../../core/services/theme.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { remult, UserInfo } from 'remult';
 
 @Component({
   selector: 'app-profile-menu',
@@ -87,10 +89,13 @@ export class ProfileMenuComponent implements OnInit {
   ];
 
   public themeMode = ['light', 'dark'];
+   profile:  any | undefined;
 
-  constructor(public themeService: ThemeService) {}
+  constructor(public themeService: ThemeService, private authService:AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.profile = remult.user;
+  }
 
   public toggleMenu(): void {
     this.isOpen = !this.isOpen;
@@ -107,5 +112,10 @@ export class ProfileMenuComponent implements OnInit {
     this.themeService.theme.update((theme) => {
       return { ...theme, color: color };
     });
+  }
+
+   logout() {
+    this.isOpen = false;
+    this.authService.logout();
   }
 }
