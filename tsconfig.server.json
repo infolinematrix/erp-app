@@ -6,7 +6,13 @@
     "esModuleInterop": true,
     "outDir": "dist",
     "rootDir": "src",
-    "module": "nodenext"
+    "module": "commonjs",
+    "target": "ES2022",
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "paths": {
+      "*": ["*"]
+    }
   },
   "include": ["src/server", "src/demo", "src/shared"]
 }

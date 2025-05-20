@@ -5,7 +5,14 @@
         <p-panel [toggleable]="true">
           <ng-template #header>
             <div class="flex items-center gap-2">
-              <span class="font-bold text-sm">Amy Elsner</span>
+              <div>
+                <small class="font-semibold text-muted-foreground"
+                  >Welcome
+                </small>
+                <h2 class="text-xl font-semibold text-foreground">
+                  Accounts Dashboard
+                </h2>
+              </div>
             </div>
           </ng-template>
           <ng-template #footer>
@@ -25,24 +32,68 @@
             </div>
           </ng-template>
           <ng-template #icons>
-            <p-button
-              icon="pi pi-cog"
-              severity="secondary"
-              rounded
-              text
-             
-            />
-            
+            <p-button icon="pi pi-cog" severity="secondary" rounded text />
           </ng-template>
-          <p class="m-0">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          
+
+          <div class="flex gap-4 mt-4 min-h-[420px] flex-col rounded-lg bg-background sm:flex-row">
+          
+            
+            <!-- Details  -->
+            <div class="mt-4 flex flex-1 flex-col justify-between space-y-2 md:mt-0">
+
+              <div class="rounded-md border border-dashed border-border p-4 text-center" >
+                <small class="text-muted-foreground">Today</small>
+                <h1 class="text-lg font-semibold text-foreground">Sale</h1>
+                <span class="text-lg font-semibold text-muted-foreground"
+                  >54,664.25</span>
+              </div>
+
+            </div>
+
+            <div class="mt-4 flex flex-1 flex-col justify-between space-y-2 md:mt-0">
+
+              <div class="rounded-md border border-dashed border-border p-4 text-center" >
+                <small class="text-muted-foreground">Today</small>
+                <h1 class="text-lg font-semibold text-foreground">Purchase</h1>
+                <span class="text-lg font-semibold text-muted-foreground"
+                  >54,664.25</span>
+              </div>
+
+            </div>
+
+            <div class="mt-4 flex flex-1 flex-col justify-between space-y-2 md:mt-0">
+
+              <div class="rounded-md border border-dashed border-border p-4 text-center" >
+                <small class="text-muted-foreground">Today</small>
+                <h1 class="text-lg font-semibold text-foreground">In-stock</h1>
+                <span class="text-lg font-semibold text-muted-foreground"
+                  >54,664.25</span>
+              </div>
+
+            </div>
+
+            <div class="mt-4 flex flex-1 flex-col justify-between space-y-2 md:mt-0">
+
+              <div class="rounded-md border border-dashed border-border p-4 text-center" >
+                <small class="text-muted-foreground">Today</small>
+                <h1 class="text-lg font-semibold text-foreground">Out of Stock</h1>
+                <span class="text-lg font-semibold text-muted-foreground"
+                  >54,664.25</span>
+              </div>
+
+            </div>
+            <div class="mt-4 flex flex-1 flex-col justify-between space-y-2 md:mt-0">
+
+              <div class="rounded-md border border-dashed border-border p-4 text-center" >
+                <small class="text-muted-foreground">Today</small>
+                <h1 class="text-lg font-semibold text-foreground">Lower Stock</h1>
+                <span class="text-lg font-semibold text-muted-foreground"
+                  >54,664.25</span>
+              </div>
+
+            </div>
+          </div>
         </p-panel>
       </div>
     </div>

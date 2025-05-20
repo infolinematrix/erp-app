@@ -1,9 +1,12 @@
 {
   "name": "erp-app",
   "version": "1.0.0",
+  "displayName": "REACTOR-ERP",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve --proxy-config proxy.conf.json --open",
+    "cleanup-imports": "ng generate @angular/core:cleanup-unused-imports",
+    "lint": "ng lint",
     "dev-node": "tsx watch --env-file=.env --tsconfig tsconfig.server.json src/server",
     "build": "ng build && tsc -p tsconfig.server.json",
     "copy-env": "cp .env dist/server/.env",
@@ -11,7 +14,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  "type": "module",
+  
   "dependencies": {
     "@angular/animations": "^19.2.8",
     "@angular/cdk": "^19.2.11",
@@ -23,7 +26,7 @@
     "@angular/platform-browser-dynamic": "^19.2.8",
     "@angular/platform-server": "^19.2.8",
     "@angular/router": "^19.2.8",
-    "@auth/express": "^0.6.1",
+    "@auth/express": "^0.10.1",
     "@nestjs/common": "^11.1.0",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.1.0",
@@ -37,6 +40,7 @@
     "@tailwindcss/typography": "^0.5.16",
     "angular-svg-icon": "^19.1.1",
     "bcryptjs": "^2.4.3",
+    "cookie-session": "^2.1.0",
     "dotenv": "^16.5.0",
     "express": "^4.21.0",
     "knex": "^3.1.0",
@@ -45,7 +49,7 @@
     "primeicons": "^7.0.0",
     "primeng": "^19.1.0",
     "reflect-metadata": "^0.2.2",
-    "remult": "^2.7.33",
+    "remult": "^3.0.2",
     "rxjs": "~7.8.0",
     "tailwindcss-primeui": "^0.6.1",
     "tslib": "^2.3.0",
@@ -56,7 +60,9 @@
     "@angular/cli": "^19.2.9",
     "@angular/compiler-cli": "^19.2.8",
     "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-session": "^2.0.49",
     "@types/express": "^4.17.21",
+    "@types/express-session": "^1.18.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^22.15.2",
     "autoprefixer": "^10.4.21",

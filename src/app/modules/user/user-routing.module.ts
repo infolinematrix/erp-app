@@ -6,6 +6,7 @@ import { NftComponent } from "../dashboard/pages/nft/nft.component";
 import { UserListComponent } from "./pages/user-list/user-list.component";
 import { RolesComponent } from "./pages/roles/roles.component";
 import { PermissionsComponent } from "./pages/permissions/permissions.component";
+import { RolePermissionsComponent } from "./pages/role-permissions/role-permissions.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
         { path: 'list', component: UserListComponent },
         { path: 'roles', component: RolesComponent },
         { path: 'permissions', component: PermissionsComponent },
+        { path: 'role-permissions/:roleId', component: RolePermissionsComponent },
        
   
         //------

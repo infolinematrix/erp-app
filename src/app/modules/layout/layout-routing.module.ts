@@ -10,7 +10,25 @@ const routes: Routes = [
     loadChildren: () =>
       import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
+  //---Pharmacy
+  { path: '', redirectTo: 'pharmacy', pathMatch: 'full' },
+  {
+    path: 'pharmacy',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('../pharmacy/pharmacy.module').then((m) => m.PharmacyModule),
+  },
 
+  //---Human Resource
+  { path: '', redirectTo: 'human-resource', pathMatch: 'full' },
+  {
+    path: 'human-resource',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('../human-resource/human-resource.module').then((m) => m.HumanResourceModule),
+  },
+
+  //---Accounts
   {
     path: 'accounts',
     component: LayoutComponent,

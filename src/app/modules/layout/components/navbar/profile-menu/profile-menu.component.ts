@@ -6,6 +6,9 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ThemeService } from '../../../../../core/services/theme.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
+import { remult, UserInfo } from 'remult';
+import { AuthService } from '../../../../../core/services/auth.service';
+
 @Component({
   selector: 'app-profile-menu',
   templateUrl: './profile-menu.component.html',
@@ -87,10 +90,13 @@ export class ProfileMenuComponent implements OnInit {
   ];
 
   public themeMode = ['light', 'dark'];
+   profile:  any | undefined;
 
-  constructor(public themeService: ThemeService) {}
+  constructor(public themeService: ThemeService, private authService:AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.profile = remult.user;
+  }
 
   public toggleMenu(): void {
     this.isOpen = !this.isOpen;
@@ -107,5 +113,10 @@ export class ProfileMenuComponent implements OnInit {
     this.themeService.theme.update((theme) => {
       return { ...theme, color: color };
     });
+  }
+
+   logout() {
+    this.isOpen = false;
+    this.authService.logout();
   }
 }

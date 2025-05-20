@@ -1,3 +1,240 @@
-<p>
-  voucher-view works!
-</p>
+<div class="page-container p-0">
+  <div class="flex gap-4">
+    <div class="w-10/12">
+      <p-panel [toggleable]="true">
+        <ng-template #header>
+          <div class="flex items-center gap-2">
+            <div class="font-bold text-lg">Voucher View</div>
+          </div>
+        </ng-template>
+        <div class="pb-1 text-xs text-muted-foreground">
+          All Voucher view on a Date Range
+        </div>
+
+        <ng-template #icons>
+          <a routerLink="/accounts" class="no-underline">
+            <p-button
+              icon="pi pi-plus"
+              styleClass="mr-2 text-xs font-semibold text-primary-foreground bg-primary"
+              text
+              label="Dashboard"
+              severity="secondary"
+              (click)="$event.preventDefault()"
+            />
+          </a>
+          <a routerLink="/accounts/cash-receive-entry" class="no-underline">
+            <p-button
+              icon="pi pi-print"
+              styleClass="mr-2 text-xs font-semibold text-primary-foreground bg-primary"
+              text
+              label="Receive Entry"
+              severity="secondary"
+              (click)="$event.preventDefault()"
+            />
+          </a>
+
+          <a routerLink="/accounts/cash-payment-entry" class="no-underline">
+            <p-button
+              icon="pi pi-print"
+              styleClass="mr-2 text-xs font-semibold text-primary-foreground bg-primary"
+              text
+              label="Payment Entry"
+              severity="secondary"
+              (click)="$event.preventDefault()"
+            />
+          </a>
+          <p-button icon="pi pi-cog" severity="secondary" rounded text />
+        </ng-template>
+        <ng-container>
+          <p-fieldset legend="Filter">
+            
+        
+          <form [formGroup]="form">
+            <div class="grid grid-cols-12 gap-4">
+              <div class="col-span-2">
+                <div class="flex flex-col gap-1">
+                  <label for="name">From Date</label>
+                  <p-datepicker
+                    id="from_date"
+                    formControlName="from_date"
+                    dateFormat="dd-mm-yy"
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="fromDate"
+                    styleClass="w-full input"
+                  />
+                </div>
+              </div>
+
+              <div class="col-span-2">
+                <div class="flex flex-col gap-1">
+                  <label for="name">To Date</label>
+                  <p-datepicker
+                    id="to_date"
+                    formControlName="to_date"
+                    dateFormat="dd-mm-yy"
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="toDate"
+                    styleClass="w-full input"
+                  />
+                </div>
+              </div>
+
+              <div class="col-span-3">
+                <div class="flex flex-col gap-1">
+                  <label for="name">Transaction Mode</label>
+                  <p-select
+                    id="mode"
+                    formControlName="mode"
+                    [showClear]="true"
+                    [checkmark]="true"
+                    [options]="txnModeOptions"
+                    optionValue="value"
+                    optionLabel="label"
+                    placeholder="All"
+                    class="input w-full"
+                  />
+                </div>
+              </div>
+              <div class="col-span-2">
+                <div class="flex flex-col gap-1">
+                  <label for="name">Status</label>
+                  <p-select
+                    id="status"
+                    formControlName="status"
+                    [showClear]="true"
+                    [checkmark]="true"
+                    [options]="voucherStatusOptions"
+                    optionValue="value"
+                    optionLabel="label"
+                    placeholder="All"
+                    class="input w-full"
+                  />
+                </div>
+              </div>
+              <div class="col-span-1 h-full">
+                <!-- Set height here -->
+                <div class="flex flex-col justify-end items-end h-full">
+                  <p-button
+                    icon="pi pi-search"
+                    styleClass="btn-secondary "
+                    text
+                    label="View"
+                    (onClick)="onSubmitView()"
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
+        </p-fieldset>
+        </ng-container>
+        
+        <ng-container >
+          <div class="bg-background mt-4">
+            <p-table
+              [value]="transactions"
+              [tableStyle]="{ 'min-width': '50rem' }"
+              [paginator]="true"
+              [lazy]="true"
+              [rows]="25"
+              [rowsPerPageOptions]="[25, 50, 100]"
+              (onPage)="onPageChange($event)"
+              [totalRecords]="totalRecords"
+            >
+              <ng-template #header>
+                <tr>
+                  <th class="font-semibold w-2/24" pSortableColumn="created_at">
+                    Date <p-sortIcon field="id" />
+                  </th>
+                  <th class="font-semibold w-2/24" pSortableColumn="scroll_type">
+                    Scroll <p-sortIcon field="name" />
+                  </th>
+                  <th class="font-semibold w-3/24" pSortableColumn="account">
+                    Account <p-sortIcon field="name" />
+                  </th>
+                  
+                  <th class="font-semibold w-2/24" pSortableColumn="mode">
+                    Mode <p-sortIcon field="name" />
+                  </th>
+
+                  <th class="font-semibold w-2/24" pSortableColumn="mode">
+                    Description <p-sortIcon field="name" />
+                  </th>
+                  
+
+                  <th class="font-semibold w-2/24">
+                    Debit/Credit
+                  </th>
+                  <th class="font-semibold w-2/24 text-right">
+                    Amount 
+                  </th>
+
+                  <th class="font-semibold w-1/24 text-right">Action</th>
+                </tr>
+              </ng-template>
+              <ng-template #body let-txn>
+                <tr>
+                  <td class="py-2">{{txn.created_at | date: 'dd-MM-yyyy'}}</td>
+                  <td class="py-2">{{txn.scroll_type + '-' + txn.scroll_no + '-' + txn.scroll_slno}}</td>
+                  <td class="py-2">{{txn.displayAccountName}}</td>
+                  <td class="py-2">{{txn.mode}}</td>
+                  <td class="py-2">{{txn.description}}</td>
+                  <td class="py-2">{{ ['HC', 'TC', 'KC'].includes(txn.scroll_type) ? 'Debit' : 'Credit' }}</td>
+                  <td class="py-2 text-right font-semibold">{{ txn.amount | number: '1.2-2'}}</td>
+                  <td class="py-2 text-right">
+                    <p-button
+                      size="small"
+                      styleClass="btn-secondary"
+                      icon="pi pi-cog"
+                      (onClick)="showVoucheViewModal(txn.subsystem, txn.scroll_no, txn.scroll_slno)"
+                    ></p-button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </ng-container>
+      </p-panel>
+    </div>
+    <div class="w-2/12"><app-sidebar></app-sidebar></div>
+  </div>
+</div>
+
+
+<!-- Show modal window -->
+<p-dialog
+  [style]="{ width: '50rem' }"
+  [visible]="showViewModal"
+  [showHeader]="false"
+  styleClass="text-sm"
+  [contentStyle]="{ overflow: 'visible' }" 
+  [baseZIndex]="10000"
+>
+  <form [formGroup]="form">
+    <div class="flex justify-between py-4">
+      <div class="text-md font-semibold">View Voucher</div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-4">
+     
+      
+      
+    </div>
+
+    <div class="flex justify-between items-center gap-2 mt-6">
+      <div class="flex items-center">
+        <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
+        <label for="ingredient1" class="ml-2"> I checked all the informations are correct </label>
+      </div>
+      <div class="flex items-center gap-2">
+        <p-button
+          label="Cancel"
+          styleClass="btn-secondary"
+          (onClick)="showViewModal = false"
+        />
+        <p-button label="Save" styleClass="btn-primary"  />
+      </div>
+    </div>
+  </form>
+</p-dialog>

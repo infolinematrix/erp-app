@@ -32,7 +32,7 @@ Before getting started, ensure the following are installed:
 
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/infolinematrix/erp-app.git
+   git clone https://github.com/YOUR_USERNAME/erp-app.git
    cd erp-app
 
 
