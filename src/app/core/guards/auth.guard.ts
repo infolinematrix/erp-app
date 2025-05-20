@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
-import { SessionService } from '../services/session.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private sessionService: SessionService, private router: Router) {}
+  constructor(private router: Router, private authService:AuthService) {}
 
   /**
    * Determines if the route can be activated
@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
       return true;
     } else {
       console.log('Access denied. Redirecting to login...');
-      return this.router.createUrlTree(['/auth/sign-in']);
+      return this.router.createUrlTree(['/sign-in']);
     }
   }
 
@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate {
    */
   private isUserAuthenticated(): boolean {
     try {
-      return this.sessionService.isAuthenticated();
+      return this.authService.isAuthenticated();
     } catch (error) {
       console.error('Error checking authentication:', error);
       return false;

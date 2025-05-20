@@ -1,5 +1,5 @@
 import { createKnexDataProvider } from "remult/remult-knex";
-import { remultApi } from 'remult/remult-express'
+import { remultExpress } from 'remult/remult-express'
 
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -28,7 +28,7 @@ import { Pickups } from "../shared/Pickup.entity.js";
 
 
   
-export const api = remultApi({
+export const api = remultExpress({
   // getUser: getUserFromRequest,
 // getUser: (req) => req.session!['user'],
   

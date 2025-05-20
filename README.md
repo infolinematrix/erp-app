@@ -48,7 +48,7 @@ Before diving in, make sure you have the following tools installed:
 Clone the repo:
 
 ```bash
-git clone [YOUR REPO URL ONCE PUSHED]
+git clone [https://github.com/infolinematrix/erp-app]
 ```
 
 and install dependencies:

@@ -99,7 +99,6 @@ export class UserListComponent implements OnInit {
       toast.error("Create faild!")
       return;
     }
-    debugger;
     try {
       //--
     let user = new User();

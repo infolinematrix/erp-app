@@ -10,11 +10,13 @@ import Nora from "@primeng/themes/nora";
 import { SessionService } from './core/services/session.service';
 import { SettingsService } from './core/services/settings.service';
 import { JwtModule } from '@nestjs/jwt';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideAnimationsAsync(),
+    provideHttpClient(),
     
     providePrimeNG({
       theme: {

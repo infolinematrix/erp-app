@@ -1,124 +1,94 @@
 import { BackendMethod, remult, repo, UserInfo, withRemult } from 'remult';
 import type express from 'express';
-import { JwtService } from '@nestjs/jwt';
+// import { JwtService } from '@nestjs/jwt';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-// import type from 'cookie-session'; 
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import bcrypt from 'bcryptjs';
-import { User } from '../User.entity';
+// import type from 'cookie-session';
+// import { Injectable, UnauthorizedException } from '@nestjs/common';
+// import bcrypt from 'bcryptjs';
+import { Permission, Roles, User } from '../User.entity';
 
 
-
-
-
+/**
+ * const currentUser = {
+        id: user.id.toString(),
+        user_type: user.user_type,
+        user_center: user.center_code,
+        name: user.name,
+        email: user.username,
+        roles: user.roles || [],
+        permissions: user.permissions || [],
+      };
+ */
 declare module 'remult' {
   export interface RemultContext {
     request?: express.Request;
+    user?: UserInfo;
+  
   }
 }
 
-
-@Injectable()
+// @Injectable()
 export class AuthController {
-
-  // constructor(private jwtService: JwtService){}
-
   @BackendMethod({ allowed: true })
-  static async signIn(username: string, password: string) {
-    debugger
-    const user = await remult.repo(User).findFirst(
-      { 
-        username: username
-      }
-    );
+  static async signIn(username: string, password: string): Promise<{
+    id: number;
+    name: string;
+    username: string;
+    user_type: string;
+    user_center: string;
+    roles: string[];
+    permissions: string[];
+  }> {
+    const user = await remult.repo(User).findFirst({ username });
 
     if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new Error('Invalid user');
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password!);
-    if (isPasswordValid) {
-      
-      const uuser_with_roles = await repo(User).findId(user.id,{
-        include:{userRoles: true,}
-      });
-      
-      // console.log('-----------------------',uuser_with_roles);
-
-      if(uuser_with_roles){
-
-       const roles =  uuser_with_roles!.userRoles?.map(async ur=> ur.role!).filter(Boolean);
-
-        // const roles =  uuser_with_roles!.userRoles![0];
-
-        // if(roles){
-          console.log('----ROLE-------------------',roles);
-        // }
-        // const permissions = [...new Set(roles?.flatMap(async r => (await r).permissions))];
-        // console.log('----PRR-------------------',permissions);
-        
-      }
-
-      
-
-      // uuser_with_roles!.roles!.map(async(r)=> {
-      //   const role=  await repo(Roles).findId(1);
-      //   
-      //   // const role = await repo(Roles).findId(r!.id);
-      //   // const permissions = role!;
-      //   // console.log('-----------------------',role);
-      // });
-
-      // remult.user = <UserInfo | undefined>{
-      //   id: user.id.toString(),
-      //   name: user.name,
-      //   roles: [],
-      // };
-
-      // return remult.user;
-
-
-      // const payload = {
-      //   sub: user.id,
-      //   name: user.name,
-      // };
-  
-      // const jwtService = new JwtService();
-      // // const accessToken = jwtService.sign(payload, { expiresIn: '24h' });
-      // const accessToken = jwtService.sign(payload, {
-      //   secret: process.env['JWT_SECRET'],
-      //   expiresIn: process.env['JWT_EXPIRES_IN']
-      // });
-      // const refreshToken = jwtService.sign(payload, {
-      //   secret: process.env['JWT_REFRESH_SECRET'],
-      //   expiresIn: process.env['JWT_REFRESH_EXPIRES_IN']
-      // });
-    // const refreshToken = jwtService.sign(payload, { expiresIn: '7d' });
-
-    // // // Hash the refresh token before storing it
-    // const saltRounds = 10; // Use a standard number of salt rounds
-    // const hashedRefreshToken = await bcrypt.hash(refreshToken, saltRounds);
-    
-    // user.refresh_token = hashedRefreshToken;
-    // const userRepo = remult.repo(User);
-    // await userRepo.save(user);
-
-    // const me = await this.getMe(user.id); 
-      // remult.context.request?.session['user'];
-    // return {
-    //   accessToken,
-    //   refreshToken,
-    //   user: me,
-    // };
-    
-
-    } else {
-      throw new UnauthorizedException('Invalid credentials');
-    }
-
+    const bcrypt = require('bcryptjs');
+    const isPasswordValid = await bcrypt.compare(password, user.password);
    
-  }
+    if (!isPasswordValid) {
+      throw new Error('Invalid credentials');
+    }
 
+    const user_with_roles = await remult.repo(User).findId(user.id, {
+      include: { userRoles: true },
+    });
+
+    const roles: string[] = [];
+    const permissions: string[] = [];
+
+    if (user_with_roles?.userRoles?.length) {
+      const roleEntities = await Promise.all(
+        user_with_roles.userRoles.map((ur) => remult.repo(Roles).findId(ur.role_id))
+      );
+
+      for (const role of roleEntities.filter(Boolean)) {
+        roles.push(role!.name);
+
+        if (role?.permissions?.length) {
+          const permissionEntities = await Promise.all(
+            role.permissions.map((p) => remult.repo(Permission).findId(p.permission_id))
+          );
+
+          for (const per of permissionEntities.filter(Boolean)) {
+            permissions.push(per!.name);
+          }
+        }
+      }
+    }
+
+    return {
+      id: user.id,
+      name: user.name || '',
+      username: user.username || '',
+      user_type: user.user_type || '',
+      user_center: user.center_code || '',
+      roles,
+      permissions,
+    };
+  }
   // @BackendMethod({ allowed: true })
   // static async signOut() {
   //   remult.context.request!.session!['user'] = undefined;
@@ -127,12 +97,11 @@ export class AuthController {
 
   // static getCurrentUser() {
   //   return remult.context.request!.session!['user'];
-    
+
   // }
 
-
-  static async whoAmI(){
-   return remult.user;
-   //extend more
+  static async whoAmI() {
+    return remult.user;
+    //extend more
   }
 }
