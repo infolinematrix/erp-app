@@ -1,7 +1,7 @@
 # ⚡️ erp-app ⚡️  
 Everything you need to build a modern, full-stack **ERP** system.
 
----
+![ERP App Overview](./src/assets/erp-overview.png)
 
 ## 🚀 Tech Stack
 
@@ -80,8 +80,20 @@ npm run build
 npm run start
 ```
 
-# Ng Module
+## 📋 Feature Roadmap
+
+| Feature                     | Status         | Target Release |
+|-----------------------------|----------------|----------------|
+| User Role Management        | 🚧 In Progress | v1.0.0         |
+| Inventory Module            | ⏳ Planned     | v1.0.0         |
+| Purchase Order Workflow     | ❌ Not started | v1.0.0         |
+| Accounting System           | ❌ Not started | TBD            |
+| Admin Dashboard             | ✅ Done        | v0.1.0         |
+
+
+# Ng help
 ng g m <module-name> --routing
+
 # Remove unwanted imports
 ng generate @angular/core:cleanup-unused-imports
 
