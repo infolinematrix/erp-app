@@ -34,28 +34,8 @@ Before getting started, ensure the following are installed:
    ```bash
    git clone https://github.com/YOUR_USERNAME/erp-app.git
    cd erp-app
+   npm install
 
-
-### 🛠 Prerequisites
-
-Before diving in, make sure you have the following tools installed:
-
-- **Node.js (v20+ 🚨)**
-- **npm (bundled with Node.js)**
-
-### 🎯 Installation
-
-Clone the repo:
-
-```bash
-git clone [https://github.com/infolinematrix/erp-app]
-```
-
-and install dependencies:
-
-```bash
-npm install
-```
 
 ### 🛠 Configuration & Environment Variables
 
