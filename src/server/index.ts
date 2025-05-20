@@ -22,13 +22,13 @@
 import 'reflect-metadata'; // Important for NestJS
 import * as dotenv from 'dotenv';
 dotenv.config();
-console.log("DATABASE", process.env["MYSQL_HOST"]);
 
-
+import { join } from 'path';
+import { Request, Response } from 'express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { api } from './api.js';
-
+// import session from 'express-session';
 import { Logger } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module.js';
@@ -36,15 +36,14 @@ import { GlobalExceptionHandler } from './utils/exception-handler.js';
 import { GlobalResponseInterceptor } from './utils/global-response.interceptor.js';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   
-  app.use(api); // Init remult
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors({
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Authorization, x-api-key, x-center, x-user',
-  }); // if your Angular app is separate
+  });
 
   const config = new DocumentBuilder()
     .setTitle('BACKEND API')
@@ -59,11 +58,13 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
+  app.use(api); // Init remult
+
   /**
    * Global
    */
-  app.useGlobalFilters(new GlobalExceptionHandler());
-  app.useGlobalInterceptors(new GlobalResponseInterceptor());
+  // app.useGlobalFilters(new GlobalExceptionHandler());
+  // app.useGlobalInterceptors(new GlobalResponseInterceptor());
 
   const port = process.env['PORT'] || 3002;
   await app.listen(port);

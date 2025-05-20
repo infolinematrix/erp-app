@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { repo } from 'remult';
 import { Observable } from 'rxjs';
-import { Permission, Roles } from 'src/shared/User.entity';
+import { Permission, Roles } from '../../../shared/User.entity';
+
 
 @Injectable({
   providedIn: 'root'

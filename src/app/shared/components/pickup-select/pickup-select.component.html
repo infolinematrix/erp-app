@@ -1,0 +1,10 @@
+<p-select
+  [options]="items"
+  [optionLabel]="'title'"
+  [optionValue]="'id'"
+  [ngModel]="selectedId"
+  (onChange)="onSelectChange($event.value)"
+  placeholder="Select"
+  class="w-full input"
+/>
+

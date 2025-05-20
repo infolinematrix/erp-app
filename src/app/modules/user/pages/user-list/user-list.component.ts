@@ -15,58 +15,104 @@ import { AngularSvgIconModule, SvgIconComponent } from 'angular-svg-icon';
 import { toast } from 'ngx-sonner';
 import { Dialog } from 'primeng/dialog';
 import { RouterLink } from '@angular/router';
-
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
-  imports:[
+  imports: [
     InputGroupModule,
-        InputGroupAddonModule,
-        CardModule,
-        Dialog,
-        ToolbarModule,
-        ButtonModule,
-        InputTextModule,
-        SplitButtonModule, IconFieldModule, InputIconModule,TableModule,
+    InputGroupAddonModule,
+    CardModule,
+    Dialog,
+    ToolbarModule,
+    ButtonModule,
+    InputTextModule,
+    SplitButtonModule,
+    IconFieldModule,
+    InputIconModule,
+    TableModule,
 
-        AngularSvgIconModule, RouterLink
-  ]
+    AngularSvgIconModule,
+    RouterLink,
+  ],
 })
 export class UserListComponent implements OnInit {
 
-  constructor() { }
+  users: User[] = [];
+  userRepo = repo(User);
+  showModal: boolean = false;
+  showUpdateModal: boolean = false;
+  form!: FormGroup;
 
-   users:User[]=[];
-   userRepo = repo(User);
-   showModal: boolean = false;
 
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    
+  ) {
+
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      confirm_password: ['', [Validators.required]],
+      user_type: ['', [Validators.required]],
+    });
+
+
+  }
+
+  
 
   ngOnInit() {
     this.getUsers();
   }
 
-  async getUsers(){
-    
+  async getUsers() {
     try {
-    
-        
-        this.users = await this.userRepo.find({
-          limit:10
-        });
-    
-        } catch (error: any) {
-          console.log(error);
-          toast.error(error.message)
-        }
-    
+      this.users = await this.userRepo.find({
+        limit: 10,
+      });
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error.message);
+    }
   }
 
-  showDialog(){
+  showDialog() {
     this.showModal = true;
-    console.log("sfsdfs");
-    
+    console.log('sfsdfs');
   }
 
+  onClick_Edit() {
+    this.showUpdateModal = true;
+  }
+
+  async createUser(){
+    if (!this.form.valid) {
+      toast.error("Create faild!")
+      return;
+    }
+    debugger;
+    try {
+      //--
+    let user = new User();
+    user.name = this.form.value.name;
+    user.username = this.form.value.email;
+    user.password = this.form.value.password;
+    user.user_type = this.form.value.user_type;
+    //--
+
+    // await this.userRepo.insert(user);
+    } catch (error:any) {
+      toast.error(error.message);
+    }
+
+  }
 }

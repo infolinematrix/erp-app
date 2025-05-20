@@ -1,0 +1,225 @@
+<div class="page-container p-0">
+  <div class="flex gap-4">
+    <div class="w-9/12">
+      <div class="card">
+        <p-panel styleClass="">
+          
+          <ng-template #icons>
+            <p-button label="Cancel" styleClass="btn-secondary mr-2" />
+            <p-button label="Save" styleClass="btn-primary" />
+          </ng-template>
+
+          <ng-template #header>
+            <div class="flex items-center gap-2">
+              <div class="flex flex-col">
+                <div class="font-bold text-lg uppercase">Pharmacy Billings</div>
+                <div class="text-xs text-muted-foreground">
+                  Pharmacy configuration & settings.
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-container>
+            <form>
+              <div class="grid grid-cols-24 gap-2">
+                <div class="col-span-8">
+                  <div class="flex flex-col gap-1">
+                    <label for="name"
+                      >Subsystem <i class="pi pi-arrow-right"></i
+                    ></label>
+                    <input pInputText type="text" class="input" />
+                  </div>
+                </div>
+                <div class="col-span-6">
+                  <div class="flex flex-col gap-1">
+                    <label for="name"
+                      >Brand <i class="pi pi-arrow-right"></i
+                    ></label>
+                    <input pInputText type="text" class="input" />
+                  </div>
+                </div>
+                <div class="col-span-2">
+                  <div class="flex flex-col gap-1">
+                    <label for="name">Price </label>
+                    <input pInputText type="text" class="input" />
+                  </div>
+                </div>
+                <div class="col-span-3">
+                  <div class="flex flex-col gap-1">
+                    <label for="name">Unit </label>
+                    <input pInputText type="text" class="input" />
+                  </div>
+                </div>
+                <div class="col-span-2">
+                  <div class="flex flex-col gap-1">
+                    <label for="name">Tax </label>
+                    <input pInputText type="text" class="input" />
+                  </div>
+                </div>
+                <div class="col-span-2">
+                  <div class="flex flex-col gap-1">
+                    <label for="name">Quantity </label>
+                    <input pInputText type="text" class="input" />
+                  </div>
+                </div>
+                <div class="col-span-1">
+                  <div class="flex flex-col gap-1">
+                    <label for="name"># </label>
+                    <input pInputText type="text" class="input" />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </ng-container>
+
+          <ng-container>
+            <div class="grid grid-cols-12 gap-4 mt-4">
+              <div class="col-span-4">
+                <div class="flex items-center">
+                  <div class="p-4 bg-amber-50">ASAsd</div>
+                </div>
+              </div>
+              <div class="col-span-4">
+                <div class="p-4 bg-blue-50">
+                  <div class="flex flex-col">
+                    <div class="font-bold text-sm">Payment</div>
+                    <div class="text-xs text-muted-foreground">
+                      Pharmacy configuration & settings.
+                    </div>
+                  </div>
+                </div>
+
+                <p-tabs value="0">
+                    <p-tablist >
+                      <p-tab [value]="0" >
+                       Cash
+                      </p-tab>
+                      <p-tab [value]="1">
+                        Debit Card
+                       </p-tab>
+                       <p-tab [value]="2">
+                        Credit Card
+                       </p-tab>
+                       <p-tab [value]="3">
+                        Transfer
+                       </p-tab>
+                    </p-tablist>
+                    <p-tabpanels>
+                     
+                      <p-tabpanel [value]="0">
+                        <p class="mt-0">asdas</p>
+                      </p-tabpanel>
+                      <p-tabpanel [value]="1">
+                        <p class="mt-0">Debit card</p>
+                      </p-tabpanel>
+                      <p-tabpanel [value]="2">
+                        <p class="mt-0">Credit card</p>
+                      </p-tabpanel>
+                      
+                    </p-tabpanels>
+                    
+                  </p-tabs>
+                  <div class="flex flex-col gap-1">
+                    <label for="name"
+                      >Note (if any)</label>
+                    <input pInputText type="text" class="input" />
+                  </div>
+
+              </div>
+              <div class="col-span-4">
+                <div class="p-4 bg-amber-50 rounded-md">
+                  <div class="flex flex-col">
+                    <div class="font-bold text-sm">Billings</div>
+                    <div class="text-xs text-muted-foreground">
+                      Pharmacy configuration & settings.
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col mt-4 space-y-1">
+                    <div class="flex justify-between items-center">
+                      <div class="">Total Amount</div>
+                      <div class="font-semibold">514.50</div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="">Discount</div>
+                        <div class="font-semibold">514.50</div>
+                      </div>
+                      <div class="flex justify-between items-center">
+                        <div class="">Special Discount</div>
+                        <div class="font-semibold">514.50</div>
+                      </div>
+                      <div class="flex justify-between items-center">
+                        <div class="">CGST(6%)</div>
+                        <div class="font-semibold">14.50</div>
+                      </div>
+                      <div class="flex justify-between items-center">
+                        <div class="">SGST(6%)</div>
+                        <div class="font-semibold">14.50</div>
+                      </div>
+
+                      <div class="flex justify-between items-center mt-4">
+                        <div class="">Payable</div>
+                        <div class="font-semibold">4,314.50</div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-template #footer>
+            <div class="flex justify-between items-center gap-2 mt-6">
+              <div class="flex items-center">
+                <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
+                <label for="ingredient1" class="ml-2">
+                  I checked all the informations are correct
+                </label>
+              </div>
+              <div class="flex items-center gap-2">
+                <p-button label="Cancel" styleClass="btn-secondary" />
+                <p-button label="Save & Print Bill (F10)" styleClass="btn-primary" />
+              </div>
+            </div>
+          </ng-template>
+
+        </p-panel>
+      </div>
+    </div>
+
+    <div class="w-3/12">
+      <p-panel styleClass="">
+        <ng-template #header>
+          <div class="flex items-center gap-2">
+            <div class="flex flex-col">
+              <div class="font-bold text-md uppercase">Medicine Name</div>
+              <div class="text-xs text-muted-foreground">
+                Sun Pharmasuitical Private Limited.
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <form>
+          <div class="flex flex-col gap-1">
+            <label for="name">Quantity </label>
+            <input pInputText type="text" class="input" />
+          </div>
+        </form>
+
+        <ng-template #footer>
+          <div class="flex justify-between items-center gap-2 mt-6">
+            <div class="flex items-center">
+              <label for="ingredient1" class="ml-2">
+                I checked all the informations are correct
+              </label>
+            </div>
+            <div class="flex items-center gap-2">
+              <p-button label="Cancel" styleClass="btn-secondary" />
+              <p-button label="Save" styleClass="btn-primary font-semibold" />
+            </div>
+          </div>
+        </ng-template>
+      </p-panel>
+    </div>
+  </div>
+</div>

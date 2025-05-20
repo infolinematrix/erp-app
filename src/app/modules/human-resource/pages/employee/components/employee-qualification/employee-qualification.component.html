@@ -1,0 +1,87 @@
+
+
+<div class="my-2">
+  <form [formGroup]="form">
+    <div class="grid grid-cols-24 gap-4">
+      <div class="col-span-6">
+        <div class="flex flex-col gap-1">
+          <label for="name">Qualification </label>
+          <app-pickup-select [pickupCode]="33" id="title"></app-pickup-select>
+        </div>
+      </div>
+      <div class="col-span-6">
+        <div class="flex flex-col gap-1">
+          <label for="name">Institute</label>
+          <input
+            pInputText
+            id="name"
+            class="input"
+            aria-describedby="name-help"
+          />
+        </div>
+      </div>
+      <div class="col-span-2">
+        <div class="flex flex-col gap-1">
+          <label for="name">Year of Passing</label>
+          <input
+            pInputText
+            id="name"
+            class="input"
+            aria-describedby="name-help"
+          />
+        </div>
+      </div>
+
+      <div class="col-span-2">
+        <div class="flex items-end h-full">
+          <p-button label="Add" icon="pi pi-plus" size="small" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+
+<ng-container>
+  <p-table>
+    <ng-template #header>
+      <tr>
+        <th class="font-semibold w-2/24">
+          Qualification
+        </th> 
+        <th class="font-semibold w-2/24">
+          Institute
+        </th>
+        <th class="font-semibold w-2/24">
+          Year of Passing
+        </th>
+        <th class="font-semibold w-1/24 text-right">Action</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-qualification>
+      <!-- <tr>
+        <td class="py-2 font-semibold">{{user.name}}</td> 
+        <td class="py-2">{{user.name}}</td>
+        <td class="py-2">{{user.name}}</td>   
+  
+        
+      </tr> -->
+    </ng-template>
+  </p-table>
+  
+</ng-container>
+
+<ng-container>
+  <div class="flex justify-between items-center gap-2 mt-6">
+    <div class="flex items-center">
+      <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
+      <label for="ingredient1" class="ml-2">
+        I confirm all the informations are correct.
+      </label>
+    </div>
+    <p-button label="Save" icon="pi pi-save" size="small" />
+  </div>
+</ng-container>
+
+
