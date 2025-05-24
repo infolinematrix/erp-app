@@ -63,7 +63,6 @@ import { GeneralLedger } from '../../../../../shared/GeneralLedger.entity';
     TextareaModule,
     SelectModule,
     AngularSvgIconModule,
-    ReactiveFormsModule,
     KeyFilterModule,
     MessageModule,
     ReactiveFormsModule,

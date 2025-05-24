@@ -5,7 +5,7 @@
         <ng-template #header>
           <div class="flex items-center gap-2">
             <div class="flex flex-col">
-              <div class="font-bold text-sm uppercase">Salary</div>
+              <div class="font-bold text-sm uppercase">Payroll Head</div>
               <div class="text-xs text-muted-foreground">
                 Salary Addition and Deduction head manangement.
               </div>
@@ -26,11 +26,15 @@
             <p-tablist>
               <p-tab value="0">Additions</p-tab>
               <p-tab value="1">Deductions</p-tab>
+              <p-tab value="2">Tax Deductions</p-tab>
             </p-tablist>
             <p-tabpanels>
               <p-tabpanel value="0">
                 <p class="m-0">
-                  <p-table [value]="addtion_heads" [tableStyle]="{ 'min-width': '50rem' }" >
+                  <p-table
+                    [value]="addtion_heads"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                  >
                     <ng-template #header>
                       <tr>
                         <th>id</th>
@@ -38,23 +42,37 @@
                         <th>Calculation Type</th>
                         <th>Base head</th>
                         <th>Value</th>
+                        <th class="text-right">Action</th>
                       </tr>
                     </ng-template>
-                    <ng-template #body let-addtion let-rowIndex="rowIndex"> 
+                    <ng-template #body let-addtion let-rowIndex="rowIndex">
                       <tr>
                         <td class="py-2 font-semibold">{{ addtion.id }}</td>
                         <td class="py-2">{{ addtion.name }}</td>
                         <td class="py-2">{{ addtion.calculation_type }}</td>
-                        <td class="py-2">{{ addtion.calculation_base_head }}</td>
+                        <td class="py-2">
+                          {{ addtion.calculation_base_head }}
+                        </td>
                         <td class="py-2">{{ addtion.value }}</td>
-                        </tr>
+                        <td class="py-2 w-2/24 text-right">
+                          <p-button
+                            size="small"
+                            styleClass="btn-secondary bg-card text-primary"
+                            icon="pi pi-trash"
+                            (onClick)="deleteHead(addtion)"
+                          />
+                        </td>
+                      </tr>
                     </ng-template>
                   </p-table>
                 </p>
               </p-tabpanel>
               <p-tabpanel value="1">
                 <p class="m-0">
-                  <p-table [value]="deduction_heads" [tableStyle]="{ 'min-width': '50rem' }">
+                  <p-table
+                    [value]="deduction_heads"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                  >
                     <ng-template #header>
                       <tr>
                         <th>id</th>
@@ -62,16 +80,73 @@
                         <th>Calculation Type</th>
                         <th>Base head</th>
                         <th>Value</th>
+                        <th class="text-right">Action</th>
                       </tr>
                     </ng-template>
-                    <ng-template #body let-deduction let-rowIndex="rowIndex"> 
+                    <ng-template #body let-deduction let-rowIndex="rowIndex">
                       <tr>
                         <td class="py-2 font-semibold">{{ deduction.id }}</td>
                         <td class="py-2">{{ deduction.name }}</td>
                         <td class="py-2">{{ deduction.calculation_type }}</td>
-                        <td class="py-2">{{ deduction.calculation_base_head }}</td>
+                        <td class="py-2">
+                          {{ deduction.calculation_base_head }}
+                        </td>
                         <td class="py-2">{{ deduction.value }}</td>
-                        </tr>
+                        <td class="py-2 w-2/24 text-right">
+                          <p-button
+                            size="small"
+                            styleClass="btn-secondary bg-card text-primary"
+                            icon="pi pi-trash"
+                            (onClick)="deleteHead(deduction)"
+                          />
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </p>
+              </p-tabpanel>
+              <p-tabpanel value="2">
+                <p class="m-0">
+                  <p-table
+                    [value]="tax_deduction_heads"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                  >
+                    <ng-template #header>
+                      <tr>
+                        <th>id</th>
+                        <th>Name</th>
+                        <th>Calculation Type</th>
+                        <th>Base head</th>
+                        <th>Value</th>
+                        <th class="text-right">Action</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template
+                      #body
+                      let-tax_deduction
+                      let-rowIndex="rowIndex"
+                    >
+                      <tr>
+                        <td class="py-2 font-semibold">
+                          {{ tax_deduction.id }}
+                        </td>
+                        <td class="py-2">{{ tax_deduction.name }}</td>
+                        <td class="py-2">
+                          {{ tax_deduction.calculation_type }}
+                        </td>
+                        <td class="py-2">
+                          {{ tax_deduction.calculation_base_head }}
+                        </td>
+                        <td class="py-2">{{ tax_deduction.value }}</td>
+                        <td class="py-2 w-2/24 text-right">
+                          <p-button
+                            size="small"
+                            styleClass="btn-secondary bg-card text-primary"
+                            icon="pi pi-trash"
+                            (onClick)="deleteHead(tax_deduction)"
+                          />
+                        </td>
+                      </tr>
                     </ng-template>
                   </p-table>
                 </p>
@@ -112,7 +187,7 @@
         </div>
         <div class="col-span-4">
           <div class="flex flex-col gap-1">
-            <label for="name" class="">Head title</label>
+            <label for="name" class="">Head Title</label>
             <input
               pInputText
               id="name"
@@ -125,31 +200,29 @@
         <div class="col-span-2">
           <div class="flex flex-col gap-1">
             <label for="username" class="">Calculation Type</label>
-            <p-select 
-            formControlName="calculation_type" 
-            [options]="calculation_types" 
-            optionLabel="label" 
-            optionValue="value"
-            placeholder="Select" 
-           appendTo="body"
-            class="w-full input" />
-            
-           
+            <p-select
+              formControlName="calculation_type"
+              [options]="calculation_types"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select"
+              appendTo="body"
+              class="w-full input"
+            />
           </div>
         </div>
         <div class="col-span-4">
           <div class="flex flex-col gap-1">
             <label for="username" class="">Base head</label>
-            <p-select 
-            formControlName="calculation_base_head" 
-            [options]="addtion_heads" 
-            optionLabel="name" 
-            optionValue="id"
-            placeholder="Select" 
-           appendTo="body"
-            class="w-full input" />
-            
-           
+            <p-select
+              formControlName="calculation_base_head"
+              [options]="addtion_heads"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Select"
+              appendTo="body"
+              class="w-full input"
+            />
           </div>
         </div>
         <div class="col-span-2">

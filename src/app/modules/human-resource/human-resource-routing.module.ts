@@ -6,6 +6,7 @@ import { UpdateEmployeeComponent } from './pages/employee/update-employee/update
 import { EmployeeSalaryComponent } from './pages/employee/employee-salary/employee-salary.component';
 import { EmployeePayrollComponent } from './pages/employee/employee-payroll/employee-payroll.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { AttendenceComponent } from './pages/attendence/attendence.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
           { path: 'update/:id', component: EmployeePayrollComponent },
         ],
       },
+      { path: 'attendence', component: AttendenceComponent },
     ],
   },
 ];

@@ -33,6 +33,7 @@ import { toast } from 'ngx-sonner';
 import { remult } from 'remult';
 import { EmployeeService } from '../../../services/employee.service';
 import { EmployeeSalaryHead } from '../../../../../../shared/EmployeeSalaryHead.entity';
+import { debug } from 'console';
 
 
 @Component({
@@ -89,12 +90,14 @@ export class EmployeeSalaryComponent implements OnInit {
   visible: boolean = false;
   addtion_heads: EmployeeSalaryHead[] = [];
   deduction_heads: EmployeeSalaryHead[] = [];
+  tax_deduction_heads: EmployeeSalaryHead[] = [];
 
 
 
   stateOptions: any[] = [
     { label: 'Addition', value: 'A' },
     { label: 'Deduction', value: 'D' },
+    { label: 'Tax Deduction', value: 'T' },
   ];
   calculation_types: any[] = [
     { label: 'Fixed', value: 'Fixed' },
@@ -114,6 +117,7 @@ export class EmployeeSalaryComponent implements OnInit {
   async loadData(){
     this.addtion_heads = await this.employeeService.getSalaryHeads('A');
     this.deduction_heads = await this.employeeService.getSalaryHeads('D');
+    this.tax_deduction_heads = await this.employeeService.getSalaryHeads('T');
   }
 
   async createHead() {
@@ -121,7 +125,7 @@ export class EmployeeSalaryComponent implements OnInit {
       toast.error('Invalid');
       return;
     }
-
+   
     const headRepo = remult.repo(EmployeeSalaryHead);
 
     // Use findFirst to check if a head with the given name exists
@@ -144,5 +148,11 @@ export class EmployeeSalaryComponent implements OnInit {
       this.visible = false;
       this.formHead.reset();
     }
+  }
+
+  async deleteHead(head: EmployeeSalaryHead) {
+    await this.employeeService.deletePayrollHead(head.id);
+    this.loadData();
+    toast.success('Successfully deleted!');
   }
 }

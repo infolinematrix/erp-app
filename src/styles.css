@@ -298,8 +298,8 @@ select {
   border-style: solid;
   
   font-size: .90rem;
-  height: 2.2rem; 
-  line-height: 1rem; */
+  height: 2.2rem; */
+  line-height: 1rem; 
   font-weight: 600; font-size: .90rem;
   
 }
@@ -326,8 +326,9 @@ select {
     @apply text-primary-foreground hover:bg-primary/90 text-sm font-semibold border-0;
   }
   .input {
+    
+    @apply focus:border-primary focus:outline-hidden focus:ring-primary bg-card ;
     line-height: 1rem; font-weight: 600; font-size: .90rem;
-    @apply focus:border-primary focus:outline-hidden focus:ring-primary bg-card 
   }
 }
 

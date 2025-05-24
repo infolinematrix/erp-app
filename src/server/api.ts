@@ -20,6 +20,8 @@ import { EmployeeSalaryHead } from "../shared/EmployeeSalaryHead.entity.js";
 import { GeneralAccount } from "../shared/GeneralAccount.entity.js";
 import { GeneralLedger } from "../shared/GeneralLedger.entity.js";
 import { Pickups } from "../shared/Pickup.entity.js";
+import { CenterMaster } from "../shared/CenterMaster.entity.js";
+import { EmployeeAttendance } from "../shared/EmployeeAttendence.entity.js";
 // import { AuthController } from "../shared/controllers/AuthController.js";
 // import { getUserFromRequest } from "./auth.js";
 
@@ -53,9 +55,10 @@ export const api = remultExpress({
   admin: true,
   
   entities: [
+    CenterMaster,
     Task,  User, Roles, Permission, UserRole,RolePermission, Pickups, 
     GeneralLedger, GeneralAccount, BalancesheetGroup, TransactionMaster, ClosingBalance,
-    Employee, EmployeeSalaryHead, EmployeePayroll,
+    Employee, EmployeeSalaryHead, EmployeePayroll, EmployeeAttendance,
     
   ],
   controllers:[AuthController]

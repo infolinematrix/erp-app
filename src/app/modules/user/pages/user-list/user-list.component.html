@@ -22,10 +22,10 @@
       <ng-template #center> </ng-template>
 
       <ng-template #end>
-        <!-- <p-iconfield styleClass="mr-2">
+        <p-iconfield styleClass="mr-2">
           <input type="text" pInputText placeholder="Search" />
-           <p-inputicon styleClass="pi pi-search" />
-      </p-iconfield> -->
+          <p-inputicon styleClass="pi pi-search" />
+        </p-iconfield>
 
         <a routerLink="/user/permissions" class="no-underline">
           <p-button
@@ -47,13 +47,13 @@
             (click)="$event.preventDefault()"
           />
         </a>
-        <!-- <p-button
-          icon="pi pi-upload"
-          styleClass="text-xs font-semibold text-primary-foreground bg-primary"
+        <p-button
+          icon="pi pi-plus"
+          styleClass="btn-primary"
           text
-          label="Menu"
-          severity="secondary"
-        /> -->
+          label="Create"
+          (click)="showDialog()"
+        />
       </ng-template>
     </p-toolbar>
 
@@ -62,54 +62,45 @@
         [value]="users"
         [tableStyle]="{ 'min-width': '50rem' }"
         [paginator]="true"
-        [rows]="5"
-        [rowsPerPageOptions]="[5, 10, 20]"
+        [rows]="50"
+        [rowsPerPageOptions]="[50, 100, 200]"
       >
-        <ng-template #caption styleClass="">
-          <div class="flex items-center justify-between">
-            <span class="text-md text-foreground font-bold"
-              >List of Products</span
-            >
-            <div class="flex justify-end">
-              <p-iconfield styleClass="mr-2">
-                <input type="text" pInputText placeholder="Search" />
-                <p-inputicon styleClass="pi pi-search" />
-              </p-iconfield>
-              <p-button
-                icon="pi pi-plus"
-                styleClass="btn-primary"
-                text
-                label="Create"
-                (click)="showDialog()"
-              />
-            </div>
-          </div>
-        </ng-template>
         <ng-template #header>
           <tr>
             <th class="font-semibold w-2/24">Id</th>
-            <th class="font-semibold w-10/24" pSortableColumn="name">
+            <th class="font-semibold w-8/24" pSortableColumn="name">
               Name <p-sortIcon field="name" />
             </th>
-            <th class="font-semibold w-10/24" pSortableColumn="email">
+            <th class="font-semibold w-8/24" pSortableColumn="email">
               Email <p-sortIcon field="email" />
             </th>
+            <th class="font-semibold w-2/24">Type</th>
             <th class="font-semibold w-2/24">Status</th>
-            <th class="font-semibold w-2/24">Action</th>
+            <th class="font-semibold w-2/24 text-right">Action</th>
           </tr>
         </ng-template>
         <ng-template #body let-user>
           <tr>
             <td class="py-2">{{ user.id }}</td>
             <td class="py-2">{{ user.name }}</td>
-            <td class="py-2">{{ user.email }}</td>
-            <td class="py-2">{{ user.email ? "Has email" : "No Email" }}</td>
+            <td class="py-2">{{ user.username }}</td>
+            <td class="py-2">{{ user.user_type }}</td>
             <td class="py-2">
+              {{ user.is_active === "yes" ? "Active" : "Inactive" }}
+            </td>
+            <td class="py-2 text-right gap-2 flex justify-end">
               <p-button
                 size="small"
                 styleClass="btn-secondary"
                 icon="pi pi-cog"
-                (onClick)="onClick_Edit()"
+                (onClick)="onClick_Edit(user)"
+              ></p-button>
+
+              <p-button
+                size="small"
+                styleClass="btn-secondary"
+                icon="pi pi-lock"
+                (onClick)="onClick_Role(user)"
               ></p-button>
             </td>
           </tr>
@@ -119,17 +110,22 @@
   </div>
 </div>
 
-<!-- Show modal window -->
+<!-- Show modal window : Create -->
 <p-dialog
   [style]="{ width: '40rem' }"
   [visible]="showModal"
   [showHeader]="false"
   styleClass="text-sm"
+  [contentStyle]="{ overflow: 'visible' }"
+  [baseZIndex]="10000"
 >
-  <!-- <ng-container>
-    <form [formGroup]="form">
+  <ng-container>
+    <form [formGroup]="createForm">
       <div class="flex justify-between py-4">
         <div class="text-lg font-semibold">Create User</div>
+        <button type="button" (click)="togglePasswordVisibility()">
+          {{ showPassword ? "Hide Password" : "Show Password" }}
+        </button>
       </div>
 
       <div class="grid grid-cols-12 gap-4">
@@ -164,9 +160,9 @@
             <label for="email">Password</label>
             <input
               pInputText
-              id="email"
+              id="password"
               aria-describedby="name-help"
-              type="password"
+              [type]="showPassword ? 'text' : 'password'"
               class="input"
               formControlName="password"
             />
@@ -177,9 +173,9 @@
             <label for="email">Confirm Password</label>
             <input
               pInputText
-              id="email"
+              id="confirm_password"
               aria-describedby="name-help"
-              type="password"
+              [type]="showPassword ? 'text' : 'password'"
               class="input"
               formControlName="confirm_password"
             />
@@ -188,13 +184,28 @@
         <div class="col-span-6">
           <div class="flex flex-col gap-1">
             <label for="email">Type</label>
-            <input
-              pInputText
-              id="email"
-              aria-describedby="name-help"
-              type="password"
-              class="input"
+            <p-select
+              id="type"
+              [options]="userTypes"
               formControlName="user_type"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select"
+              class="input"
+            />
+          </div>
+        </div>
+        <div class="col-span-6">
+          <div class="flex flex-col gap-1">
+            <label for="email">Status</label>
+            <p-select
+              id="status"
+              [options]="userStatus"
+              formControlName="status"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select"
+              class="input"
             />
           </div>
         </div>
@@ -209,15 +220,14 @@
         <p-button
           label="Save"
           styleClass="btn-primary"
-          (click)="showModal = false"
+          (click)="createUser()"
         />
       </div>
     </form>
-  </ng-container> -->
-
+  </ng-container>
 </p-dialog>
 
-<!-- Show Edit modal window -->
+<!-- Show Edit modal window : Update -->
 <p-dialog
   [style]="{ width: '40rem' }"
   [visible]="showUpdateModal"
@@ -226,20 +236,155 @@
   [contentStyle]="{ overflow: 'visible' }"
   [baseZIndex]="10000"
 >
+  <ng-container>
+    <form [formGroup]="updateForm">
+      <div class="flex justify-between py-4">
+        <div class="text-lg font-semibold">Edit User</div>
+      </div>
+
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-6">
+          <div class="flex flex-col gap-1">
+            <label for="name">Name</label>
+            <input
+              pInputText
+              id="name"
+              aria-describedby="name-help"
+              type="text"
+              class="input"
+              formControlName="name"
+            />
+          </div>
+        </div>
+        <div class="col-span-6">
+          <div class="flex flex-col gap-1">
+            <label for="email">Email</label>
+            <input
+              pInputText
+              id="email"
+              aria-describedby="name-help"
+              type="email"
+              class="input"
+              formControlName="email"
+            />
+          </div>
+        </div>
+
+        <div class="col-span-6">
+          <div class="flex flex-col gap-1">
+            <label for="type">Type</label>
+            <p-select
+              id="type"
+              [options]="userTypes"
+              formControlName="user_type"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select"
+              class="input"
+            />
+          </div>
+        </div>
+
+        <div class="col-span-6">
+          <div class="flex flex-col gap-1">
+            <label for="status">Status</label>
+            <p-select
+              id="status"
+              [options]="userStatus"
+              formControlName="status"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select"
+              class="input"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 mt-4">
+        <p-button
+          label="Cancel"
+          styleClass="btn-secondary"
+          (click)="showUpdateModal = false"
+        />
+        <p-button
+          label="Save"
+          styleClass="btn-primary"
+          (onClick)="updateUser()"
+        />
+      </div>
+    </form>
+  </ng-container>
+</p-dialog>
+
+<!-- Show Edit modal window : Assigning Role -->
+<p-dialog
+  [style]="{ width: '40rem' }"
+  [visible]="showRoleModal"
+  [showHeader]="false"
+  styleClass="text-sm"
+  [contentStyle]="{ overflow: 'visible' }"
+  [baseZIndex]="10000"
+>
   <div class="flex justify-between py-4">
-    <div class="text-lg font-semibold">Edit User</div>
+    <div class="text-lg font-semibold">Assign Roles</div>
   </div>
 
-  <div class="grid grid-cols-12 gap-4"></div>
+  <div class="flex gap-2 mb-2">
+            <p-select
+              id="role"
+              [options]="roles"
+              [(ngModel)]="selectedRole"
+              optionLabel="name"
+              placeholder="Select"
+              class="input w-full"
+              [filter]="true"
+              filterBy="name"
+            />
+            
+            <p-button
+              icon="pi pi-plus"
+              (onClick)="appendRoleToUser()"
+            ></p-button>
+          </div>
+
+  <p-table
+    [value]="userRoles"
+    [tableStyle]="{ 'max-height': '10rem' }"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 20, 100]"
+  >
+    <ng-template #header>
+      <tr>
+        <th class="font-semibold w-10/12">Role name</th>
+        <th class="font-semibold w-2/12 text-right">Action</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-userrole>
+      <tr>
+        <td class="py-2">{{ userrole.role.name }}</td>
+        <td class="py-2 text-right gap-2 flex justify-end">
+          <p-button
+            size="small"
+            styleClass="btn-secondary"
+            icon="pi pi-cog"
+            (onClick)="deleteUserRole(userrole.role.id)"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
   <div class="flex justify-between items-center gap-2 mt-6">
     <div class="flex items-center">Confirm Check Box</div>
     <div class="flex items-center gap-2">
       <p-button
         label="Cancel"
         styleClass="btn-secondary"
-        (click)="showUpdateModal = false"
+        (click)="showRoleModal = false"
       />
-      <p-button label="Save" styleClass="btn-primary" />
+      <p-button label="Save" styleClass="btn-primary" (onClick)="updateUserRoles()"/>
     </div>
   </div>
 </p-dialog>

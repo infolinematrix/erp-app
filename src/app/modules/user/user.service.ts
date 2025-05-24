@@ -26,16 +26,29 @@ permissionRepo = repo(Permission);
   }
 
   async createRole(title:string,description:string){
+   
     const isExist = await this.roleRepo.findFirst({name:title});
 
     if(!isExist){
-      this.roleRepo.create({
+      this.roleRepo.insert({
         name:title,
-        // slug: ,
-        is_active: true,
-        is_system: false,
-        is_superadmin: false,
-        created_at: new Date()
+        description:description,
+      })
+      return true;
+    }else{
+      return false;
+    }
+    
+  }
+
+  async createPermission(title:string,description:string){
+    debugger
+    const isExist = await this.roleRepo.findFirst({name:title});
+
+    if(!isExist){
+      this.permissionRepo.insert({
+        name:title,
+        description:description,
       })
       return true;
     }else{
