@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
@@ -12,8 +12,17 @@ export class AuthGuard implements CanActivate {
    * Determines if the route can be activated
    * @returns True if authenticated, otherwise navigates to login and returns false
    */
-  canActivate(): boolean | UrlTree {
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean | UrlTree {
+
+    const isSignInPage = state.url.includes('/sign-in');
+
     if (this.isUserAuthenticated()) {
+      if (isSignInPage) {
+        return this.router.createUrlTree(['/dashboard']);
+      }
       return true;
     } else {
       console.log('Access denied. Redirecting to login...');

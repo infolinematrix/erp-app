@@ -1,0 +1,124 @@
+<div class="flex h-screen w-screen">
+  <div class="auth-bg hidden flex-1 items-center justify-center bg-background bg-cover lg:flex">
+    <div class="max-w-2xl space-y-4 p-8 text-center text-primary">
+      <!-- <img src="./assets/images/auth-screens.png" alt="dashboard widget" /> -->
+      <img src="./assets/images/hero-bg.png" alt="dashboard widget" />
+      <h1 class="text-4xl font-bold">"ERP NEXT, Single Source of Truth"</h1>
+      <p class="text-xs font-light">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis
+        <span class="cursor-pointer font-medium text-yellow-400">nostrud</span> exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo <span class="cursor-pointer font-medium text-yellow-400">consequat.</span> Duis aute irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+    </div>
+  </div>
+  <div class="flex flex-1 items-center justify-center bg-background">
+    <div class="max-w-md overflow-y-auto px-4 sm:w-[500px]">
+      <!-- logo -->
+      <div class="flex items-center justify-center">
+        <!-- <a class="rounded bg-primary p-2">
+          <svg-icon src="assets/icons/logo.svg" [svgClass]="'h-5 w-5'"> </svg-icon>
+        </a> -->
+        <b class="text-md pl-3 font-bold text-foreground"> Welcome </b>
+      </div>
+      <!-- Route -->
+      <!-- login form -->
+      <form class="my-10 space-y-6" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="text-center">
+          <h2 class="mb-1 text-3xl font-semibold text-foreground">
+            Initial Setup <span class="text-primary">!</span>
+          </h2>
+          <p class="text-sm text-muted-foreground">
+            Enter your initial information to get started.
+          </p>
+        </div>
+
+        <div class="space-y-3 text-left">
+          <div class="form__group">
+            <label for="organization_name">Organization</label>
+            <input
+              type="text"
+              id="organization_name"
+              class="input"
+              placeholder=""
+              formControlName="organization_name"
+            />
+          </div>
+
+          <div class="form__group">
+            <label for="email">Email address</label>
+            <input
+              type="email"
+              id="email"
+              class="input"
+              placeholder=""
+              formControlName="email"
+            />
+          </div>
+
+          <div class="form__group">
+            <label for="phone">Phone Number</label>
+            <input
+              type="text"
+              id="email"
+              class="input"
+              placeholder=""
+              formControlName="phone"
+            />
+          </div>
+
+          <div class="form__group">
+            <label for="address">Address</label>
+            <textarea
+              id="address"
+              class="input"
+              placeholder=""
+              formControlName="address"
+            ></textarea>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4">
+            <div class="col-span-6">
+              <div class="form__group">
+                <label for="phone">City</label>
+                <input
+                  type="text"
+                  id="email"
+                  class="input"
+                  placeholder=""
+                  formControlName="city"
+                />
+              </div>
+            </div>
+            <div class="col-span-6">
+              <div class="form__group">
+                <label for="phone">Country</label>
+                <input
+                  type="text"
+                  id="email"
+                  class="input"
+                  placeholder=""
+                  formControlName="country"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+          <app-button
+            full
+            impact="bold"
+            tone="primary"
+            shape="rounded"
+            size="medium"
+            >Submit</app-button
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

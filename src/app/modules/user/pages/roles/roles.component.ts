@@ -14,10 +14,16 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TextareaModule } from 'primeng/textarea';
-import { repo, Validators } from 'remult';
+import { repo } from 'remult';
 
 import { UserService } from '../../user.service';
-import { Form, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  Form,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { Roles } from '../../../../../shared/User.entity';
 
@@ -25,38 +31,43 @@ import { Roles } from '../../../../../shared/User.entity';
   selector: 'app-roles',
   templateUrl: './roles.component.html',
   styleUrls: ['./roles.component.css'],
-  imports:[
+  imports: [
     InputGroupModule,
-        InputGroupAddonModule,
-        CardModule,CheckboxModule,
-        Dialog,
-        ToolbarModule,
-        ButtonModule,
-        InputTextModule,
-        SplitButtonModule, IconFieldModule, InputIconModule,TableModule,
-        TextareaModule,
-        AngularSvgIconModule, RouterLink,  ReactiveFormsModule,
-        
-  ]
+    InputGroupAddonModule,
+    CardModule,
+    CheckboxModule,
+    ReactiveFormsModule,
+    Dialog,
+    ToolbarModule,
+    ButtonModule,
+    InputTextModule,
+    SplitButtonModule,
+    IconFieldModule,
+    InputIconModule,
+    TableModule,
+    TextareaModule,
+    AngularSvgIconModule,
+    RouterLink,
+    ReactiveFormsModule,
+  ],
 })
 export class RolesComponent implements OnInit {
-
   constructor(
     private readonly formBuilder: FormBuilder,
-    private userService:UserService,
-    private router:Router,
-  ) { 
+    private userService: UserService,
+    private router: Router
+  ) {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
-      description: ['', []],
+      description: [''],
     });
     this.formUpdate = this.formBuilder.group({
       name: ['', [Validators.required]],
-      description: ['', []],
+      description: [''],
     });
   }
 
-  roles:Roles[]=[];
+  roles: Roles[] = [];
   roleRepo = repo(Roles);
   showModal: boolean = false;
   showUpdateModal: boolean = false;
@@ -65,78 +76,69 @@ export class RolesComponent implements OnInit {
   form!: FormGroup;
   formUpdate!: FormGroup;
 
-
-
-
   async ngOnInit() {
     await this.loadData();
-   
   }
 
-  onClick_Edit(role:Roles){
+  onClick_Edit(role: Roles) {
     this.showUpdateModal = true;
     this.selectedRole = role;
-    console.log(this.selectedRole);
-    
+
     this.formUpdate.patchValue({
       name: this.selectedRole.name,
-      description: this.selectedRole.description
+      description: this.selectedRole.description,
     });
-
-
   }
 
-  onClick_RolePermission(roleId:number){
+  onClick_RolePermission(roleId: number) {
     console.log(roleId);
-    this.router.navigate(['user/role-permissions', roleId])
+    this.router.navigate(['user/role-permissions', roleId]);
   }
 
-    async update(){
-      try {
-        await repo(Roles).update(this.selectedRole.id, {
-          name: this.formUpdate.controls['name'].value,
-          description: this.formUpdate.controls['description'].value,
-        })
-        this.loadData();
-        toast.success("Successfully updated!");
-        this.formUpdate.reset();
-        this.showUpdateModal = false;
-      } catch (error:any) {
-        toast.error(error.message);
-      }
+  async update() {
+    try {
+      await repo(Roles).update(this.selectedRole.id, {
+        name: this.formUpdate.controls['name'].value,
+        description: this.formUpdate.controls['description'].value,
+      });
+      this.loadData();
+      toast.success('Successfully updated!');
+      this.formUpdate.reset();
+      this.showUpdateModal = false;
+    } catch (error: any) {
+      toast.error(error.message);
     }
+  }
 
-  async loadData(){
+  async loadData() {
     try {
       this.roles = await this.userService.getRoles();
     } catch (error: any) {
       console.log(error);
-      toast.error(error.message)
+      toast.error(error.message);
     }
   }
 
-  async save(){
-    try {
-      console.log("FOrm Data", this.form.value);
-      await this.userService.createRole(this.form.value.name, this.form.value.description).then(
-        (resp) => {
-          toast.success('Success');
-          // console.log('Fetched roles:', resp);
+  async save() {
+    debugger
+    if(this.form!.invalid){
+      toast.error('Invalid!')
+       return
+    };
 
-        },
-        (error) => {
-          toast.error(error.message);
-          console.error('Error fetching roles in component:', error);
-        }
+    try {
+      await this.userService.createRole(
+        this.form.value.name,
+        this.form.value.description
       );
 
+      this.form.reset();
       this.showModal = false;
-      // this.loadData();
-      
+      toast.success('Role Created successfully.');
+      this.loadData();
     } catch (error: any) {
       // console.log(error);
-      toast.error(error.message)
+      toast.error(error.message);
     }
-
   }
 }

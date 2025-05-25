@@ -1,8 +1,8 @@
-import { Entity, Fields, Relations, remult, repo, Validators } from "remult";
+import { Entity, Fields, Relations, remult, repo, Validators } from 'remult';
+import bcrypt from 'bcryptjs';
+import { Employee } from './Employee.entity';
 
-import { Employee } from "./Employee.entity";
-
-@Entity("users", {
+@Entity('users', {
   allowApiCrud: true,
   // allowApiCrud: remult.authenticated, // Only authenticated users can perform CRUD operations
   // allowApiDelete: Roles.admin, // Only admin users can delete
@@ -19,44 +19,48 @@ export class User {
   @Fields.autoIncrement()
   id = 0;
 
-  @Fields.string({ required: true }) 
-  name = "";
+  @Fields.string({ required: true })
+  name = '';
 
   @Fields.string({ required: true, validate: [Validators.unique] })
-  username = "";
+  username = '';
 
-  @Fields.string({ includeInApi: false }) // Password field is not exposed in API responses
-  password = "";
+  @Fields.string() // Password field is not exposed in API responses
+  password!: string;
 
   // Automatically hash password before insert
   // async $beforeInsert() {
-  //   this.password = await bcrypt.hash(this.password, 10);
+  //   debugger;
+  //   if (this.password) {
+  //     this.password = await bcrypt.hash(this.password, 10);
+  //   }
   // }
 
   // async $beforeUpdate() {
-  //   if (this.$isFieldChanged("password")) {
+  //   // You may also want to hash here if password is updated
+  //   if (this.password && !this.password.startsWith('$2b$')) {
   //     this.password = await bcrypt.hash(this.password, 10);
   //   }
   // }
 
   @Fields.string({ required: true })
-  user_type= ''
-
-  @Fields.string({ includeInApi: false })
-  refresh_token = "";
+  user_type = 'USER';
 
   @Fields.string()
-  center_code = "";
+  is_active = 'yes';
 
-  @Relations.toMany(()=> UserRole, 'user_id')
+
+  @Fields.string({ includeInApi: false })
+  refresh_token = '';
+
+  @Fields.string()
+  center_code = '';
+
+  @Relations.toMany(() => UserRole)
   userRoles?: UserRole[];
 
-   @Relations.toOne(()=> Employee, { field: 'id', allowNull: false })
-    employee?: Employee[];
-
-
-
-
+  @Relations.toOne(() => Employee, { field: 'id', allowNull: false })
+  employee?: Employee[];
 
   // @Fields.string<User>({
   //   // This field is used for updating the password without exposing the actual password column
@@ -64,7 +68,7 @@ export class User {
   //   saving: async (user, fieldRef, e) => {
   //     if (e.isNew || fieldRef.valueChanged()) {
   //       // If the user is new or the password has changed
-  //       user.password = bcrypt.hashSync(user.password, 10); 
+  //       user.password = bcrypt.hashSync(user.password, 10);
   //     }
   //   },
   // })
@@ -74,6 +78,9 @@ export class User {
   //   allowApiUpdate: Roles.admin, // Only admins can update this field
   // })
   // admin = false;
+  
+  @Fields.string()
+  status = 'ACTIVE';
 
   @Fields.createdAt() // Automatically tracks when the user was created
   created_at = new Date();
@@ -90,43 +97,39 @@ export class User {
   // Creates demo users for testing purposes
   static async createDemoUsers() {
     // if ((await repo(User).count()) == 0)
-      // If no users exist, insert these demo users
-      // await repo(User).insert([
-      //   {
-      //     name: "Jane",
-      //     updatePassword: "Jane123",
-      //     admin: true, // Jane is an admin
-      //     providerType: "credentials",
-      //   },
-      //   {
-      //     name: "Steve",
-      //     updatePassword: "Steve123",
-      //     providerType: "credentials",
-      //   },
-      // ]);
+    // If no users exist, insert these demo users
+    // await repo(User).insert([
+    //   {
+    //     name: "Jane",
+    //     updatePassword: "Jane123",
+    //     admin: true, // Jane is an admin
+    //     providerType: "credentials",
+    //   },
+    //   {
+    //     name: "Steve",
+    //     updatePassword: "Steve123",
+    //     providerType: "credentials",
+    //   },
+    // ]);
   }
 }
 
 //-- Roles
-@Entity("roles", {
+@Entity('roles', {
   allowApiCrud: true,
-  // allowApiDelete: Roles.admin, 
-  // allowApiInsert: Roles.admin, 
 })
 export class Roles {
- 
   @Fields.autoIncrement()
   id = 0;
 
   @Fields.string()
-  name = "";
+  name = '';
 
   @Fields.string()
-  description = "";
- 
- 
+  description = '';
+
   @Fields.string()
-  slug = "";
+  slug = '';
 
   @Fields.boolean()
   is_active = true;
@@ -137,19 +140,15 @@ export class Roles {
   @Fields.boolean()
   is_superadmin = false;
 
-  @Relations.toMany(()=> RolePermission, 'role_id')
+  @Relations.toMany(() => RolePermission, 'permission')
   permissions!: RolePermission[];
 
-  
-  @Relations.toOne(() => Employee, { field: 'user_id' }) // Assuming user_id is FK in User
-  employee?: Employee;
-
-  @Fields.string()
+  @Fields.createdAt()
   created_at = new Date();
 }
 
 // //-- Permissions
-@Entity("permissions", {
+@Entity('permissions', {
   allowApiCrud: true,
 })
 export class Permission {
@@ -157,47 +156,47 @@ export class Permission {
   id = 0;
 
   @Fields.string()
-  name = "";
+  name = '';
 
   @Fields.string()
-  description = "";
+  description = '';
+
+  @Relations.toOne(() => Roles)
+  roles?: Roles; // Assuming user_id is FK in User
+
 }
 
 //--role_permission
-@Entity("role_permissions", {
+@Entity('role_permissions', {
   allowApiCrud: true,
 })
 export class RolePermission {
   
-  @Fields.number()
-  role_id!: number
-  
-  @Fields.number()
-  permission_id!:number
+  @Fields.autoIncrement()
+  id!: number;
 
-  // @Relations.toOne(() => Roles)
-  // role!: Roles;
+  @Relations.toOne(() => Roles)
+  role!: Roles;
 
-  // @Relations.toOne(() => Permission)
-  // permission!: Permission;
+  @Relations.toOne(() => Permission)
+  permission!: Permission;
+
 }
 
 //--user-roles
-@Entity("user_roles", {
+@Entity('user_roles', {
   allowApiCrud: true,
 })
-
 export class UserRole {
-  
-  @Fields.number()
-  user_id!: number
-  
-  @Fields.number()
-  role_id!:number
+  @Fields.autoIncrement()
+  id? = 0;
 
+  
+  // Relationship to User
+  @Relations.toOne(() => User)
+  user?: User;
+
+  // Relationship to Role
   @Relations.toOne(() => Roles)
-  role?: Roles
-  
+  role?: Roles;
 }
-
-

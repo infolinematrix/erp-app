@@ -17,7 +17,6 @@
           </div>
         </div>
       </ng-template>
-      <ng-template #center> </ng-template>
 
       <ng-template #end>
         <p-iconfield styleClass="mr-2">
@@ -67,13 +66,7 @@
           [rows]="25"
           [rowsPerPageOptions]="[25, 50, 100]"
         >
-          <!-- <ng-template #caption styleClass="">
-          <div class="flex items-center justify-between">
-            <span class="text-md text-foreground font-bold"
-              >List of Roles</span
-            >
-          </div>
-        </ng-template> -->
+         
           <ng-template #header>
             <tr>
               <th class="font-semibold w-2/24" pSortableColumn="id">
@@ -86,8 +79,7 @@
               <th class="font-semibold w-14/24">
                 Description
               </th>
-              <th class="font-semibold w-2/24">Status</th>
-              <th class="font-semibold w-2/24">Action</th>
+              <th class="font-semibold w-2/24 text-right">Action</th>
             </tr>
           </ng-template>
           <ng-template #body let-permission>
@@ -95,10 +87,8 @@
               <td class="py-2">{{ permission.id }}</td>
               <td class="py-2">{{ permission.name }}</td>
               <td class="py-2">{{ permission.description }}</td>
-              <td class="py-2">
-                {{ permission.is_active === 1 ? "Active" : "Inactive" }}
-              </td>
-              <td class="py-2">
+              
+              <td class="py-2  text-right">
                   <p-button size="small" styleClass="btn-secondary" icon="pi pi-cog" (onClick)="onClick_Edit(permission)"></p-button>
               </td>
             </tr>

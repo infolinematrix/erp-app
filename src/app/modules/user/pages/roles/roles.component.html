@@ -67,13 +67,7 @@
           [rows]="25"
           [rowsPerPageOptions]="[25, 50, 100]"
         >
-          <!-- <ng-template #caption styleClass="">
-          <div class="flex items-center justify-between">
-            <span class="text-md text-foreground font-bold"
-              >List of Roles</span
-            >
-          </div>
-        </ng-template> -->
+         
           <ng-template #header>
             <tr>
               <th class="font-semibold w-2/24" pSortableColumn="id">
@@ -124,13 +118,13 @@
 >
 <form [formGroup]="form">
   <div class="flex justify-between py-4">
-    <div class="text-lg font-semibold">Create</div>
+    <div class="text-lg font-semibold">Create Role</div>
   </div>
 
   <div class="grid grid-cols-12 gap-4">
     <div class="col-span-12">
       <div class="flex flex-col gap-1">
-        <label for="name">Title</label>
+        <label for="name">Name</label>
         <input
           pInputText
           id="name"
@@ -144,7 +138,7 @@
     </div>
     <div class="col-span-12">
       <div class="flex flex-col gap-1">
-        <label for="name">Description</label>
+        <label for="description">Description</label>
         <textarea rows="3" cols="30" pTextarea formControlName="description"></textarea>
       </div>
     </div>
@@ -165,12 +159,11 @@
 </form>
 </p-dialog>
 
-<!-- Show edit modal window -->
 
 
 <!-- Show Edit modal window -->
 <p-dialog
-[style]="{ width: '30rem' }"
+  [style]="{ width: '30rem' }"
   [visible]="showUpdateModal"
   [showHeader]="false"
   styleClass="text-sm"
@@ -178,7 +171,7 @@
   [baseZIndex]="10000"
 >
   <div class="flex justify-between py-4">
-    <div class="text-lg font-semibold">Edit Role</div>
+    <div class="text-lg font-semibold">Update Role</div>
   </div>
 
   <form [formGroup]="formUpdate">
@@ -189,7 +182,6 @@
           <input
             pInputText
             id="name"
-            aria-describedby="name-help"
             type="text"
             class="input"
             formControlName="name"

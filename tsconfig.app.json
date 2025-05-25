@@ -4,6 +4,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
+    "sourceMap": true,
+    "inlineSources": true,
+    "inlineSourceMap": false,
     "types": []
   },
   "files": [

@@ -17,44 +17,52 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TextareaModule } from 'primeng/textarea';
 import { repo } from 'remult';
 import { UserService } from '../../user.service';
-import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  Form,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Permission } from '../../../../../shared/User.entity';
 
 @Component({
   selector: 'app-permissions',
   templateUrl: './permissions.component.html',
   styleUrls: ['./permissions.component.css'],
-  imports :[
+  imports: [
     InputGroupModule,
-        InputGroupAddonModule,
-        CardModule, CheckboxModule,
-        Dialog,
-        ToolbarModule,
-        ButtonModule,
-        InputTextModule,
-        SplitButtonModule, IconFieldModule, InputIconModule,TableModule,
-        TextareaModule,
-        AngularSvgIconModule, RouterLink,  ReactiveFormsModule
-  ]
+    InputGroupAddonModule,
+    CardModule,
+    CheckboxModule,
+    Dialog,
+    ToolbarModule,
+    ButtonModule,
+    InputTextModule,
+    SplitButtonModule,
+    IconFieldModule,
+    InputIconModule,
+    TableModule,
+    TextareaModule,
+    AngularSvgIconModule,
+    RouterLink,
+    ReactiveFormsModule,
+  ],
 })
 export class PermissionsComponent implements OnInit {
-
   constructor(
     private readonly formBuilder: FormBuilder,
-    private userService:UserService,
-    private router:Router,
-  ) { }
+    private userService: UserService,
+    private router: Router
+  ) {}
 
-  permissions:Permission[]=[];
+  permissions: Permission[] = [];
   permissionRepo = repo(Permission);
   showCreateModal: boolean = false;
   showUpdateModal: boolean = false;
   form!: FormGroup;
   formUpdate!: FormGroup;
   selectedPermission: Permission = <Permission>{};
-
-
-
 
   ngOnInit() {
     this.loadData();
@@ -68,36 +76,34 @@ export class PermissionsComponent implements OnInit {
     });
   }
 
-  onClick_Edit(permission:Permission){
+  onClick_Edit(permission: Permission) {
     this.showUpdateModal = true;
-    this.selectedPermission = permission
+    this.selectedPermission = permission;
     console.log(this.selectedPermission);
-    
+
     this.formUpdate.patchValue({
       name: this.selectedPermission.name,
-      description: this.selectedPermission.description
+      description: this.selectedPermission.description,
     });
   }
 
-  async update(){
+  async update() {
     try {
       await repo(Permission).update(this.selectedPermission.id, {
         name: this.formUpdate.controls['name'].value,
         description: this.formUpdate.controls['description'].value,
-      })
+      });
       this.loadData();
-      toast.success("Successfully updated!");
+      toast.success('Successfully updated!');
       this.formUpdate.reset();
       this.showUpdateModal = false;
-    } catch (error:any) {
+    } catch (error: any) {
       toast.error(error.message);
     }
   }
 
-
-  async loadData(){
+  async loadData() {
     try {
-      
       this.userService.getPermissions().then(
         (permissions) => {
           this.permissions = permissions!;
@@ -107,13 +113,31 @@ export class PermissionsComponent implements OnInit {
           console.error('Error fetching roles in component:', error);
         }
       );
-
     } catch (error: any) {
       console.log(error);
-      toast.error(error.message)
+      toast.error(error.message);
     }
   }
 
-  save(){}
+  async save() {
+    if (this.form.invalid) {
+      toast.error('Invalid!');
+      return;
+    }
 
+    try {
+      
+      await this.userService.createPermission(
+        this.form.value.name,
+        this.form.value.description
+      );
+
+      this.form.reset();
+      this.showCreateModal = false;
+      toast.success('Permission Created successfully.');
+      this.loadData();
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }
 }
