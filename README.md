@@ -1,10 +1,9 @@
-# ⚡️ erp-app ⚡️  
-Everything you need to build a modern, full-stack **ERP** system.
+# ⚡️ ERP App ⚡️ — A Modern Full-Stack Enterprise Resource Planning System 
+Everything you need to build a modern, full-stack ERP system designed to streamline business operations. Features include role-based authorization, comprehensive accounting and budgeting modules, inventory management, asset tracking, and more — all integrated seamlessly for efficient workflow management.
 
 ![ERP App Overview](./src/assets/erp-overview.png)
 
 ## 🚀 Tech Stack
-
 This project combines powerful, modern tools to deliver a robust ERP foundation:
 
 - 🔄 **[Remult](https://remult.dev/)** – Full-stack, type-safe CRUD & real-time capabilities  
