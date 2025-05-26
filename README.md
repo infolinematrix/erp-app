@@ -1,7 +1,7 @@
 # ⚡️ ERP App ⚡️ — A Modern Full-Stack Enterprise Resource Planning System 
 Everything you need to build a modern, full-stack ERP system designed to streamline business operations. Features include role-based authorization, comprehensive accounting and budgeting modules, inventory management, asset tracking, and more — all integrated seamlessly for efficient workflow management.
 
-![ERP App Overview](./src/assets/erp-overview.png)
+![ERP App Overview](./src/public/cover.png)
 
 ## 🚀 Tech Stack
 This project combines powerful, modern tools to deliver a robust ERP foundation:
@@ -79,23 +79,5 @@ npm run build
 npm run start
 ```
 
-## 📋 Feature Roadmap
-
-| Feature                     | Status         | Target Release |
-|-----------------------------|----------------|----------------|
-| User Role Management        | 🚧 In Progress | v1.0.0         |
-| Inventory Module            | ⏳ Planned     | v1.0.0         |
-| Purchase Order Workflow     | ❌ Not started | v1.0.0         |
-| Accounting System           | ❌ Not started | TBD            |
-| Admin Dashboard             | ✅ Done        | v0.1.0         |
-
-
-# Ng help
-ng g m <module-name> --routing
-
-# Remove unwanted imports
-ng generate @angular/core:cleanup-unused-imports
-
-# Port unblock
-lsof -i :4200
-kill -9 <PID>
+## 🤝 Collaboration
+We welcome contributions from the community! If you're interested in collaborating on this project, please feel free to fork the repository, open issues, or submit pull requests.
