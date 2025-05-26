@@ -1,23 +1,8 @@
 import { BackendMethod, remult, repo, UserInfo, withRemult } from 'remult';
 import type express from 'express';
-// import { JwtService } from '@nestjs/jwt';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// import type from 'cookie-session';
-// import { Injectable, UnauthorizedException } from '@nestjs/common';
 // import bcrypt from 'bcryptjs';
 import { Permission, Roles, User } from '../User.entity';
 
-/**
- * const currentUser = {
-        id: user.id.toString(),
-        user_type: user.user_type,
-        user_center: user.center_code,
-        name: user.name,
-        email: user.username,
-        roles: user.roles || [],
-        permissions: user.permissions || [],
-      };
- */
 declare module 'remult' {
   export interface RemultContext {
     request?: express.Request;
@@ -25,7 +10,6 @@ declare module 'remult' {
   }
 }
 
-// @Injectable()
 export class AuthController {
   @BackendMethod({ allowed: true })
   static async signIn(
@@ -53,10 +37,6 @@ export class AuthController {
       throw new Error('Invalid credentials');
     }
 
-    // const user_with_roles = await remult.repo(User).findId(user.id, {
-    //   include: { userRoles: true },
-    // });
-
     const userWithRoles = await remult.repo(User).findId(user.id, {
       include: {
         userRoles: {
@@ -74,8 +54,6 @@ export class AuthController {
         },
       },
     });
-
-    // const roles = user.userRoles?.map((ur) => ur.role?.name!) || [];
 
     const roles: string[] = [];
     const permissionsSet = new Set<string>();
