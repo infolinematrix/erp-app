@@ -1,10 +1,9 @@
-# ⚡️ erp-app ⚡️  
-Everything you need to build a modern, full-stack **ERP** system.
+# ⚡️ ERP App ⚡️ — A Modern Full-Stack Enterprise Resource Planning System 
+Everything you need to build a modern, full-stack ERP system designed to streamline business operations. Features include role-based authorization, comprehensive accounting and budgeting modules, inventory management, asset tracking, and more — all integrated seamlessly for efficient workflow management.
 
----
+![ERP App Overview](./public/cover.png)
 
 ## 🚀 Tech Stack
-
 This project combines powerful, modern tools to deliver a robust ERP foundation:
 
 - 🔄 **[Remult](https://remult.dev/)** – Full-stack, type-safe CRUD & real-time capabilities  
@@ -32,30 +31,10 @@ Before getting started, ensure the following are installed:
 
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/YOUR_USERNAME/erp-app.git
+   git clone https://github.com/infolinematrix/erp-app.git
    cd erp-app
+   npm install
 
-
-### 🛠 Prerequisites
-
-Before diving in, make sure you have the following tools installed:
-
-- **Node.js (v20+ 🚨)**
-- **npm (bundled with Node.js)**
-
-### 🎯 Installation
-
-Clone the repo:
-
-```bash
-git clone [https://github.com/infolinematrix/erp-app]
-```
-
-and install dependencies:
-
-```bash
-npm install
-```
 
 ### 🛠 Configuration & Environment Variables
 
@@ -100,11 +79,5 @@ npm run build
 npm run start
 ```
 
-# Ng Module
-ng g m <module-name> --routing
-# Remove unwanted imports
-ng generate @angular/core:cleanup-unused-imports
-
-# Port unblock
-lsof -i :4200
-kill -9 <PID>
+## 🤝 Collaboration
+We welcome contributions from the community! If you're interested in collaborating on this project, please feel free to fork the repository, open issues, or submit pull requests.

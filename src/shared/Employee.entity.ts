@@ -1,12 +1,6 @@
 import { Entity, Fields, Relations, remult, repo, Validators } from 'remult';
 import { User } from './User.entity';
 
-
-
-
-
-
-
 @Entity('employee', {
   allowApiCrud: true,
   
@@ -84,11 +78,6 @@ export class Employee {
 
   @Fields.string()
   emmergency = '';
-
-
-
-  @Relations.toOne(() => User, { field: 'user_id' })
-  user!: User;
 
   @Fields.createdAt()
   created_at = new Date();

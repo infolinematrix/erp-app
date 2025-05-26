@@ -4,7 +4,7 @@
   "displayName": "REACTOR-ERP",
   "scripts": {
     "ng": "ng",
-    "dev": "ng serve --proxy-config proxy.conf.json --open",
+    "dev": "ng serve --proxy-config proxy.conf.json --configuration development",
     "cleanup-imports": "ng generate @angular/core:cleanup-unused-imports",
     "lint": "ng lint",
     "dev-node": "tsx watch --env-file=.env --tsconfig tsconfig.server.json src/server",
@@ -14,7 +14,6 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  
   "dependencies": {
     "@angular/animations": "^19.2.8",
     "@angular/cdk": "^19.2.11",
@@ -75,6 +74,9 @@
     "postcss": "^8.5.3",
     "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4.1.4",
+    "ts-node": "^10.9.2",
+    "ts-paths": "^0.1.3",
+    "tsconfig-paths": "^4.2.0",
     "tsx": "^4.19.1",
     "typescript": "~5.5.2"
   }

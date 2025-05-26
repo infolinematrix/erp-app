@@ -58,3 +58,14 @@ export function humanize(str: string, caseSplit = false): string {
 export function deHumanize(str: string, operator = '_') {
   return str.toLowerCase().split(' ').join(operator);
 }
+
+export function sluggyfy(str: string, isCaps = true): string {
+  let slug = str
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')  // Remove non-alphanumeric characters
+    .replace(/\s+/g, '-')          // Replace spaces with hyphens
+    .replace(/-+/g, '-');          // Remove multiple hyphens
+
+  return isCaps ? slug.toUpperCase() : slug;
+}

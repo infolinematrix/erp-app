@@ -37,7 +37,8 @@ export class Menu {
           children: [
             { label: 'Dashboard', route: '/human-resource/dashboard' },
             { label: 'Employee Master', route: '/human-resource/employee' },
-            { label: 'Salaries', route: '/human-resource/employee/salary' },
+            { label: 'Payroll Heads', route: '/human-resource/employee/salary' },
+            { label: 'Attendence Register', route: '/human-resource/attendence' },
 
             //--last
             { label: 'Settings', route: '/human-resource//settings' },

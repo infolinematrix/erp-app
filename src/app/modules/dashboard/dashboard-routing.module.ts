@@ -9,8 +9,8 @@ import { AuthGuard } from '../../core/guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
+    // canActivate: [AuthGuard], 
     component: DashboardComponent,
-    canActivate: [AuthGuard], 
     children: [
       { path: '', redirectTo: 'nfts', pathMatch: 'full' },
       { path: 'nfts', component: NftComponent },

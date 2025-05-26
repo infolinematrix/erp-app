@@ -89,9 +89,10 @@ export class EmployeePayrollComponent implements OnInit {
   }
 
   selectedEmployee?: Employee;
-  addition_heads: any[] = [];
-  deduction_heads: any[] = [];
-  all_heads: any[] = [];
+  salary_heads: any[] = [];
+  // addition_heads: any[] = [];
+  // deduction_heads: any[] = [];
+  // tax_deduction_heads: any[] = [];
   selectedHead: any;
   form!: FormGroup;
 
@@ -104,12 +105,16 @@ export class EmployeePayrollComponent implements OnInit {
 
   employee_addition_heads: any[] = [];
   employee_deduction_heads: any[] = [];
+  employee_tax_deduction_heads: any[] = [];
 
   async loadData() {
     try {
       const userId = Number(this.activeRoute.snapshot.paramMap.get('id'));
-      this.addition_heads = await this.employeeService.getSalaryHeads();
-      this.deduction_heads = await this.employeeService.getSalaryHeads('D');
+      this.salary_heads = await this.employeeService.getSalaryHeads('');
+      
+      this.employee_addition_heads = await this.employeeService.getSalaryHeads('D');
+      this.employee_deduction_heads = await this.employeeService.getSalaryHeads('D');
+      this.employee_tax_deduction_heads = await this.employeeService.getSalaryHeads('T');
 
       if (!userId) {
         toast.error('as');
@@ -136,6 +141,11 @@ export class EmployeePayrollComponent implements OnInit {
             this.selectedEmployee.id,
             'D'
           );
+          this.employee_tax_deduction_heads =
+          await this.employeeService.getSalaryHeadByEmployee(
+            this.selectedEmployee.id,
+            'T'
+          );
       }
     } catch (error: any) {
       toast.error(error.message);
@@ -143,7 +153,6 @@ export class EmployeePayrollComponent implements OnInit {
   }
 
   async onChangeHead() {
-    // console.log(this.employee_addition_heads);
     this.selectedHead = await this.employeeService.findSalaryHead(
       this.form.value.salary_head
     );
@@ -157,14 +166,11 @@ export class EmployeePayrollComponent implements OnInit {
       value: this.selectedHead.value,
       employee_id: this.selectedEmployee?.id
     });
-    console.log(this.form.controls['calculation_type'].value);
 
     if (this.form.controls['calculation_type'].value === 'Fixed') {
       this.form.controls['calculation_base_head'].disable();
-      // this.form.controls['value'].enable();
     } else {
       this.form.controls['calculation_base_head'].enable();
-      // this.form.controls['value'].disable();
 
       const base_head = await this.employeeService.findSalaryHead(
         this.form.value.calculation_base_head
@@ -176,7 +182,6 @@ export class EmployeePayrollComponent implements OnInit {
   }
 
   onClickAdd() {
-    // console.log(this.form.value);
   
     if (this.form.invalid) {
       toast.error('Invalid form data');
@@ -187,9 +192,6 @@ export class EmployeePayrollComponent implements OnInit {
     const headValue = formData['salary_head'];
     const typeValue = formData['type'];
     const employeeId = formData['employee_id'];
-
-    console.log(this.employee_addition_heads);
-    
 
     if (typeValue === 'A') {
       const headExists = this.employee_addition_heads.some(
@@ -202,7 +204,8 @@ export class EmployeePayrollComponent implements OnInit {
       }
       this.employee_addition_heads.push(formData);
       this.form.reset();
-    } else if (typeValue === 'D') {
+    } 
+    if (typeValue === 'D') {
       const headExists = this.employee_deduction_heads.some(
         (head) => head.employee_id === employeeId && head.salary_head === headValue
       );
@@ -214,6 +217,18 @@ export class EmployeePayrollComponent implements OnInit {
       this.employee_deduction_heads.push(formData);
       this.form.reset();
     }
+    if (typeValue === 'T') {
+      const headExists = this.employee_tax_deduction_heads.some(
+        (head) => head.employee_id === employeeId && head.salary_head === headValue
+      );
+      if (headExists) {
+        toast.error('Tax Deduction head already exists');
+        this.form.reset();
+        return;
+      }
+      this.employee_tax_deduction_heads.push(formData);
+      this.form.reset();
+    }
   }
 
   removeHead(headIndex: number, type: string) {
@@ -222,6 +237,9 @@ export class EmployeePayrollComponent implements OnInit {
     }
     if (type && type === 'D') {
       this.employee_deduction_heads.splice(headIndex, 1);
+    }
+    if (type && type === 'T') {
+      this.employee_tax_deduction_heads.splice(headIndex, 1);
     }
   }
 
@@ -248,9 +266,11 @@ export class EmployeePayrollComponent implements OnInit {
         console.warn('No employee selected, skipping delete operation.');
       }
 
+      //--Concate all head
       const payrollData = this.employee_addition_heads.concat(
-        this.employee_deduction_heads
+        this.employee_deduction_heads, this.employee_tax_deduction_heads
       );
+
       const payrollDataToSave = payrollData.map((payrol) => ({
         salary_head: payrol.salary_head,
         head_name: payrol.head_name,

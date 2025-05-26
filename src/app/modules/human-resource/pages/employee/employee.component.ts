@@ -110,7 +110,6 @@ export class EmployeeComponent implements OnInit {
             ...new Employee(),
             name: user.name,
             user_id: user.id,
-            user,
             isActive: false,
           }
         );

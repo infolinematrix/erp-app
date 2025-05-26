@@ -46,6 +46,12 @@ export class SignInComponent implements OnInit {
       email: ['admin@admin.com', [Validators.required, Validators.email]],
       password: ['admin@123', Validators.required],
     });
+
+    //--if user authenticated to dashboard
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/dashboard']);
+    }
+    
   }
 
   get f() {
@@ -64,7 +70,6 @@ export class SignInComponent implements OnInit {
       return;
     }
     try {
-      
       const user = await AuthController.signIn(email, password);
       
       if(user!==null){
@@ -76,7 +81,7 @@ export class SignInComponent implements OnInit {
         };
         console.log('Final user session...', sessionData);
         this.authService.setCurrentUser(user);
-        this.router.navigate(['/dashboard']);
+        // this.router.navigate(['/dashboard']);
       }
      
     } catch (error: any) {
