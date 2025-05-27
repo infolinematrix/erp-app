@@ -3,6 +3,7 @@ import type express from 'express';
 // import bcrypt from 'bcryptjs';
 import { Permission, Roles, User } from '../User.entity';
 
+
 declare module 'remult' {
   export interface RemultContext {
     request?: express.Request;
@@ -11,6 +12,10 @@ declare module 'remult' {
 }
 
 export class AuthController {
+
+constructor() { }
+
+
   @BackendMethod({ allowed: true })
   static async signIn(
     username: string,
@@ -25,7 +30,7 @@ export class AuthController {
     permissions: string[];
   }> {
     const user = await remult.repo(User).findFirst({ username });
-
+    
     if (!user) {
       throw new Error('Invalid user');
     }
@@ -36,6 +41,7 @@ export class AuthController {
     if (!isPasswordValid) {
       throw new Error('Invalid credentials');
     }
+
 
     const userWithRoles = await remult.repo(User).findId(user.id, {
       include: {
@@ -54,6 +60,7 @@ export class AuthController {
         },
       },
     });
+
 
     const roles: string[] = [];
     const permissionsSet = new Set<string>();

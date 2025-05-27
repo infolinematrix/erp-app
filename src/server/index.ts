@@ -56,9 +56,11 @@ async function bootstrap() {
     )
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);
+  SwaggerModule.setup('server/docs', app, document);
 
-  app.use(api); // Init remult
+  app.use(api); // Init remultApi
+
+  
 
   /**
    * Global

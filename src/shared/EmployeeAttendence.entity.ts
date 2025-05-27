@@ -14,20 +14,17 @@ export class EmployeeAttendance {
   @Relations.toOne(() => Employee)
   employee?: Employee;
 
-  @Fields.string()
-  attendance_type!: string;
-
-  @Fields.string({ allowNull: true }) // Represent TIME as string (e.g., "HH:MM:SS")
+  @Fields.date({ allowNull: true }) // Represent TIME as string (e.g., "HH:MM:SS")
   inTime?: string;
 
-  @Fields.string({ allowNull: true }) // Represent TIME as string
+  @Fields.date({ allowNull: true }) // Represent TIME as string
   outTime?: string;
 
   @Fields.string({ maxLength: 200 }) // It's good practice to specify maxLength if known
   remark = '';
 
-  @Fields.string({ allowNull: true, maxLength: 100 })
-  absent_type?: string;
+  @Fields.string({ allowNull: true, maxLength: 10 })
+  status?: string;
 
   @Fields.boolean() // Assuming 0 or 1 for false/true, or other integer codes
   is_editable!: false;

@@ -22,8 +22,8 @@ export class Employee {
   @Fields.integer({ required: true })
   title = 0;
 
-  @Fields.integer()
-  user_id = 0;
+ @Relations.toOne(() => User)
+user?: User;
 
   @Fields.string({ required: true })
   name = '';

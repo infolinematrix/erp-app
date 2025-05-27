@@ -1,5 +1,5 @@
 import { createKnexDataProvider } from "remult/remult-knex";
-import { remultExpress } from 'remult/remult-express'
+import { remultApi, remultExpress } from 'remult/remult-express'
 
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -30,7 +30,7 @@ import { EmployeeAttendance } from "../shared/EmployeeAttendence.entity.js";
 
 
   
-export const api = remultExpress({
+export const api = remultApi({
   // getUser: getUserFromRequest,
 // getUser: (req) => req.session!['user'],
   

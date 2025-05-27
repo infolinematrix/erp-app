@@ -59,8 +59,8 @@ export class User {
   @Relations.toMany(() => UserRole)
   userRoles?: UserRole[];
 
-  @Relations.toOne(() => Employee, { field: 'id', allowNull: false })
-  employee?: Employee[];
+  // @Relations.toOne(() => Employee, { field: 'id', allowNull: false })
+  // employee?: Employee[];
 
   // @Fields.string<User>({
   //   // This field is used for updating the password without exposing the actual password column
@@ -162,7 +162,7 @@ export class Permission {
   description = '';
 
   @Relations.toOne(() => Roles)
-  roles?: Roles; // Assuming user_id is FK in User
+  roles?: Roles; 
 
 }
 
@@ -195,6 +195,8 @@ export class UserRole {
   // Relationship to User
   @Relations.toOne(() => User)
   user?: User;
+   
+    
 
   // Relationship to Role
   @Relations.toOne(() => Roles)

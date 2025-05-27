@@ -122,7 +122,7 @@ export class EmployeePayrollComponent implements OnInit {
 
       const employee = await remult
         .repo(Employee)
-        .findFirst({ user_id: userId! });
+        .findFirst({ user: {$id: userId} });
 
       if (employee) {
         this.selectedEmployee = employee!;

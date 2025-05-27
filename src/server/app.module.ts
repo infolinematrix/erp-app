@@ -1,21 +1,34 @@
-
-import { Module } from '@nestjs/common'
-// import { ConfigService } from '@nestjs/config';
-// import { AuthModule } from './auth/auth.module';
-// import { UsersModule } from './users/users.module';
-// import { JwtModule } from '@nestjs/jwt';
-// import { ConfigModule } from './modules/config.module';
-// import { AuthController } from './auth/auth.controller';
-// import { AuthService } from './auth/auth.service';
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import configuration from './config/app.config';
+import { JwtModule } from '@nestjs/jwt';
+import { AppController } from './app.controller';
+import { KnexService } from './services/knex.service';
 
 
 @Module({
-    
-    // imports:[
-    //     AuthModule, 
-    //     UsersModule,
-    // ],
-    // providers:[ConfigService, AuthService],
-    // controllers: [AuthController]
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: 'src/.env',
+      load: [configuration],
+    }),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get<string>('jwt.secret'),
+        signOptions: { expiresIn: configService.get<string>('jwt.expiresIn') },
+      }),
+    }),
+  ],
+  providers: [
+    KnexService, 
+  ],
+  exports: [KnexService],
+  // controllers: [AppController],
 })
+
+
 export class AppModule {}
+

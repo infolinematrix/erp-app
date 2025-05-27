@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { remult } from 'remult';
 import { EmployeePayroll } from '../../../../shared/EmployeePayroll.entity';
 import { EmployeeSalaryHead } from '../../../../shared/EmployeeSalaryHead.entity';
-import { Roles } from '../../../../shared/User.entity';
+import { Roles, User, UserRole } from '../../../../shared/User.entity';
 import { GetAttendanceParams } from '../libs/interface';
 import { Employee } from '../../../../shared/Employee.entity';
 import { EmployeeAttendance } from '../../../../shared/EmployeeAttendence.entity';
+import { AttendanceData } from '../libs/interface';
 
 @Injectable({
   providedIn: 'root',
@@ -64,9 +65,6 @@ export class EmployeeService {
       orderBy: {
         name: 'asc',
       },
-      include: {
-        roles: true,
-      },
     });
 
     return employees;
@@ -77,20 +75,42 @@ export class EmployeeService {
   ): Promise<any[]> {
     const employeeRepo = remult.repo(Employee);
     const attendanceRepo = remult.repo(EmployeeAttendance);
- debugger;
+
+    const role = params.role;
+    const attnDate = params.attnDate;
+
     // Get all employees
-    const employees = await employeeRepo.find({ where: { isActive: true } });
+    const userRoles = await remult.repo(UserRole).find({
+      where: { role: { $id: role } },
+      include: {
+        user: true,
+      },
+    });
+
+    const userIds = userRoles.map((r) => r.user!.id as number).filter((u) => u);
+
+    const users = userIds.map((r) => r);
+
+    const employees = await remult.repo(Employee).find({
+      where: {
+        isActive: true,
+        user: {
+          $id: {
+            $in: users,
+          },
+        },
+      },
+    });
 
     // Get all attendance records for the given date
     const attendanceMap = new Map<number, EmployeeAttendance>();
 
-    // const attendances = await attendanceRepo.find({
-    //   where: { date: params.attnDate },
-    //   include: {
-    //     employee: true,
-    //   },
-    // });
-    const attendances = await attendanceRepo.find();
+    const attendances = await attendanceRepo.find({
+      where: { date: params.attnDate },
+      include: {
+        employee: true,
+      },
+    });
 
     // Create a map of employeeId -> attendance
     for (const attendance of attendances) {
@@ -98,9 +118,6 @@ export class EmployeeService {
         attendanceMap.set(attendance.employee.id, attendance);
       }
     }
-
-    const defaultInTime: Date = new Date(new Date().setHours(9, 30, 0, 0));
-  const defaultOutTime: Date = new Date(new Date().setHours(19, 30, 0, 0));
 
     // Merge: For each employee, attach their attendance if found
     const result = employees.map((employee) => {
@@ -112,8 +129,8 @@ export class EmployeeService {
           date: params.attnDate,
           employee,
           attendance_type: '',
-          inTime: 'In Time',
-          outTime: 'Out Time',
+          inTime: null,
+          outTime: null,
           remark: '',
           absent_type: '',
           is_editable: false,
@@ -124,5 +141,55 @@ export class EmployeeService {
     });
 
     return result;
+  }
+
+
+
+  //--Update Attendence
+  async updateAttendence(employeeId: number, attendanceData: AttendanceData) {
+    const { attnDate, inTime, outTime, status } = attendanceData;
+
+    // Find existing record by employeeId and attnDate
+    const existing = await remult.repo(EmployeeAttendance).findOne({
+      where: {
+        employee: { $id: employeeId },
+        date: new Date(attnDate),
+      },
+    });
+
+    if (existing) {
+      // Update only fields provided
+      if (inTime !== undefined)
+        existing.inTime = new Date(inTime).toISOString();
+      if (outTime !== undefined)
+        existing.outTime = new Date(outTime).toISOString();
+      if (status !== undefined) existing.status = status;
+      
+
+      await remult.repo(EmployeeAttendance).save(existing);
+    } else {
+      // Insert new record, include only fields that exist
+      const inTimeDate = inTime ? new Date(inTime).toISOString() : null;
+      const outTimeDate = outTime ? new Date(outTime).toISOString() : null;
+      const employee = await remult.repo(Employee).findId(employeeId);
+
+      const newRecord = remult.repo(EmployeeAttendance).create({
+        employee: employee!,
+        date: new Date(attnDate),
+        inTime: inTimeDate!,
+        outTime: outTimeDate!,
+        status: status,
+      });
+      await remult.repo(EmployeeAttendance).insert(newRecord);
+    }
+
+    return true;
+  }
+
+
+
+    //--Update In Time
+  async updateInTime(empId: number, date: Date, inTime: Date) {
+    return true;
   }
 }

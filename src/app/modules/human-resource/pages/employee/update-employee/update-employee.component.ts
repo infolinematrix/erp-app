@@ -39,7 +39,7 @@ import { EmployeeSettingsComponent } from '../components/employee-settings/emplo
 import { PickupSelectComponent } from '../../../../../shared/components/pickup-select/pickup-select.component';
 import { Employee } from '../../../../../../shared/Employee.entity';
 import { User } from '../../../../../../shared/User.entity';
-
+import { EmployeeLeaveComponent } from '../components/employee-leave/employee-leave.component';
 
 @Component({
   selector: 'app-update-employee',
@@ -65,14 +65,16 @@ import { User } from '../../../../../../shared/User.entity';
     TextareaModule,
     SelectModule,
     AngularSvgIconModule,
-    ReactiveFormsModule,
+    
     KeyFilterModule,
     MessageModule,
     ReactiveFormsModule,
     ConfirmPopupModule,
     //--
     PickupSelectComponent,
-    EmployeeQualificationComponent, EmployeeSettingsComponent
+    // EmployeeQualificationComponent,
+    // EmployeeSettingsComponent,
+    EmployeeLeaveComponent
   ],
   templateUrl: './update-employee.component.html',
   styleUrls: ['./update-employee.component.css'],
@@ -124,22 +126,21 @@ export class UpdateEmployeeComponent implements OnInit {
     try {
       this.userId = Number(this.activeRoute.snapshot.paramMap.get('id'));
       const userExist = await remult.repo(User).findId(this.userId);
-      if(!userExist){
+
+      if (!userExist) {
         toast.error('Invalid user');
         this.router.navigate(['/not-found']);
         return;
       }
 
-      const employee = await remult
-        .repo(Employee)
-        .findFirst({ user_id: this.userId });
-
+      const employee = await remult.repo(Employee).findFirst({
+        user: { $id: this.userId },
+      });
 
       if (employee) {
         this.employee = employee;
         this.form.patchValue(this.employee);
-        console.log("FORM",this.form.value);
-        
+        console.log('FORM', this.form.value);
       } else {
         this.employee = new Employee();
         this.form.patchValue(this.employee);
@@ -164,40 +165,33 @@ export class UpdateEmployeeComponent implements OnInit {
 
     const formData = this.form.value;
 
-
-    
     try {
-      const existingEmployee = await remult.repo(Employee).findFirst({user_id: this.userId!});
+      const existingEmployee = await remult
+        .repo(Employee)
+        .findFirst({ user: {$id: this.userId!} });
 
       if (existingEmployee) {
         formData.id = existingEmployee.id;
         await remult.repo(Employee).save(formData);
-        
-       
       } else {
         formData.user_id = this.userId!;
-        await remult
-          .repo(Employee)
-          .insert(formData);
+        await remult.repo(Employee).insert(formData);
         toast.success(
           `Employee with User ID ${this.userId!} created successfully.`
         );
         // this.form.reset();
-        
       }
 
       //--Update user name
-      
-        const user = await remult.repo(User).findId(this.userId!);
-        if (user) {
-          await remult.repo(User).update(user.id, { name: formData.name });
-        } 
 
-         toast.success(
-          `Employee with User ID ${this.userId!} updated successfully.`
-        );
+      const user = await remult.repo(User).findId(this.userId!);
+      if (user) {
+        await remult.repo(User).update(user.id, { name: formData.name });
+      }
 
-      
+      toast.success(
+        `Employee with User ID ${this.userId!} updated successfully.`
+      );
     } catch (error: any) {
       toast.error(error.message);
     }
