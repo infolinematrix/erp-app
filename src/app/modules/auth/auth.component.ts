@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import packageJson from '../../../../package.json';
 
 @Component({
     selector: 'app-auth',
@@ -11,6 +12,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 })
 export class AuthComponent implements OnInit {
   constructor() {}
+
+  public appJson: any = packageJson;
 
   ngOnInit(): void {}
 }

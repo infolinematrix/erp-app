@@ -71,93 +71,142 @@
         </ng-container>
 
         <ng-container>
-          <p-table
-            [value]="attendence"
-            [responsive]="true"
-            [tableStyle]="{ 'min-width': '50rem' }"
-            [paginator]="true"
-            [lazy]="true"
-            [rows]="25"
-            [rowsPerPageOptions]="[25, 50, 100]"
-            [totalRecords]="1"
-          >
-            <ng-template #header>
-              <tr>
-                <th class="font-semibold w-1/24">ID</th>
-                <th class="font-semibold w-2/24" pSortableColumn="name">
-                  Employee Name <p-sortIcon field="name" />
-                </th>
-                <th class="font-semibold w-4/24 text-right">In/Out Time</th>
+          <form [formGroup]="attendanceForm">
+            <div formArrayName="records">
+              <p-table
+                [value]="records.controls"
+                [responsive]="true"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                [paginator]="true"
+                [lazy]="true"
+                [rows]="25"
+                [rowsPerPageOptions]="[25, 50, 100]"
+                [totalRecords]="1"
+              >
+                <ng-template #header>
+                  <tr>
+                    <th class="font-semibold w-1/24">ID</th>
+                    <th class="font-semibold w-3/24">
+                      Employee Name
+                    </th>
+                    <th class="font-semibold w-3/24 text-right">In/Out Time</th>
 
-                <th class="font-semibold w-3/24" pSortableColumn="name">
-                  Designation <p-sortIcon field="name" />
-                </th>
-                <th class="font-semibold w-3/24" pSortableColumn="id">
-                  Department <p-sortIcon field="id" />
-                </th>
-                <th class="font-semibold w-2/24" pSortableColumn="name">
-                  On Leave? <p-sortIcon field="name" />
-                </th>
-              </tr>
-            </ng-template>
+                    <th class="font-semibold w-3/24">
+                      Designation
+                    </th>
+                     <th class="font-semibold w-3/24" pSortableColumn="department">
+                      Department <p-sortIcon field="department" />
+                    </th>
+                    <th class="font-semibold w-3/24">
+                      Staus
+                    </th>
+                    <th class="font-semibold w-2/24  text-right">
+                      Action
+                    </th>
+                  </tr>
+                </ng-template>
 
-            <ng-template #body let-employee>
-              <tr>
-                <td class="py-2">{{prefix}}-{{  employee.id }}</td>
-                <td class="py-2">{{ employee.name }}</td>
-                <td class="py-2">
-                  <div class="flex w-full items-center justify-end gap-2">
-                    <p-datepicker
-                      [iconDisplay]="'input'"
-                      [showIcon]="true"
-                      [timeOnly]="true"
-                      inputId="templatedisplay"
-                      appendTo="body"
-                      panelStyleClass="datepicker-top"
-                    >
-                      <ng-template #inputicon let-clickCallBack="clickCallBack">
-                        <i
-                          class="pi pi-clock"
-                          (click)="clickCallBack($event)"
-                        ></i>
-                      </ng-template>
-                    </p-datepicker>
+                <ng-template #body let-employee let-index="rowIndex">
+                  <tr [formGroupName]="index">
+                    <td class="py-2">
+                      {{ prefix }}-{{ records.at(index).get("employee_id")?.value }}
+                    </td>
+                    <td class="py-2">
+                      {{ records.at(index).get("name")?.value }}
+                    </td>
+                    <td class="py-2">
+                      <div class="flex w-full items-center justify-end gap-2">
+                        <div class="flex gap-2">
+                          <p-datepicker
+                            [iconDisplay]="'input'"
+                            [showIcon]="true"
+                            [timeOnly]="true"
+                            inputId="templatedisplay"
+                            appendTo="body"
+                            panelStyleClass="datepicker-top"
+                            formControlName="inTime"
+                          >
+                            <ng-template
+                              #inputicon
+                              let-clickCallBack="clickCallBack"
+                            >
+                              <i
+                                class="pi pi-clock"
+                                (click)="clickCallBack($event)"
+                              ></i>
+                            </ng-template>
+                          </p-datepicker>
+                          <button
+                            pButton
+                            type="button"
+                            label="In"
+                            class="btn-primary text-primary-foreground"
+                            (click)="onUpdateInTime(index)"
+                          ></button>
+                        </div>
 
-                    <p-datepicker
-                      [iconDisplay]="'input'"
-                      [showIcon]="true"
-                      [timeOnly]="true"
-                      inputId="templatedisplay"
-                      appendTo="body"
-                      panelStyleClass="datepicker-top"
-                    >
-                      <ng-template #inputicon let-clickCallBack="clickCallBack">
-                        <i
-                          class="pi pi-clock"
-                          (click)="clickCallBack($event)"
-                        ></i>
-                      </ng-template>
-                    </p-datepicker>
-                  </div>
-                </td>
+                        <div class="flex gap-2">
+                          <p-datepicker
+                            [iconDisplay]="'input'"
+                            [showIcon]="true"
+                            [timeOnly]="true"
+                            inputId="templatedisplay"
+                            appendTo="body"
+                            panelStyleClass="datepicker-top"
+                            formControlName="outTime"
+                          >
+                            <ng-template
+                              #inputicon
+                              let-clickCallBack="clickCallBack"
+                            >
+                              <i class="pi pi-clock"></i>
+                            </ng-template>
+                          </p-datepicker>
+                          <button
+                            pButton
+                            type="button"
+                            label="Out"
+                            class="btn-primary text-primary-foreground"
+                          ></button>
+                        </div>
+                      </div>
+                    </td>
 
-                <td class="py-2"><app-pickup-title
-                    [pickupId]="employee.designation"
-                  ></app-pickup-title></td>
-                <td class="py-2">
-                  <app-pickup-title
-                    [pickupId]="employee.department"
-                  ></app-pickup-title></td>
-                <td class="py-2">
-                  <p-button
-                    size="small"
-                    styleClass="btn-secondary"
-                    icon="pi pi-cog"
-                  ></p-button>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
+                    <td class="py-2">
+                      <app-pickup-title
+                        [pickupId]="records.at(index).get('designation')?.value"
+                      ></app-pickup-title>
+                    </td>
+                    <td class="py-2">
+                      <app-pickup-title
+                        [pickupId]="records.at(index).get('department')?.value"
+                      ></app-pickup-title>
+                    </td>
+                    <td class="py-2">
+                      <p-select
+                        [options]="leaveTypes"
+                        optionLabel="label"
+                        optionValue="value"
+                        [filter]="true"
+                        filterBy="label"
+                        appendTo="body"
+                        placeholder="Select"
+                        class="input"
+                        formControlName="status"
+                      />
+                    </td>
+                    <td class="py-2 text-right">
+                      <p-button
+                        styleClass="btn-secondary"
+                        icon="pi pi-cog"
+                        (click)="updateAttendance(index)"
+                      ></p-button>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </form>
         </ng-container>
       </p-panel>
     </div>

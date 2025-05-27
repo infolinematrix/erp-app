@@ -34,8 +34,6 @@ import { PickupTitleComponent } from '../../../../shared/components/pickup-title
 import { Employee } from '../../../../../shared/Employee.entity';
 import { User } from '../../../../../shared/User.entity';
 
-
-
 @Component({
   selector: 'app-employee',
   imports: [
@@ -64,7 +62,7 @@ import { User } from '../../../../../shared/User.entity';
     MessageModule,
     ReactiveFormsModule,
     ConfirmPopupModule,
-    PickupTitleComponent
+    PickupTitleComponent,
   ],
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css'],
@@ -86,21 +84,23 @@ export class EmployeeComponent implements OnInit {
   }
 
   async loadData() {
-    const data = await remult.repo(User).find({
+    const data:User[] = await remult.repo(User).find({
       where: { user_type: UserTypes.Employee },
       // take: this.currentRows,
       // skip: this.currentFirst
     });
 
-    data!.forEach(async (user) => {
+
+    data!.forEach(async (user:User) => {
       const employee = await remult.repo(Employee).findFirst(
-        { user_id: user.id },
+        { user: {$id: user.id, user_type: UserTypes.Employee} },
         {
           include: {
             user: true,
           },
         }
       );
+
 
       if (employee) {
         this.employees.push(employee!);
@@ -109,17 +109,13 @@ export class EmployeeComponent implements OnInit {
           employee ?? {
             ...new Employee(),
             name: user.name,
-            user_id: user.id,
+            user: user,
             isActive: false,
           }
         );
-        
       }
     });
-
-    // this.users = data!;
-    // this.employees = employees!;
-    // console.log('-------------------',data);
+    
   }
 
   onPageChange(event: PageEvent): void {
@@ -148,13 +144,13 @@ export class EmployeeComponent implements OnInit {
 
   viewPayroll(user: User) {
     if (user.user_type === UserTypes.Employee) {
-      this._router
-        .navigate(['/human-resource/employee/payroll/update', user.id])
-
+      this._router.navigate([
+        '/human-resource/employee/payroll/update',
+        user.id,
+      ]);
     } else {
       toast.error('User is not an Employee!');
       return;
     }
   }
-
 }

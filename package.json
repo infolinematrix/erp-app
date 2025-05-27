@@ -1,7 +1,7 @@
 {
   "name": "erp-app",
   "version": "1.0.0",
-  "displayName": "REACTOR-ERP",
+  "displayName": "ERP-APP",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve --proxy-config proxy.conf.json --configuration development",
@@ -9,7 +9,6 @@
     "lint": "ng lint",
     "dev-node": "tsx watch --env-file=.env --tsconfig tsconfig.server.json src/server",
     "build": "ng build && tsc -p tsconfig.server.json",
-    "copy-env": "cp .env dist/server/.env",
     "start": "node dist/server/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -43,7 +42,8 @@
     "dotenv": "^16.5.0",
     "express": "^4.21.0",
     "knex": "^3.1.0",
-    "mysql2": "^3.9.8",
+    "mysql2": "^3.14.1",
+    "nest-knexjs": "^0.0.26",
     "ngx-sonner": "^3.1.0",
     "primeicons": "^7.0.0",
     "primeng": "^19.1.0",
