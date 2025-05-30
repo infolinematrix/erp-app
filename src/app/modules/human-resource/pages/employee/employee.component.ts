@@ -86,6 +86,7 @@ export class EmployeeComponent implements OnInit {
   async loadData() {
     const data:User[] = await remult.repo(User).find({
       where: { user_type: UserTypes.Employee },
+     
       // take: this.currentRows,
       // skip: this.currentFirst
     });

@@ -7,6 +7,7 @@ import { GetAttendanceParams } from '../libs/interface';
 import { Employee } from '../../../../shared/Employee.entity';
 import { EmployeeAttendance } from '../../../../shared/EmployeeAttendence.entity';
 import { AttendanceData } from '../libs/interface';
+import { EmployeeLeaveRequests } from '../../../../shared/EmployeLeaveRequest.entity';
 
 @Injectable({
   providedIn: 'root',
@@ -186,10 +187,18 @@ export class EmployeeService {
     return true;
   }
 
-
-
     //--Update In Time
   async updateInTime(empId: number, date: Date, inTime: Date) {
     return true;
+  }
+
+  //--Leave Register
+  async leaveRegister(){
+    const register = await remult.repo(EmployeeLeaveRequests).find({include:{employee:true}})
+    const data:any[]=[];
+    register.forEach((reg:EmployeeLeaveRequests)  =>  {
+      // const employee = remult.repo(Employee).findFirst({id: reg.employee.id})
+      
+    });
   }
 }

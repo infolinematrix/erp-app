@@ -127,6 +127,7 @@
 
 @utility page-container {
   @apply p-2 text-sm 
+  
 }
 
 /*
@@ -326,16 +327,15 @@ select {
     @apply text-primary-foreground hover:bg-primary/90 text-sm font-semibold border-0;
   }
   .input {
-    
-    @apply focus:border-primary focus:outline-hidden focus:ring-primary bg-card ;
-    line-height: 1rem; font-weight: 600; font-size: .90rem; width: 100%;
+    @apply focus:border-primary focus:outline-hidden focus:ring-primary bg-card text-foreground placeholder-muted-foreground;
+    line-height: 1rem; font-weight: 600; font-size: .90rem; width: 100%; 
   }
 }
 
 html, body { 
   height: 100%; 
   margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 95%; 
+  
 
 }
 

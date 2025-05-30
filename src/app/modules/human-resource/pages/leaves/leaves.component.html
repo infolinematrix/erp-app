@@ -1,0 +1,249 @@
+<div class="page-container p-0">
+  <div class="gap-4">
+    <div class="card">
+      <p-panel styleClass="">
+        <ng-template #header>
+          <div class="flex items-center gap-2">
+            <div class="flex flex-col">
+              <div class="font-bold text-md uppercase">Leave Register</div>
+              <div class="text-xs text-muted-foreground">
+                Maintain detailed records of employee leaves and approvals.
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #icons>
+          <p-button
+            label="Leave Request"
+            icon="pi pi-arrow-right"
+            styleClass="btn-primary"
+            (click)="showRequestModal = true"
+          />
+        </ng-template>
+
+        <ng-container>
+          <p-tabs value="0">
+            <p-tablist>
+              <p-tab value="0">Pending Request</p-tab>
+              <p-tab value="1">Approved</p-tab>
+              <p-tab value="2">Rejected</p-tab>
+            </p-tablist>
+            <p-tabpanels>
+              <p-tabpanel value="0">
+                <p-table
+                  [value]="leaveRequests"
+                  [responsive]="true"
+                  [tableStyle]="{ 'min-width': '50rem' }"
+                  [paginator]="true"
+                  [lazy]="true"
+                  [rows]="25"
+                  [rowsPerPageOptions]="[25, 50, 100]"
+                  [totalRecords]="1"
+                >
+                  <ng-template #header>
+                    <tr>
+                      <th class="font-semibold w-2/24">Date</th>
+                      <th class="font-semibold w-3/24">Employee Name</th>
+                      <th class="font-semibold w-2/24">From Date</th>
+                      <th class="font-semibold w-2/24">To Date</th>
+
+                      <th class="font-semibold w-3/24">Leave Type</th>
+
+                      <th class="font-semibold w-3/24">Staus</th>
+                      <th class="font-semibold w-2/24 text-right">Action</th>
+                    </tr>
+                  </ng-template>
+
+                  <ng-template #body let-row let-index="rowIndex">
+                    <tr>
+                      <td class="py-2">
+                        {{ row.endDate | date : "yyyy-MM-dd: H:mm" }}
+                      </td>
+                      <td class="py-2">
+                        {{ row.employee.name }}
+                      </td>
+                      <td class="py-2">
+                        {{ row.startDate | date : "yyyy-MM-dd" }}
+                      </td>
+                      <td class="py-2">
+                        {{ row.endDate | date : "yyyy-MM-dd" }}
+                      </td>
+                      <td class="py-2">
+                        {{ row.leave_type }}
+                      </td>
+                      <td class="py-2">
+                        {{ row.status }}
+                      </td>
+                      <td class="py-2 text-right">
+                        <p-button
+                          size="small"
+                          styleClass="btn-secondary bg-card text-primary"
+                          icon="pi pi-eye"
+                          (click)="viewRequest(row)"
+                        />
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </p-tabpanel>
+
+              <p-tabpanel value="1">
+                <p class="m-0">
+                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                  accusantium doloremque laudantium, totam rem aperiam, eaque
+                  ipsa quae ab illo inventore veritatis et quasi architecto
+                  beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+                  quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                  consequuntur magni dolores eos qui ratione voluptatem sequi
+                  nesciunt. Consectetur, adipisci velit, sed quia non numquam
+                  eius modi.
+                </p>
+              </p-tabpanel>
+              <p-tabpanel value="2">
+                <p class="m-0">
+                  At vero eos et accusamus et iusto odio dignissimos ducimus qui
+                  blanditiis praesentium voluptatum deleniti atque corrupti quos
+                  dolores et quas molestias excepturi sint occaecati cupiditate
+                  non provident, similique sunt in culpa qui officia deserunt
+                  mollitia animi, id est laborum et dolorum fuga. Et harum
+                  quidem rerum facilis est et expedita distinctio. Nam libero
+                  tempore, cum soluta nobis est eligendi optio cumque nihil
+                  impedit quo minus.
+                </p>
+              </p-tabpanel>
+            </p-tabpanels>
+          </p-tabs>
+        </ng-container>
+      </p-panel>
+    </div>
+  </div>
+</div>
+
+<!-- Show modal window -->
+<form [formGroup]="form">
+  <p-dialog
+    [style]="{ width: '40rem' }"
+    [visible]="showRequestModal"
+    [showHeader]="true"
+    styleClass="text-sm"
+  >
+    <ng-template #header>
+      <div class="inline-flex items-center justify-center gap-2">
+        <span class="font-bold whitespace-nowrap">Leave Request</span>
+      </div>
+    </ng-template>
+
+    <div class="grid grid-cols-12 gap-4">
+      <div class="col-span-12">
+        <div class="flex flex-col gap-1">
+          <label for="employee">Employee</label>
+          <input
+            pInputText
+            id="name"
+            formControlName="employee"
+            aria-describedby="name-help"
+            type="text"
+            class="input"
+            
+          />
+        </div>
+      </div>
+      <div class="col-span-3">
+        <div class="flex flex-col gap-1">
+          <label for="startDate">Start Date</label>
+          <p-datepicker
+            id="startDate"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            [readonlyInput]="true"
+            inputId="icondisplay"
+            appendTo="body"
+            class="input"
+            formControlName="startDate"
+          />
+        </div>
+      </div>
+
+      <div class="col-span-3">
+        <div class="flex flex-col gap-1">
+          <label for="endDate">End Date</label>
+          <p-datepicker
+            id="endDate"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            [readonlyInput]="true"
+            inputId="icondisplay"
+            appendTo="body"
+            class="input"
+            formControlName="endDate"
+          />
+        </div>
+      </div>
+      <div class="col-span-6">
+        <div class="flex flex-col gap-1">
+          <label for="leaveType">Leave Type</label>
+          <input
+            pInputText
+            id="leaveType"
+            formControlName="leaveType"
+            aria-describedby="name-help"
+            type="text"
+            class="input"
+            
+          />
+        </div>
+      </div>
+
+      <div class="col-span-12">
+        <div class="flex flex-col gap-1">
+          <label for="reason">Reason of Leave</label>
+          <textarea
+            rows="5"
+            cols="30"
+            pTextarea
+            formControlName="reason"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="col-span-12">
+        <div class="flex flex-col gap-1">
+          <label for="approval_user">Update Status</label>
+          <p-select
+            id="status"
+            [options]="requestStatus"
+            optionValue="value"
+            optionLabel="label"
+            placeholder="Select"
+            appendTo="body"
+            class="input"
+            formControlName="status"
+          />
+        </div>
+      </div>
+    </div>
+
+    <ng-template #footer>
+      <div class="flex justify-between items-center gap-2">
+        <div class="flex items-center">
+          <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
+          <label for="ingredient1" class="ml-2">
+            I confirm all the informations are correct.
+          </label>
+        </div>
+        <div class="flex gap-2">
+          <p-button
+            label="Cancel"
+            styleClass="btn-secondary"
+            (click)="showRequestModal = false"
+          />
+          <p-button
+            label="Save"
+            styleClass="btn-primary"
+            (click)="updateStatus()"
+          />
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+</form>

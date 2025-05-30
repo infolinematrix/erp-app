@@ -7,25 +7,25 @@ import { KnexService } from './services/knex.service';
 
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: 'src/.env',
-      load: [configuration],
-    }),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        secret: configService.get<string>('jwt.secret'),
-        signOptions: { expiresIn: configService.get<string>('jwt.expiresIn') },
-      }),
-    }),
-  ],
+  // imports: [
+  //   ConfigModule.forRoot({
+  //     isGlobal: true,
+  //     envFilePath: 'src/.env',
+  //     load: [configuration],
+  //   }),
+  //   JwtModule.registerAsync({
+  //     imports: [ConfigModule],
+  //     inject: [ConfigService],
+  //     useFactory: (configService: ConfigService) => ({
+  //       secret: configService.get<string>('jwt.secret'),
+  //       signOptions: { expiresIn: configService.get<string>('jwt.expiresIn') },
+  //     }),
+  //   }),
+  // ],
   providers: [
-    KnexService, 
+    // KnexService, 
   ],
-  exports: [KnexService],
+  // exports: [KnexService],
   // controllers: [AppController],
 })
 

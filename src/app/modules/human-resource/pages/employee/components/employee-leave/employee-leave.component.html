@@ -1,18 +1,70 @@
-<div class="grid grid-cols-24 gap-4">
-  <form [formGroup]="form">
+<form [formGroup]="leaveForm" class="p-fluid">
+  <div class="grid grid-cols-24 gap-4">
     <div class="col-span-4">
       <div class="flex flex-col gap-1">
-        <label for="country">Maternity </label>
+        <label for="paternity">Paternity Leave </label>
         <input
           pInputText
-          id="country"
+          id="paternity"
           class="input"
+          type="number"
           aria-describedby="name-help"
+          formControlName="paternity"
         />
       </div>
     </div>
-    <div class="col-span-4">asd</div>
-    <div class="col-span-4">asd</div>
-    <div class="col-span-4">asd</div>
-  </form>
-</div>
+    <div class="col-span-4">
+      <div class="flex flex-col gap-1">
+        <label for="sick">Sick Leave </label>
+        <input
+          pInputText
+          id="sick"
+          class="input"
+          aria-describedby="name-help"
+          formControlName="sick"
+        />
+      </div>
+    </div>
+    <div class="col-span-4">
+      <div class="flex flex-col gap-1">
+        <label for="casual">Casual Leave </label>
+        <input
+          pInputText
+          id="casual"
+          class="input"
+          aria-describedby="name-help"
+          formControlName="casual"
+        />
+      </div>
+    </div>
+    <div class="col-span-4">
+      <div class="flex flex-col gap-1">
+        <label for="maternity">Maternity Leave </label>
+        <input
+          pInputText
+          id="maternity"
+          class="input"
+          aria-describedby="name-help"
+          formControlName="maternity"
+        />
+      </div>
+    </div>
+    <div class="col-span-4">
+      <div class="flex flex-col gap-1">
+        <label for="bereavement">Bereavement leave </label>
+        <input
+          pInputText
+          id="bereavement"
+          class="input"
+          aria-describedby="name-help"
+          formControlName="bereavement"
+        />
+      </div>
+    </div>
+    <div class="col-span-4 text-right">
+       <div class="flex flex-col justify-end items-end h-full">
+        <p-button label="Save" icon="pi pi-save" size="small" (click)="saveLeave()" />
+       </div>
+    </div>
+  </div>
+</form>

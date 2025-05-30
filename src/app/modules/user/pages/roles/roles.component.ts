@@ -120,7 +120,7 @@ export class RolesComponent implements OnInit {
   }
 
   async save() {
-    debugger
+    
     if(this.form!.invalid){
       toast.error('Invalid!')
        return

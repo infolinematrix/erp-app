@@ -35,7 +35,7 @@ import { Roles, User } from '../../../../../shared/User.entity';
 import { toast } from 'ngx-sonner';
 import { Employee } from '../../../../../shared/Employee.entity';
 import { remult } from 'remult';
-import { employee_prefix, leaveType } from '../../libs/constants';
+import { employee_prefix, attendanceType } from '../../libs/constants';
 import { PickupTitleComponent } from '../../../../shared/components/pickup-title/pickup-title.component';
 import { AttendanceData } from '../../libs/interface';
 
@@ -99,7 +99,7 @@ export class AttendenceComponent implements OnInit {
   attendence: any[] = [];
   prefix = employee_prefix;
 
-  leaveTypes = Object.entries(leaveType).map(([key, value]) => ({
+  attendanceType = Object.entries(attendanceType).map(([key, value]) => ({
     label: value,
     value: key,
   }));
@@ -148,7 +148,7 @@ export class AttendenceComponent implements OnInit {
         // return date;
         return null;
       })();
-      debugger;
+      
       const formGroups = this.attendence.map((emp: any) =>
         this.formBuilder.group({
           employee_id: [emp.id],
@@ -205,7 +205,7 @@ export class AttendenceComponent implements OnInit {
   }
 
   async onUpdateInTime(index: number) {
-    debugger;
+   
     const control = this.records.at(index);
     if (control instanceof FormGroup) {
       // console.log(control.value);

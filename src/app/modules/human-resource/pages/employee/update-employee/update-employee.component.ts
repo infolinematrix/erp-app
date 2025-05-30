@@ -40,6 +40,7 @@ import { PickupSelectComponent } from '../../../../../shared/components/pickup-s
 import { Employee } from '../../../../../../shared/Employee.entity';
 import { User } from '../../../../../../shared/User.entity';
 import { EmployeeLeaveComponent } from '../components/employee-leave/employee-leave.component';
+import { EmployeeBankComponent } from '../components/employee-bank/employee-bank.component';
 
 @Component({
   selector: 'app-update-employee',
@@ -73,7 +74,8 @@ import { EmployeeLeaveComponent } from '../components/employee-leave/employee-le
     //--
     PickupSelectComponent,
     // EmployeeQualificationComponent,
-    // EmployeeSettingsComponent,
+    // EmployeeBankComponent,
+    EmployeeBankComponent,
     EmployeeLeaveComponent
   ],
   templateUrl: './update-employee.component.html',

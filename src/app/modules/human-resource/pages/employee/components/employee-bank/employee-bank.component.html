@@ -1,3 +1,70 @@
-<p>
-  employee-bank works!
-</p>
+<form [formGroup]="bankForm" class="p-fluid">
+  <div class="grid grid-cols-24 gap-4">
+    <div class="col-span-4">
+      <div class="flex flex-col gap-1">
+        <label for="bank_name">Bank Name </label>
+        <input
+          pInputText
+          id="bank_name"
+          class="input"
+          aria-describedby="name-help"
+          formControlName="bank_name"
+        />
+      </div>
+    </div>
+    <div class="col-span-4">
+      <div class="flex flex-col gap-1">
+        <label for="branch_name">Branch Name </label>
+        <input
+          pInputText
+          id="branch_name"
+          class="input"
+          aria-describedby="name-help"
+          formControlName="branch_name"
+        />
+      </div>
+    </div>
+    <div class="col-span-4">
+      <div class="flex flex-col gap-1">
+        <label for="account_no">Account Number </label>
+        <input
+          pInputText
+          id="account_no"
+          class="input"
+          aria-describedby="name-help"
+          formControlName="account_no"
+        />
+      </div>
+    </div>
+    <div class="col-span-4">
+      <div class="flex flex-col gap-1">
+        <label for="ifsc_code">IFSC Code </label>
+        <input
+          pInputText
+          id="ifsc_code"
+          class="input"
+          aria-describedby="name-help"
+          formControlName="ifsc_code"
+        />
+      </div>
+    </div>
+    <div class="col-span-4">
+      <div class="flex flex-col gap-1">
+        <label for="account_type">Account Type </label>
+        <input
+          pInputText
+          id="account_type"
+          class="input"
+          aria-describedby="name-help"
+          formControlName="account_type"
+        />
+      </div>
+    </div>
+    <div class="col-span-4 text-right">
+       <div class="flex flex-col justify-end items-end h-full">
+        <p-button label="Save" icon="pi pi-save" size="small" (click)="saveBank()" />
+       </div>
+    </div>
+  </div>
+</form>
+

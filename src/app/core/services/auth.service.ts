@@ -74,7 +74,6 @@ export class AuthService {
         permissions: user.permissions || [],
       };
       remult.user = currentUser  ;
-      // debugger;
       // console.log(remult.user);
       
   }
@@ -106,7 +105,6 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    // debugger;
     // return !!this.getToken();
     return !!this.getCurrentUser();
   }

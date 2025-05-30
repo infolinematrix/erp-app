@@ -31,14 +31,15 @@ export class Menu {
 
          //--Human Resource
          {
-          icon: 'assets/icons/heroicons/outline/chart-pie.svg',
-          label: 'Houman Resource',
+          icon: 'assets/icons/heroicons/outline/user-star.svg',
+          label: 'Human Resource',
           route: '/human-resource',
           children: [
             { label: 'Dashboard', route: '/human-resource/dashboard' },
             { label: 'Employee Master', route: '/human-resource/employee' },
             { label: 'Payroll Heads', route: '/human-resource/employee/salary' },
             { label: 'Attendence Register', route: '/human-resource/attendence' },
+            { label: 'Leave Register', route: '/human-resource/leaves' },
 
             //--last
             { label: 'Settings', route: '/human-resource//settings' },

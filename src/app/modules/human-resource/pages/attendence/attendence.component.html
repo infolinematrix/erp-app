@@ -86,30 +86,27 @@
                 <ng-template #header>
                   <tr>
                     <th class="font-semibold w-1/24">ID</th>
-                    <th class="font-semibold w-3/24">
-                      Employee Name
-                    </th>
+                    <th class="font-semibold w-3/24">Employee Name</th>
                     <th class="font-semibold w-3/24 text-right">In/Out Time</th>
 
-                    <th class="font-semibold w-3/24">
-                      Designation
-                    </th>
-                     <th class="font-semibold w-3/24" pSortableColumn="department">
+                    <th class="font-semibold w-3/24">Designation</th>
+                    <th
+                      class="font-semibold w-3/24"
+                      pSortableColumn="department"
+                    >
                       Department <p-sortIcon field="department" />
                     </th>
-                    <th class="font-semibold w-3/24">
-                      Staus
-                    </th>
-                    <th class="font-semibold w-2/24  text-right">
-                      Action
-                    </th>
+                    <th class="font-semibold w-3/24">Staus</th>
+                    <th class="font-semibold w-2/24 text-right">Action</th>
                   </tr>
                 </ng-template>
 
                 <ng-template #body let-employee let-index="rowIndex">
                   <tr [formGroupName]="index">
                     <td class="py-2">
-                      {{ prefix }}-{{ records.at(index).get("employee_id")?.value }}
+                      {{ prefix }}-{{
+                        records.at(index).get("employee_id")?.value
+                      }}
                     </td>
                     <td class="py-2">
                       {{ records.at(index).get("name")?.value }}
@@ -136,13 +133,6 @@
                               ></i>
                             </ng-template>
                           </p-datepicker>
-                          <button
-                            pButton
-                            type="button"
-                            label="In"
-                            class="btn-primary text-primary-foreground"
-                            (click)="onUpdateInTime(index)"
-                          ></button>
                         </div>
 
                         <div class="flex gap-2">
@@ -162,12 +152,6 @@
                               <i class="pi pi-clock"></i>
                             </ng-template>
                           </p-datepicker>
-                          <button
-                            pButton
-                            type="button"
-                            label="Out"
-                            class="btn-primary text-primary-foreground"
-                          ></button>
                         </div>
                       </div>
                     </td>
@@ -184,7 +168,7 @@
                     </td>
                     <td class="py-2">
                       <p-select
-                        [options]="leaveTypes"
+                        [options]="attendanceType"
                         optionLabel="label"
                         optionValue="value"
                         [filter]="true"
