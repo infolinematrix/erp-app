@@ -17,8 +17,14 @@ export enum LeaveType{
     MaternityLeave = "Maternity Leave",
     BereavementLeave = "Bereavement Leave",
 }
+
 export enum LeaveRequestStatus {
   Pending = 'Pending',
   Approved = 'Approved',
   Rejected = 'Rejected'
+}
+
+export enum HolidayTypes {
+  Full = 'Full Day',
+  Half = 'Half Day',
 }

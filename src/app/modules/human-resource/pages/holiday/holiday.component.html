@@ -1,0 +1,241 @@
+<div class="page-container p-0">
+  <div class="gap-4">
+    <div class="card">
+      <p-panel styleClass="">
+        <ng-template #header>
+          <div class="flex items-center gap-2">
+            <div class="flex flex-col">
+              <div class="font-bold text-md uppercase">Holiday Register</div>
+              <div class="text-xs text-muted-foreground">
+                Maintain detailed records of company holidays and observeances.
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #icons>
+          <p-button
+            label="Mark Holiday"
+            icon="pi pi-plus"
+            styleClass="btn-primary"
+            (click)="showModal = true"
+          />
+        </ng-template>
+
+        <ng-container>
+          <form [formGroup]="filterForm">
+            <p-fieldset legend="Holiday Filter">
+              <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-2">
+                  <div class="flex flex-col gap-1">
+                    <label for="startDate">Start Date</label>
+                    <p-datepicker
+                      id="startDate"
+                      [iconDisplay]="'input'"
+                      [showIcon]="true"
+                      [readonlyInput]="true"
+                      inputId="holidayStartDate"
+                      appendTo="body"
+                      styleClass="input"
+                      dateFormat="dd-mm-yy"
+                      formControlName="startDate"
+                    />
+                  </div>
+                </div>
+                <div class="col-span-2">
+                  <div class="flex flex-col gap-1">
+                    <label for="endDate">End Date</label>
+                    <p-datepicker
+                      id="endDate"
+                      [iconDisplay]="'input'"
+                      [showIcon]="true"
+                      [readonlyInput]="true"
+                      inputId="holidayEndDate"
+                      appendTo="body"
+                      styleClass="input"
+                      dateFormat="dd-mm-yy"
+                      formControlName="endDate"
+                    />
+                  </div>
+                </div>
+                <div class="col-span-2">
+                  <div class="flex flex-col gap-1">
+                    <label for="holidayType">Holiday Type</label>
+                    <p-select
+                      id="holidayType"
+                      [options]="holidayTypes"
+                      optionValue="value"
+                      optionLabel="label"
+                      placeholder="Select"
+                      appendTo="body"
+                      styleClass="input"
+                      formControlName="holidayType"
+                    />
+                  </div>
+                </div>
+                <div class="col-span-2">
+                  <div
+                    class="flex flex-col h-full items-start justify-end gap-1"
+                  >
+                    <p-button
+                      size="small"
+                      label="Filter"
+                      icon="pi pi-filter"
+                      styleClass="btn-primary "
+                      (click)="filterdData()"
+                    />
+                  </div>
+                </div>
+              </div>
+            </p-fieldset>
+          </form>
+        </ng-container>
+
+        <ng-container>
+          <p-table
+            [value]="data"
+            [responsive]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+          >
+            <ng-template #header>
+              <tr>
+                <th class="font-semibold w-3/24">Haliday Title</th>
+                <th class="font-semibold w-2/24">Start Date</th>
+                <th class="font-semibold w-2/24">End Date</th>
+                <th class="font-semibold w-2/24">Leave Type</th>
+                <th class="font-semibold w-2/24 text-right">Action</th>
+              </tr>
+            </ng-template>
+
+            <ng-template #body let-row let-index="rowIndex">
+              <tr>
+                <td class="py-2">
+                  {{ row.title }}
+                </td>
+                <td class="py-2">
+                  {{ row.startDate | date : "yyyy-MM-dd: H:mm" }}
+                </td>
+
+                <td class="py-2">
+                  {{ row.endDate | date : "yyyy-MM-dd: H:mm" }}
+                </td>
+                <td class="py-2">
+                  {{ row.holidayType }}
+                </td>
+
+                <td class="py-2 text-right">
+                  <p-button
+                    size="small"
+                    styleClass="btn-secondary bg-card text-primary"
+                    icon="pi pi-trash"
+                    (click)="delete(row.id)"
+                  />
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </ng-container>
+      </p-panel>
+    </div>
+  </div>
+</div>
+
+<!-- Show modal window -->
+
+<p-dialog
+  [style]="{ width: '40rem' }"
+  [visible]="showModal"
+  [showHeader]="true"
+  styleClass="text-sm"
+>
+  <form [formGroup]="form">
+    <ng-template #header>
+      <div class="inline-flex items-center justify-center gap-2">
+        <span class="font-bold whitespace-nowrap">Holiday Marking</span>
+      </div>
+    </ng-template>
+
+    <div class="grid grid-cols-12 gap-4">
+      <div class="col-span-12">
+        <div class="flex flex-col gap-1">
+          <label for="employee">Holiday Title</label>
+          <input
+            pInputText
+            id="name"
+            formControlName="employee"
+            aria-describedby="name-help"
+            type="text"
+            class="input"
+            formControlName="title"
+          />
+        </div>
+      </div>
+      <div class="col-span-4">
+        <div class="flex flex-col gap-1">
+          <label for="startDate">Start Date</label>
+          <p-datepicker
+            id="startDate"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            [readonlyInput]="true"
+            inputId="icondisplay"
+            appendTo="body"
+            class="input"
+            formControlName="startDate"
+          />
+        </div>
+      </div>
+
+      <div class="col-span-4">
+        <div class="flex flex-col gap-1">
+          <label for="endDate">End Date</label>
+          <p-datepicker
+            id="endDate"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            [readonlyInput]="true"
+            inputId="icondisplay"
+            appendTo="body"
+            class="input"
+            formControlName="endDate"
+          />
+        </div>
+      </div>
+      <div class="col-span-4">
+        <div class="flex flex-col gap-1">
+          <label for="holidayType">Holiday Type</label>
+          <p-select
+            id="holidayType"
+            [options]="holidayTypes"
+            optionValue="value"
+            optionLabel="label"
+            placeholder="Select"
+            appendTo="body"
+            class="input"
+            formControlName="holidayType"
+          />
+        </div>
+      </div>
+
+      <div class="col-span-12 mt-4">
+      <div class="flex justify-between items-center gap-2">
+        <div class="flex items-center">
+          <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" />
+          <label for="ingredient1" class="ml-2">
+            I confirm all the informations are correct.
+          </label>
+        </div>
+        <div class="flex gap-2">
+          <p-button
+            label="Cancel"
+            styleClass="btn-secondary"
+            (click)="showModal = false"
+          />
+          <p-button label="Save" styleClass="btn-primary" (click)="create()" />
+        </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </form>
+</p-dialog>

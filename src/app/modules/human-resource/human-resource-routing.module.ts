@@ -8,6 +8,7 @@ import { EmployeePayrollComponent } from './pages/employee/employee-payroll/empl
 import { SettingsComponent } from './pages/settings/settings.component';
 import { AttendenceComponent } from './pages/attendence/attendence.component';
 import { LeavesComponent } from './pages/leaves/leaves.component';
+import { HolidayComponent } from './pages/holiday/holiday.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
       },
       { path: 'attendence', component: AttendenceComponent },
       { path: 'leaves', component: LeavesComponent },
+      { path: 'holiday', component: HolidayComponent },
     ],
   },
 ];

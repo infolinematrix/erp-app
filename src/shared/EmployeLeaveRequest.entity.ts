@@ -6,6 +6,7 @@ import { LeaveType } from '../app/modules/human-resource/libs/constants';
 @Entity('employee_leave_requests', {
   allowApiCrud: true,
 })
+
 export class EmployeeLeaveRequests {
   @Fields.autoIncrement()
   id!: number;
@@ -40,3 +41,5 @@ export class EmployeeLeaveRequests {
   @Fields.updatedAt()
   updated_at!: Date;
 }
+
+

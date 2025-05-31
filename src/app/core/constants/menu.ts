@@ -40,6 +40,7 @@ export class Menu {
             { label: 'Payroll Heads', route: '/human-resource/employee/salary' },
             { label: 'Attendence Register', route: '/human-resource/attendence' },
             { label: 'Leave Register', route: '/human-resource/leaves' },
+            { label: 'Holiday Register', route: '/human-resource/holiday' },
 
             //--last
             { label: 'Settings', route: '/human-resource//settings' },

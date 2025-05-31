@@ -187,18 +187,11 @@ export class EmployeeService {
     return true;
   }
 
-    //--Update In Time
+  //--Update In Time
   async updateInTime(empId: number, date: Date, inTime: Date) {
     return true;
   }
 
-  //--Leave Register
-  async leaveRegister(){
-    const register = await remult.repo(EmployeeLeaveRequests).find({include:{employee:true}})
-    const data:any[]=[];
-    register.forEach((reg:EmployeeLeaveRequests)  =>  {
-      // const employee = remult.repo(Employee).findFirst({id: reg.employee.id})
-      
-    });
-  }
+  //--Haliday Marking
+  
 }

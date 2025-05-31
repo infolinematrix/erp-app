@@ -25,6 +25,7 @@ import { EmployeeAttendance } from "../shared/EmployeeAttendence.entity.js";
 import { EmployeeLeave } from "../shared/EmployeeLeave.entity.js";
 import { EmployeeBank } from "../shared/EmployeeBank.entity.js";
 import { EmployeeLeaveRequests } from "../shared/EmployeLeaveRequest.entity.js";
+import { HolidayMaster } from "../shared/HalidayMaster.entity.js";
 // import { AuthController } from "../shared/controllers/AuthController.js";
 // import { getUserFromRequest } from "./auth.js";
 
@@ -62,7 +63,7 @@ export const api = remultApi({
     Task,  User, Roles, Permission, UserRole,RolePermission, Pickups, 
     GeneralLedger, GeneralAccount, BalancesheetGroup, TransactionMaster, ClosingBalance,
     Employee, EmployeeSalaryHead, EmployeePayroll, EmployeeAttendance, EmployeeLeave, EmployeeBank,
-    EmployeeLeaveRequests,
+    EmployeeLeaveRequests, HolidayMaster,
   ],
   controllers:[AuthController]
   
